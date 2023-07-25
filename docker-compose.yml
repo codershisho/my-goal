@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  app:
+    image: codershisho/php
+    container_name: app-my-goal
+    tty: true
+    volumes:
+      - .:/var/www/
+    ports:
+      - 5173:5173
+
+  nginx:
+    image: codershisho/nginx
+    container_name: nginx-my-goal
+    tty: true
+    ports:
+      - 80:80
+    volumes:
+      - .:/var/www
+      - ./conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
