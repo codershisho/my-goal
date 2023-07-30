@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import GoalEdit from '@/components/GoalEdit.vue'
+import { authStore } from '@/stores/auth'
+
+const auth = authStore()
+console.log(auth.name)
 
 //------------------
 // typeエリア
