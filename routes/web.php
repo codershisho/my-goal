@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', function () {
-    return view('welcome');
-})->where('any', '.*');
+// Route::get('/{any}', function () {
+//     return view('welcome');
+// })->where('any', '.*');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/my-goal{any}', [App\Http\Controllers\MyGoalController::class, 'index'])->where('any', '.*');

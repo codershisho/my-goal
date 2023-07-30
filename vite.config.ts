@@ -7,10 +7,22 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        transformAssetUrls: {
+          base: null,
+          includeAbsolute: false,
+        },
+      },
+    }),
     vuetify({ autoImport: true }),
     laravel({
-      input: ['resources/css/app.css', 'resources/js/app.ts'],
+      input: [
+        'resources/css/app.css',
+        'resources/js/app.ts',
+        'resources/sass/app.scss',
+        'resources/js/app.js',
+      ],
       refresh: true,
     }),
     VitePluginFonts({
@@ -24,6 +36,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/resources/js',
+      vue: 'vue/dist/vue.esm-bundler.js',
     },
   },
   server: {
