@@ -59,9 +59,11 @@ const handleUpdGoalFirst = (obj: { html: string }): void => {
         size="large"
         @click="clickGoalEdit"
         :text="pBtn ? `終了` : `編集`"
+        density="compact"
       >
       </v-btn>
     </v-toolbar>
+    <v-divider class="mb-2" :thickness="8" color="blue-accent-4"></v-divider>
     <template v-if="pBtn">
       <TinyMCE ref="editor" :html="pGoal" @update="handleUpdGoalFirst" />
     </template>
