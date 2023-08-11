@@ -7,7 +7,7 @@
 - php artisan key:generate
 - npm install
 - npm run dev
-- 画面確認
+- [画面確認](http://localhost/login)
 
 ## TinyMCE 導入方法
 

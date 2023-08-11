@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 services:
   app:
@@ -21,3 +21,16 @@ services:
       - ./conf.d:/etc/nginx/conf.d
     depends_on:
       - app
+
+  db:
+    image: mariadb:10.9
+    container_name: mariadb-my-goal
+    volumes:
+      - ./db_data:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+volumes:
+  db_data:
