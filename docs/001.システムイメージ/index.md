@@ -73,11 +73,11 @@ entity TGoalDetail {
 
 MTopic||-d-|{ MTopicDetail
 
-TGoalDetail ||-d-|| User
-TGoalDetail ||-r-|| MTopicDetail
+TGoalDetail }|-d-|| User
+TGoalDetail }|-r-|| MTopicDetail
 
-TGoal ||-||User
-TGoal ||-l-||MTerm
+TGoal }|-||User
+TGoal }|-l-||MTerm
 
 
 @enduml
