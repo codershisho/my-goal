@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('term_id')->comment('期間ID');
             $table->unsignedBigInteger('user_id')->comment('ユーザーID');
             $table->text('goal_department')->nullable()->default(null)->comment('部目標');
-            $table->text('gole_first')->nullable()->default(null)->comment('目標1');
-            $table->text('gole_secound')->nullable()->default(null)->comment('目標2');
+            $table->text('goal_first')->nullable()->default(null)->comment('目標1');
+            $table->text('goal_secound')->nullable()->default(null)->comment('目標2');
             $table->timestamps();
             $table->softDeletes();
 

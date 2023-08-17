@@ -55,8 +55,8 @@ entity TGoal {
     term_id:int<<FK>>
     user_id:int<<FK>>
     goal_department: text
-    gole_first: text
-    gole_secound: text
+    goal_first: text
+    goal_secound: text
 }
 
 entity TGoalDetail {
