@@ -2,37 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Goal\IndexService;
+use App\Services\Goal\UpdateService;
 use Illuminate\Http\Request;
-use App\Models\TGoal;
-use Illuminate\Support\Facades\DB;
-use App\Http\Repositories\Interfaces\IGoalRepository;
 
-class GoalApi extends Controller
+class GoalApi extends AbstractApi
 {
-    private $repo;
-
-    public function __construct(IGoalRepository $repository)
+    /**
+     * t_goalsの検索
+     * - 期と人に紐づくデータを返す
+     *
+     * @param integer $termId
+     * @param IndexService $service
+     * @return void
+     */
+    public function index(int $termId, IndexService $service)
     {
-        $this->repo = $repository;
+        $data = $service->execIndex($termId);
+        return $this->setResponse($data, "検索完了");
     }
-    public function index($termId)
-    {
-        $today = now();
-        $goals = TGoal::all();
-        logger($today);
-        return $goals;
-    }
 
-    public function update(Request $request, $termId)
+    /**
+     * t_goalsの更新
+     *
+     * @param integer $termId
+     * @param Request $request
+     * @param UpdateService $service
+     * @return void
+     */
+    public function update(int $termId, Request $request, UpdateService $service)
     {
-        DB::beginTransaction();
-        try {
-            logger('BBBBB');
-            $this->repo->update($request, $termId);
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-        }
-        // return $goals;
+        // TODO FormRequestクラスの定義追加
+        $service->execUpdate($termId, $request);
+        return $this->setResponseMessage("更新完了");
     }
 }

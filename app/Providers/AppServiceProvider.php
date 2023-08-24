@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Http\Repositories\Interfaces\IGoalRepository;
-use App\Http\Repositories\GoalRepository;
+use App\Interfaces\IGoalRepository;
+use App\Repositories\GoalRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
