@@ -19,8 +19,14 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 });
 
-Route::get('/goals/{term_id}', [App\Http\Controllers\GoalApi::class,'index']);
-Route::put('/goals/{term_id}', [App\Http\Controllers\GoalApi::class,'update']);
+Route::prefix('/my-goal/v1')->group(function () {
+    Route::prefix('/goals')->group(function() {
+        Route::get('/{term_id}', [App\Http\Controllers\GoalApi::class,'index']);
+        Route::put('/{term_id}', [App\Http\Controllers\GoalApi::class,'update']);
+    });
+});
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
