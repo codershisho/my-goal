@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, onMounted,reactive } from 'vue'
 import GoalEdit from '@/components/GoalEdit.vue'
 import { useAuthStore } from '@/stores/auth'
+import axios from 'axios';
 
 const auth = useAuthStore()
 console.log(auth.user)
@@ -57,6 +58,20 @@ const updateSecond = (child: child): void => {
   goalObj.goalSecond = child.goal
   dispInfo.goalSecondEditFlag = child.btn
 }
+
+const loadGoalItems = ()=>{
+  axios.get('/api/goals/1',{})
+    .then((res)=>{
+      console.log('Bello',res.data,res.data[0])
+      goalObj.goalDepartment = res.data[0].goal_department
+      goalObj.goalFirst = res.data[0].goal_first
+      goalObj.goalSecond = res.data[0].goal_second
+    });
+}
+
+onMounted(()=>{
+  loadGoalItems();
+})
 </script>
 
 <template>

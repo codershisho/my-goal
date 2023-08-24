@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\TGoal;
 use Illuminate\Support\Facades\DB;
 use App\Http\Repositories\Interfaces\IGoalRepository;
+use App\Http\Resources\GoalResource;
+use App\Http\Requests\GoalRequest;
 
 class GoalApi extends Controller
 {
@@ -18,21 +20,24 @@ class GoalApi extends Controller
     public function index($termId)
     {
         $today = now();
-        $goals = TGoal::all();
-        logger($today);
-        return $goals;
+        $goal = TGoal::with('term', 'user')->find($termId);
+        $termFrom = $goal->term->from;
+        $termTo = $goal->term->to;
+        if($today >= $termFrom && $today <= $termTo){
+            return new GoalResource($goal);
+        }
+        return 'noData';
     }
 
-    public function update(Request $request, $termId)
+    public function update(GoalRequest $request, $termId)
     {
         DB::beginTransaction();
         try {
-            logger('BBBBB');
+            logger($request);
             $this->repo->update($request, $termId);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
         }
-        // return $goals;
     }
 }
