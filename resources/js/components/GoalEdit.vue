@@ -53,7 +53,7 @@ const savePartnerMemo = (): void => {
 </script>
 
 <template>
-  <v-sheet class="pa-4 goal" rounded="lg">
+  <v-sheet class="pa-4 goal" rounded="lg" :elevation="2">
     <v-toolbar density="compact" color="white" class="" rounded>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -77,10 +77,23 @@ const savePartnerMemo = (): void => {
 </template>
 
 <style>
-.goal .goal--area {
+.goal--area {
   color: #333;
-  background: #e3f2fd;
-  border-top: solid 10px #2962ff;
-  min-height: 200px;
+  background: #f4faff;
+  border-top: solid 3px #2962ff;
+  overflow-y: scroll;
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+}
+.goal--area::-webkit-scrollbar {
+  display: none;
+}
+.goal-wrap > .department > .goal--area {
+  height: 85%;
+}
+.goal-wrap > .personal > .goal > .goal--area {
+  height: 85%;
 }
 </style>

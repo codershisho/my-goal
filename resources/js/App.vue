@@ -24,7 +24,7 @@ const logout = async () => {
 </script>
 
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-app-bar color="blue-accent-4">
       <v-toolbar-title>目標進捗管理ツール</v-toolbar-title>
       <v-btn
@@ -42,10 +42,16 @@ const logout = async () => {
       </v-btn>
     </v-app-bar>
 
-    <v-main style="background-color: #ebebeb">
-      <v-container>
-        <router-view></router-view>
-      </v-container>
+    <v-main class="main px-16 overflow-y-auto">
+      <router-view style="height: 100%"></router-view>
     </v-main>
   </v-app>
 </template>
+
+<style>
+.main {
+  margin-top: 20px;
+  padding-bottom: 20px !important;
+  background-color: #ebebeb;
+}
+</style>
