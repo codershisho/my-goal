@@ -62,6 +62,7 @@ const updateSecond = (child: child): void => {
 <template>
   <div class="goal-wrap">
     <GoalEdit
+      icon="fa-solid fa-crown"
       title="部・チーム目標"
       class="department"
       :goal="goalObj.goalDepartment"
@@ -70,6 +71,7 @@ const updateSecond = (child: child): void => {
     />
     <div class="d-flex align-stretch mt-5 personal">
       <GoalEdit
+        icon="fa-solid fa-star"
         title="目標 1 "
         class="w-50 mr-5"
         :goal="goalObj.goalFirst"
@@ -77,6 +79,7 @@ const updateSecond = (child: child): void => {
         @update="updateFirst"
       />
       <GoalEdit
+        icon="fa-solid fa-star"
         title="目標 2 "
         class="w-50"
         :goal="goalObj.goalSecond"

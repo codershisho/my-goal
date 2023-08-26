@@ -43,7 +43,7 @@ const editorInitObj = reactive({
   // メニューを非表示
   menubar: false,
   placeholder: 'ここに記載...',
-  height: 300,
+  height: 270,
 })
 </script>
 

@@ -3,6 +3,10 @@ import { ref } from 'vue'
 import TinyMCE from '@/components/TinyMCE.vue'
 
 const props = defineProps({
+  icon: {
+    type: String,
+    default: '',
+  },
   title: {
     type: String,
     default: '',
@@ -53,11 +57,21 @@ const savePartnerMemo = (): void => {
 </script>
 
 <template>
-  <v-sheet class="pa-4 goal" rounded="lg" :elevation="2">
+  <v-sheet class="py-2 px-4 goal" rounded="lg" :elevation="2">
     <v-toolbar density="compact" color="white" class="" rounded>
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title class="ma-0">
+        <v-icon
+          class="mr-3 mb-1"
+          size="x-small"
+          :icon="icon"
+          color="yellow-darken-2"
+        >
+        </v-icon>
+        {{ title }}
+      </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
+    <div class="divider-border"></div>
     <template v-if="pEditFlag">
       <TinyMCE
         ref="editor"
@@ -68,7 +82,7 @@ const savePartnerMemo = (): void => {
     </template>
     <template v-else>
       <div
-        class="py-2 px-6 goal--area"
+        class="py-2 px-6 goal--area rounded-lg"
         v-html="pGoal"
         @dblclick="dbClickEdit"
       ></div>
@@ -80,7 +94,6 @@ const savePartnerMemo = (): void => {
 .goal--area {
   color: #333;
   background: #f4faff;
-  border-top: solid 3px #2962ff;
   overflow-y: scroll;
   /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
   -ms-overflow-style: none;
@@ -91,7 +104,7 @@ const savePartnerMemo = (): void => {
   display: none;
 }
 .goal-wrap > .department > .goal--area {
-  height: 85%;
+  height: 83%;
 }
 .goal-wrap > .personal > .goal > .goal--area {
   height: 85%;
