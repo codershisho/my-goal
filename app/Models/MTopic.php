@@ -20,6 +20,6 @@ class MTopic extends Model
     */
     public function details()
     {
-        return $this->hasMany('App\Models\MTopicDetail');
+        return $this->hasMany('App\Models\MTopicDetail', 'topic_id', 'id');
     }
 }

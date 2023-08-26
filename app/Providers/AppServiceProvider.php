@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\IGoalRepository;
+use App\Interfaces\ITopicRepository;
 use App\Repositories\GoalRepository;
+use App\Repositories\TopicRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(IGoalRepository::class, GoalRepository::class);
+        $this->app->bind(ITopicRepository::class, TopicRepository::class);
     }
 
     /**
