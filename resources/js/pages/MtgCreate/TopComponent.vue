@@ -1,5 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
 
+// props
+defineProps({
+  modelValue: {
+    type: Object,
+    default: () => {},
+  },
+})
+// emit
+defineEmits(['update:modelValue'])
+</script>
 <template>
   <div class="d-flex">
     <div class="w-50 d-flex">
@@ -10,6 +21,8 @@
         flat
         hide-details
         density="compact"
+        :value="modelValue.mtg_date"
+        @update:modelValue="(v) => (modelValue.mtg_date = v)"
       ></v-text-field>
     </div>
     <div class="w-50 d-flex">

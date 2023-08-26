@@ -1,16 +1,29 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import TinyMCE from '@/components/TinyMCE.vue'
+// data
+defineProps({
+  title: {
+    type: String,
+    default: '',
+  },
+  details: {
+    type: Array,
+    default: () => [],
+  },
+  modelValue: {
+    type: Object,
+    default: () => [],
+  },
+})
 
-defineProps<{
-  title: string
-}>()
+// data
 
-const inline = ref('')
+// emit
+defineEmits(['update:modelValue'])
+
 const check = ref('')
 let displayFlag = ref<boolean>(false)
-const myMemo = ref<string>('')
-const partnerMemo = ref<string>('')
 const editorMyMemo = ref()
 const editorPartnerMemo = ref()
 let myMemoDispFlag = ref<boolean>(false)
@@ -22,11 +35,11 @@ const clickCheck = () => {
 
 // エディタの保存時に呼ばれ、htmlを保存する
 const handleUpdMyMemo = (obj: { html: string }): void => {
-  myMemo.value = obj.html
+  // modelValue.from_memo = obj.html
   myMemoDispFlag.value = !myMemoDispFlag.value
 }
 const handleUpdpartnerMemo = (obj: { html: string }): void => {
-  partnerMemo.value = obj.html
+  // modelValue.to_memo = obj.html
   partnerMemoDispFlag.value = !partnerMemoDispFlag.value
 }
 
@@ -61,21 +74,20 @@ const dbClickPartnerMemo = (): void => {
         </div>
       </template>
     </v-checkbox>
-    <div v-if="displayFlag" class="choise-radio" style="opacity: 1">
-      <div>
-        <v-radio-group v-model="inline" hide-details>
-          <div class="d-flex">
-            <v-radio label="具体的なアドバイスがほしい" value="1"></v-radio>
-            <v-radio label="一緒に考えてほしい" value="2"></v-radio>
-            <v-radio label="話を聞いてほしい" value="3"></v-radio>
-          </div>
-          <div class="d-flex">
-            <v-radio label="意見を聞きたい" value="4"></v-radio>
-            <v-radio label="報告したい" value="5"></v-radio>
-            <v-radio label="その他" value="6"></v-radio>
-          </div>
-        </v-radio-group>
-      </div>
+    <div v-if="displayFlag" class="choise-radio">
+      <v-radio-group
+        hide-details
+        inline
+        :value="modelValue.topic_detail_id"
+        @update:modelValue="(v) => (modelValue.topic_detail_id = v)"
+      >
+        <v-radio
+          style="width: 33%"
+          v-for="detail in details"
+          :label="detail.topic_detail_name"
+          :value="detail.topic_detail_id"
+        ></v-radio>
+      </v-radio-group>
       <div class="d-flex mt-4">
         <div class="w-50">
           <v-alert
@@ -87,15 +99,16 @@ const dbClickPartnerMemo = (): void => {
           <div v-show="!myMemoDispFlag" class="mb-2 mr-2">
             <TinyMCE
               ref="editorMyMemo"
-              :html="myMemo"
+              :html="modelValue.from_memo"
               @update="handleUpdMyMemo"
+              @update:modelValue="(v) => (modelValue.from_memo = v)"
               @blur="saveMyMemo"
             />
           </div>
           <div
             v-show="myMemoDispFlag"
             class="py-2 px-3 mr-2 memo"
-            v-html="myMemo"
+            v-html="modelValue.from_memo"
             @dblclick="dbClickMyMemo"
           ></div>
         </div>
@@ -109,15 +122,16 @@ const dbClickPartnerMemo = (): void => {
           <div v-show="!partnerMemoDispFlag" class="mb-2 mr-2">
             <TinyMCE
               ref="editorPartnerMemo"
-              :html="partnerMemo"
+              :html="modelValue.to_memo"
               @update="handleUpdpartnerMemo"
+              @update:modelValue="(v) => (modelValue.to_memo = v)"
               @blur="savePartnerMemo"
             />
           </div>
           <div
             v-show="partnerMemoDispFlag"
             class="py-2 px-3 mr-2 memo-partner"
-            v-html="partnerMemo"
+            v-html="modelValue.to_memo"
             @dblclick="dbClickPartnerMemo"
           ></div>
         </div>
@@ -132,6 +146,7 @@ const dbClickPartnerMemo = (): void => {
   margin-left: 4.2%;
   padding-left: 2%;
   border-left: solid;
+  opacity: 1;
 }
 
 .request-form .checkbox {

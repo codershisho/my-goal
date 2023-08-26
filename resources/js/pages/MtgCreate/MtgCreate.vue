@@ -1,7 +1,41 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
+import axios from 'axios'
 import RequestChoise from '@/components/RequestChoise.vue'
 import TopComponent from './TopComponent.vue'
+// data
+const topics = ref([])
+const header = reactive({
+  mtg_date: null,
+  from_user_id: null,
+})
+const bodies = reactive([])
+
+// mounted
+onMounted(async () => {
+  const result = await axios.get('/api/my-goal/v1/topics')
+  topics.value = result.data.data
+  topics.value.forEach((e) => {
+    bodies.push({
+      topic_detail_id: null,
+      from_memo: '',
+      to_memo: '',
+    })
+  })
+})
+
+// method
+const save = async () => {
+  const data = {
+    mtg_date: header.mtg_date,
+    status: 0,
+    from_user_id: 1,
+    to_user_id: 1,
+    details: bodies,
+  }
+  const result = await axios.post('/api/my-goal/v1/mtgs', data)
+  console.log(data)
+}
 </script>
 
 <template>
@@ -11,7 +45,7 @@ import TopComponent from './TopComponent.vue'
       <v-spacer></v-spacer>
     </v-toolbar>
     <div>
-      <TopComponent />
+      <TopComponent v-model="header" />
     </div>
     <v-divider :thickness="5" class="my-5"></v-divider>
     <v-alert
@@ -21,13 +55,15 @@ import TopComponent from './TopComponent.vue'
       title="トピック"
     />
     <div class="mt-5">
-      <RequestChoise class="py-2" title="業務の進め方や進捗" />
-      <RequestChoise class="py-2" title="人間関係" />
-      <RequestChoise class="py-2" title="心身の状態" />
-      <RequestChoise class="py-2" title="今後のキャリア" />
-      <RequestChoise class="py-2" title="スキルや力の向上" />
-      <RequestChoise class="py-2" title="プライベート" />
-      <RequestChoise class="py-2" title="会社や部署の方針" />
+      <RequestChoise
+        v-for="(topic, index) in topics"
+        :key="index"
+        class="py-2"
+        :title="topic.topic_name"
+        :details="topic.details"
+        v-model="bodies[index]"
+      />
     </div>
+    <v-btn color="success" @click="save">保存</v-btn>
   </v-sheet>
 </template>
