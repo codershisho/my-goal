@@ -145,7 +145,7 @@ const dbClickPartnerMemo = (): void => {
   margin-top: 1%;
   margin-left: 4.2%;
   padding-left: 2%;
-  border-left: solid;
+  border-left: solid 8px #2962ff;
   opacity: 1;
 }
 
@@ -153,7 +153,7 @@ const dbClickPartnerMemo = (): void => {
   color: white;
   background: linear-gradient(
     90deg,
-    rgba(68, 138, 255, 1) 24%,
+    rgba(41, 98, 255, 1) 24%,
     rgba(255, 255, 255, 1) 100%
   );
   border-radius: 30px;

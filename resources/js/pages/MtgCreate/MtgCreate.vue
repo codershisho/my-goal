@@ -53,6 +53,7 @@ const save = async () => {
       class="ml-4"
       border="start"
       title="トピック"
+      density="compact"
     />
     <div class="mt-5">
       <RequestChoise

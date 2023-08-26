@@ -60,13 +60,10 @@ const savePartnerMemo = (): void => {
   <v-sheet class="py-2 px-4 goal" rounded="lg" :elevation="2">
     <v-toolbar density="compact" color="white" class="" rounded>
       <v-toolbar-title class="ma-0">
-        <v-icon
-          class="mr-3 mb-1"
-          size="x-small"
-          :icon="icon"
-          color="yellow-darken-2"
-        >
-        </v-icon>
+        <!-- <v-icon class="mr-3 mb-1" size="x-small" color="yellow-darken-2">
+          fa-solid fa-magnifying-glass
+        </v-icon> -->
+        <i :class="icon" class="title-icon"></i>
         {{ title }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -108,5 +105,8 @@ const savePartnerMemo = (): void => {
 }
 .goal-wrap > .personal > .goal > .goal--area {
   height: 85%;
+}
+.title-icon {
+  color: #fbc02d;
 }
 </style>
