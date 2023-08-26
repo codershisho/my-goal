@@ -28,6 +28,11 @@ Route::prefix('/my-goal/v1')->group(function () {
     Route::prefix('/topics')->group(function () {
         Route::get('/', [App\Http\Controllers\TopicApi::class, 'index']);
     });
+
+    Route::prefix('/mtgs')->group(function () {
+        Route::get('/', [App\Http\Controllers\MtgApi::class, 'index']);
+        Route::post('/', [App\Http\Controllers\MtgApi::class, 'store']);
+    });
 });
 
 
