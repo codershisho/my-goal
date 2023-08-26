@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
 type menu = {
   id: number
   name: string
@@ -10,6 +13,14 @@ const links: Array<menu> = [
   { id: 2, name: '面談情報', url: '/mtg/infos' },
   { id: 3, name: '面談作成', url: '/mtg/create' },
 ]
+
+const authStore = useAuthStore()
+const router = useRouter()
+
+const logout = async () => {
+  await authStore.logout()
+  router.replace({ name: 'Login' })
+}
 </script>
 
 <template>
@@ -25,6 +36,9 @@ const links: Array<menu> = [
         :to="link.url"
       >
         {{ link.name }}
+      </v-btn>
+      <v-btn color="grey" class="mr-2" variant="flat" @click="logout">
+        ログアウト
       </v-btn>
     </v-app-bar>
 

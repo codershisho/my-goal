@@ -40,17 +40,13 @@ const router = createRouter({
 // login状態のチェック
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.isAuthenticated)) {
-    console.log('---auth check start ----')
     const authStore = useAuthStore()
 
     if (!authStore.isAuth) {
-      console.log('---auth check false ----')
       next({ name: 'Login' })
     } else {
-      console.log('---auth check true ----')
       next()
     }
-    console.log('---auth check end ----')
   }
   next()
 })
