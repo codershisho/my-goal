@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('m_terms', function (Blueprint $table) {
             $table->id()->comment('期間ID');
             $table->string('name')->comment('期間名');
+            $table->date('from')->nullable()->comment('期の開始日');
+            $table->date('to')->nullable()->comment('期の終了日');
             $table->timestamps();
             $table->softDeletes();
         });
