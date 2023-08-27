@@ -8,10 +8,13 @@ import App from './App.vue'
 import router from './router'
 // Store設定
 import { createPinia } from 'pinia'
+import { createPersistedState } from "pinia-plugin-persistedstate";
 
 const app = createApp(App)
 const vuetify = createVuetify()
 const pinia = createPinia()
+pinia.use(createPersistedState());
+
 app.use(router)
 app.use(vuetify)
 app.use(pinia)

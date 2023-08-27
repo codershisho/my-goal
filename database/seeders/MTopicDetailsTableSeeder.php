@@ -62,13 +62,6 @@ class MTopicDetailsTableSeeder extends Seeder
             ["topic_id" => 7, "name" => "意見を聞きたい"],
             ["topic_id" => 7, "name" => "報告したい"],
             ["topic_id" => 7, "name" => "その他"],
-
-            ["topic_id" => 3, "name" => "具体的なアドバイスがほしい"],
-            ["topic_id" => 3, "name" => "一緒に考えてほしい"],
-            ["topic_id" => 3, "name" => "話を聞いてほしい"],
-            ["topic_id" => 3, "name" => "意見を聞きたい"],
-            ["topic_id" => 3, "name" => "報告したい"],
-            ["topic_id" => 3, "name" => "その他"],
         ]);
     }
 }

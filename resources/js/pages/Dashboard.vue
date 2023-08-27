@@ -60,25 +60,40 @@ const updateSecond = (child: child): void => {
 </script>
 
 <template>
-  <GoalEdit
-    title="部・チーム目標"
-    :goal="goalObj.goalDepartment"
-    :btn="dispInfo.goalDepartmentEditFlag"
-    @update="updateDepartment"
-  />
-  <GoalEdit
-    title="目標 1 "
-    class="my-5"
-    :goal="goalObj.goalFirst"
-    :btn="dispInfo.goalFirstEditFlag"
-    @update="updateFirst"
-  />
-  <GoalEdit
-    title="目標 2 "
-    class="my-5"
-    :goal="goalObj.goalSecond"
-    :btn="dispInfo.goalSecondEditFlag"
-    @update="updateSecond"
-  />
-  {{ goalObj }}
+  <div class="goal-wrap">
+    <GoalEdit
+      icon="fa-solid fa-crown"
+      title="部・チーム目標"
+      class="department"
+      :goal="goalObj.goalDepartment"
+      :btn="dispInfo.goalDepartmentEditFlag"
+      @update="updateDepartment"
+    />
+    <div class="d-flex align-stretch mt-5 personal">
+      <GoalEdit
+        icon="fa-solid fa-star"
+        title="目標 1 "
+        class="w-50 mr-5"
+        :goal="goalObj.goalFirst"
+        :btn="dispInfo.goalFirstEditFlag"
+        @update="updateFirst"
+      />
+      <GoalEdit
+        icon="fa-solid fa-star"
+        title="目標 2 "
+        class="w-50"
+        :goal="goalObj.goalSecond"
+        :btn="dispInfo.goalSecondEditFlag"
+        @update="updateSecond"
+      />
+    </div>
+  </div>
 </template>
+<style>
+.goal-wrap > .department {
+  height: 45%;
+}
+.goal-wrap > .personal {
+  height: 50%;
+}
+</style>

@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-export const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore('my-goal-auth', {
   state: () => ({
     _isAuth: false,
     _user: null,
@@ -19,7 +19,6 @@ export const useAuthStore = defineStore('auth', {
   },
   actions: {
     async login(credentials) {
-      console.log('---login start---')
       if (this._isAuth) {
         router.replace({ name: 'Dashboard' })
         return
@@ -27,16 +26,20 @@ export const useAuthStore = defineStore('auth', {
       await axios.get('/sanctum/csrf-cookie')
       const res = await axios.post('/api/auth/login', credentials)
       if (res.status == 200) {
-        console.log('---login success---')
-        console.log('---get login user ---')
         const user = await axios.get('/api/user')
         if (user.status == 200) {
-          console.log('---get login user success ---')
           this._isAuth = true
           this._user = user.data
         }
       }
-      console.log('---login end---')
     },
+    async logout() {
+        const res = await axios.post('/api/auth/logout')
+        if (res.status == 200) {
+            this._isAuth = false
+            this._user = null
+        }
+    }
   },
+  persist: true,
 })

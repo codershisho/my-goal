@@ -3,6 +3,10 @@ import { ref } from 'vue'
 import TinyMCE from '@/components/TinyMCE.vue'
 
 const props = defineProps({
+  icon: {
+    type: String,
+    default: '',
+  },
   title: {
     type: String,
     default: '',
@@ -53,11 +57,18 @@ const savePartnerMemo = (): void => {
 </script>
 
 <template>
-  <v-sheet class="pa-4 goal" rounded="lg">
+  <v-sheet class="py-2 px-4 goal" rounded="lg" :elevation="2">
     <v-toolbar density="compact" color="white" class="" rounded>
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title class="ma-0">
+        <!-- <v-icon class="mr-3 mb-1" size="x-small" color="yellow-darken-2">
+          fa-solid fa-magnifying-glass
+        </v-icon> -->
+        <i :class="icon" class="title-icon"></i>
+        {{ title }}
+      </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
+    <div class="divider-border"></div>
     <template v-if="pEditFlag">
       <TinyMCE
         ref="editor"
@@ -68,7 +79,7 @@ const savePartnerMemo = (): void => {
     </template>
     <template v-else>
       <div
-        class="py-2 px-6 goal--area"
+        class="py-2 px-6 goal--area rounded-lg"
         v-html="pGoal"
         @dblclick="dbClickEdit"
       ></div>
@@ -77,10 +88,25 @@ const savePartnerMemo = (): void => {
 </template>
 
 <style>
-.goal .goal--area {
+.goal--area {
   color: #333;
-  background: #e3f2fd;
-  border-top: solid 10px #2962ff;
-  min-height: 200px;
+  background: #f4faff;
+  overflow-y: scroll;
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+}
+.goal--area::-webkit-scrollbar {
+  display: none;
+}
+.goal-wrap > .department > .goal--area {
+  height: 83%;
+}
+.goal-wrap > .personal > .goal > .goal--area {
+  height: 85%;
+}
+.title-icon {
+  color: #fbc02d;
 }
 </style>
