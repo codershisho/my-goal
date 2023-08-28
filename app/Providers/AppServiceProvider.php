@@ -6,9 +6,11 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\IGoalRepository;
 use App\Interfaces\IMtgRepository;
 use App\Interfaces\ITopicRepository;
+use App\Interfaces\IUserRepository;
 use App\Repositories\GoalRepository;
 use App\Repositories\MtgRepository;
 use App\Repositories\TopicRepository;
+use App\Repositories\UserRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IGoalRepository::class, GoalRepository::class);
         $this->app->bind(ITopicRepository::class, TopicRepository::class);
         $this->app->bind(IMtgRepository::class, MtgRepository::class);
+        $this->app->bind(IUserRepository::class, UserRepository::class);
     }
 
     /**
