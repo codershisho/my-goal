@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\MTerm;
 use App\Models\MTopic;
 use App\Models\MTopicDetail;
+use App\Models\TGoal;
+use App\Models\TMtg;
+use App\Models\TMtgDetail;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
@@ -24,6 +27,9 @@ class DatabaseSeeder extends Seeder
         MTerm::truncate();
         MTopic::truncate();
         MTopicDetail::truncate();
+        TGoal::truncate();
+        TMtg::truncate();
+        TMtgDetail::truncate();
         Schema::enableForeignKeyConstraints();
 
         // create
