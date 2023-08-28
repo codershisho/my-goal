@@ -7,7 +7,7 @@ import TopComponent from './TopComponent.vue'
 const topics = ref([])
 const header = reactive({
   mtg_date: null,
-  from_user_id: null,
+  to_user_id: null,
 })
 const bodies = reactive([])
 
@@ -28,9 +28,7 @@ onMounted(async () => {
 const save = async () => {
   const data = {
     mtg_date: header.mtg_date,
-    status: 0,
-    from_user_id: 1,
-    to_user_id: 1,
+    to_user_id: header.to_user_id,
     details: bodies,
   }
   const result = await axios.post('/api/my-goal/v1/mtgs', data)
@@ -44,10 +42,9 @@ const save = async () => {
       <v-toolbar-title>面談予定作成</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
-    <div>
+    <div class="mb-3">
       <TopComponent v-model="header" />
     </div>
-    <v-divider :thickness="5" class="my-5"></v-divider>
     <v-alert
       color="blue-accent-4"
       class="ml-4"

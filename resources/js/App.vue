@@ -43,7 +43,7 @@ const logout = async () => {
     </v-app-bar>
 
     <v-main class="main px-16 overflow-y-auto">
-      <router-view style="height: 100%"></router-view>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>

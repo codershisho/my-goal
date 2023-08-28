@@ -90,6 +90,9 @@ const updateSecond = (child: child): void => {
   </div>
 </template>
 <style>
+.goal-wrap {
+  height: 100%;
+}
 .goal-wrap > .department {
   height: 45%;
 }

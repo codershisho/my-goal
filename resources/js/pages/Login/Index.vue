@@ -21,16 +21,37 @@ async function login() {
 }
 </script>
 <template>
-  <div>login</div>
-  <v-text-field
-    placeholder="e-mail"
-    variant="outlined"
-    v-model="credentials.email"
-  ></v-text-field>
-  <v-text-field
-    placeholder="password"
-    variant="outlined"
-    v-model="credentials.password"
-  ></v-text-field>
-  <v-btn color="primary" @click="login">送信</v-btn>
+  <v-sheet
+    class="pa-10 mx-auto login-wrap"
+    :elevation="2"
+    rounded="lg"
+    :width="600"
+    :height="500"
+  >
+    <div class="label">ユーザー名</div>
+    <v-text-field
+      placeholder="e-mail"
+      variant="outlined"
+      v-model="credentials.email"
+    ></v-text-field>
+    <div class="label">パスワード</div>
+    <v-text-field
+      placeholder="password"
+      variant="outlined"
+      v-model="credentials.password"
+    ></v-text-field>
+    <v-btn class="w-100" style="height: 60px" color="primary" @click="login">
+      <div class="label-btn">ログイン</div>
+    </v-btn>
+  </v-sheet>
 </template>
+
+<style>
+.login-wrap .label {
+  font-size: 1.25rem;
+  margin-bottom: 0.85rem;
+}
+.login-wrap .label-btn {
+  font-size: 1.25rem;
+}
+</style>

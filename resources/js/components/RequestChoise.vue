@@ -145,7 +145,7 @@ const dbClickPartnerMemo = (): void => {
   margin-top: 1%;
   margin-left: 4.2%;
   padding-left: 2%;
-  border-left: solid 8px #2962ff;
+  border-left: solid 5px #2962ff;
   opacity: 1;
 }
 
@@ -166,14 +166,16 @@ const dbClickPartnerMemo = (): void => {
 .request-form .memo {
   color: #333;
   background: #e3f2fd;
-  border-left: solid 10px #2962ff;
-  height: 200px;
+  /* border-left: solid 5px #2962ff; */
+  min-height: 200px;
+  border-radius: 4px;
 }
 
 .request-form .memo-partner {
   color: #333;
   background: #fff3e0;
-  border-left: solid 10px #ff6d00;
-  height: 200px;
+  /* border-left: solid 5px #ff6d00; */
+  min-height: 200px;
+  border-radius: 4px;
 }
 </style>

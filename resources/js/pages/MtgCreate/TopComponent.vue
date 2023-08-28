@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 
 // props
 defineProps({
@@ -10,6 +10,16 @@ defineProps({
 })
 // emit
 defineEmits(['update:modelValue'])
+
+// data
+const users = ref([])
+
+// mounted
+onMounted(async () => {
+  const result = await axios.get('/api/my-goal/v1/users')
+  users.value = result.data.data
+})
+// method
 </script>
 <template>
   <div class="d-flex">
@@ -29,18 +39,15 @@ defineEmits(['update:modelValue'])
       <div class="label-base px-4 mr-5">面談する人</div>
       <v-autocomplete
         placeholder="選択…"
-        :items="[
-          'California',
-          'Colorado',
-          'Florida',
-          'Georgia',
-          'Texas',
-          'Wyoming',
-        ]"
+        :items="users"
+        item-title="name"
+        item-value="id"
         flat
         hide-details
         density="compact"
         variant="outlined"
+        :model-value="modelValue.to_user_id"
+        @update:modelValue="(v) => (modelValue.to_user_id = v)"
       ></v-autocomplete>
     </div>
   </div>
