@@ -39,10 +39,20 @@ const save = async () => {
 <template>
   <v-sheet color="" class="pa-4" rounded="lg">
     <v-toolbar density="compact" color="white" class="" rounded>
-      <v-toolbar-title>面談予定作成</v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-toolbar-title>
+        <i class="title-icon fa-solid fa-circle-info mr-3"></i>
+        面談予定作成
+      </v-toolbar-title>
+      <v-spacer />
+      <v-btn color="success" variant="flat" @click="save">
+        <template v-slot:prepend>
+          <i class="fa-solid fa-floppy-disk mr-3"></i>
+        </template>
+        保存
+      </v-btn>
     </v-toolbar>
-    <div class="mb-3">
+    <div class="divider-border"></div>
+    <div class="mb-6">
       <TopComponent v-model="header" />
     </div>
     <v-alert
@@ -62,6 +72,5 @@ const save = async () => {
         v-model="bodies[index]"
       />
     </div>
-    <v-btn color="success" @click="save">保存</v-btn>
   </v-sheet>
 </template>
