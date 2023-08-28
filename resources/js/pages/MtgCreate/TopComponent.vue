@@ -24,8 +24,16 @@ onMounted(async () => {
 <template>
   <div class="d-flex">
     <div class="w-50 d-flex">
-      <div class="label-base px-4 mr-5">日付</div>
+      <div class="label-base px-4 mr-5">
+        <v-icon
+          class="mr-3"
+          color="white"
+          icon="mdi:mdi-archive-clock"
+        ></v-icon>
+        日付
+      </div>
       <v-text-field
+        class="mr-3"
         placeholder="日付を選択"
         variant="outlined"
         flat
@@ -36,7 +44,14 @@ onMounted(async () => {
       ></v-text-field>
     </div>
     <div class="w-50 d-flex">
-      <div class="label-base px-4 mr-5">面談する人</div>
+      <div class="label-base px-4 mr-5">
+        <v-icon
+          class="mr-3"
+          color="white"
+          icon="mdi:mdi-account-arrow-right"
+        ></v-icon>
+        面談する人
+      </div>
       <v-autocomplete
         placeholder="選択…"
         :items="users"
@@ -54,14 +69,14 @@ onMounted(async () => {
 </template>
 <style scoped>
 .label-base {
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 20%;
+  width: 18%;
   background-color: #2962ff;
   color: white;
   border-radius: 4px;
-  margin-left: 16px;
+  /* margin-left: 16px; */
 }
 </style>

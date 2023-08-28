@@ -38,29 +38,34 @@ const save = async () => {
 
 <template>
   <v-sheet color="" class="pa-4" rounded="lg">
-    <v-toolbar density="compact" color="white" class="" rounded>
+    <v-toolbar
+      density="compact"
+      color="blue-grey-darken-2"
+      class="mb-2 pl-3"
+      rounded
+    >
       <v-toolbar-title>
-        <i class="title-icon fa-solid fa-circle-info mr-3"></i>
+        <v-icon class="mr-3 mb-1" size="x-small" color="yellow-darken-2">
+          fa-solid fa-circle-info
+        </v-icon>
         面談予定作成
       </v-toolbar-title>
       <v-spacer />
       <v-btn color="success" variant="flat" @click="save">
-        <template v-slot:prepend>
-          <i class="fa-solid fa-floppy-disk mr-3"></i>
-        </template>
+        <v-icon class="mr-3" color="white" icon="mdi:mdi-content-save">
+        </v-icon>
         保存
       </v-btn>
     </v-toolbar>
-    <div class="divider-border"></div>
     <div class="mb-6">
       <TopComponent v-model="header" />
     </div>
     <v-alert
       color="blue-accent-4"
-      class="ml-4"
       border="start"
       title="トピック"
       density="compact"
+      icon="mdi:mdi-account-voice"
     />
     <div class="mt-5">
       <RequestChoise

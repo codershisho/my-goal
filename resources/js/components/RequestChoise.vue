@@ -62,7 +62,7 @@ const dbClickPartnerMemo = (): void => {
 <template>
   <div class="request-form">
     <v-checkbox
-      class="ml-10 pl-5 checkbox"
+      class="ml-16 pl-5 checkbox"
       v-model="check"
       hide-details
       density="compact"

@@ -28,13 +28,19 @@ const clickRow = (info: Info) => {
 </script>
 <template>
   <v-sheet class="pa-4" style="height: 88vh" rounded="lg" :elevation="2">
-    <v-toolbar density="compact" color="white" rounded>
+    <v-toolbar
+      density="compact"
+      color="blue-grey-darken-2"
+      class="mb-2 pl-3"
+      rounded
+    >
       <v-toolbar-title>
-        <i class="title-icon fa-solid fa-bars mr-3"></i>
+        <v-icon class="mr-3 mb-1" size="x-small" color="yellow-darken-2">
+          fa-solid fa-bars
+        </v-icon>
         一覧
       </v-toolbar-title>
     </v-toolbar>
-    <div class="divider-border"></div>
     <v-table class="info-table">
       <thead>
         <tr>
@@ -54,13 +60,6 @@ const clickRow = (info: Info) => {
   </v-sheet>
 </template>
 <style>
-.info-table {
-  border-radius: 0px !important;
-}
-.info-table th {
-  background-color: #2962ff;
-  color: white !important;
-}
 .info-table tr {
   cursor: pointer;
 }
