@@ -58,14 +58,9 @@ const savePartnerMemo = (): void => {
 
 <template>
   <v-sheet class="py-2 px-4 goal" rounded="lg" :elevation="2">
-    <v-toolbar
-      density="compact"
-      color="blue-grey-darken-2"
-      class="mb-2 pl-3"
-      rounded
-    >
+    <v-toolbar density="compact" class="mb-2 pl-3 bg-backtitle" rounded>
       <v-toolbar-title class="ma-0">
-        <v-icon class="mr-3 mb-1" size="x-small" color="yellow-darken-2">
+        <v-icon class="mr-3 mb-1" size="x-small" color="icon">
           {{ icon }}
         </v-icon>
         {{ title }}
@@ -82,7 +77,7 @@ const savePartnerMemo = (): void => {
     </template>
     <template v-else>
       <div
-        class="py-2 px-6 goal--area rounded-lg"
+        class="py-2 px-6 goal--area rounded-lg bg-backcontent text-textmain"
         v-html="pGoal"
         @dblclick="dbClickEdit"
       ></div>
@@ -92,8 +87,8 @@ const savePartnerMemo = (): void => {
 
 <style>
 .goal--area {
-  color: #333;
-  background: #f4faff;
+  /* color: #333;
+  background: #f4faff; */
   overflow-y: scroll;
   /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
   -ms-overflow-style: none;

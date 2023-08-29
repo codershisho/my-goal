@@ -62,7 +62,7 @@ const dbClickPartnerMemo = (): void => {
 <template>
   <div class="request-form">
     <v-checkbox
-      class="ml-16 pl-5 checkbox"
+      class="ml-16 pl-5 checkbox bg-secondary"
       v-model="check"
       hide-details
       density="compact"
@@ -92,7 +92,7 @@ const dbClickPartnerMemo = (): void => {
         <div class="w-50">
           <v-alert
             class="mb-2 mr-2"
-            color="blue-accent-4"
+            color="secondary"
             text="自分用Memo"
             density="compact"
           ></v-alert>
@@ -114,8 +114,8 @@ const dbClickPartnerMemo = (): void => {
         </div>
         <div class="w-50">
           <v-alert
-            color="orange-accent-4"
-            class="mb-2 mr-2"
+            color="accent"
+            class="mb-2 mr-2 text-textmain"
             text="面談者Memo"
             density="compact"
           ></v-alert>
@@ -150,12 +150,12 @@ const dbClickPartnerMemo = (): void => {
 }
 
 .request-form .checkbox {
-  color: white;
+  /* color: white;
   background: linear-gradient(
     90deg,
     rgba(41, 98, 255, 1) 24%,
     rgba(255, 255, 255, 1) 100%
-  );
+  ); */
   border-radius: 30px;
 }
 

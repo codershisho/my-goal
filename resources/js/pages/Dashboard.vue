@@ -64,7 +64,7 @@ const updateSecond = (child: child): void => {
     <GoalEdit
       icon="fa-solid fa-crown"
       title="部・チーム目標"
-      class="department"
+      class="department bg-backsub"
       :goal="goalObj.goalDepartment"
       :btn="dispInfo.goalDepartmentEditFlag"
       @update="updateDepartment"
@@ -73,7 +73,7 @@ const updateSecond = (child: child): void => {
       <GoalEdit
         icon="fa-solid fa-star"
         title="目標 1 "
-        class="w-50 mr-5"
+        class="w-50 mr-5 bg-backsub"
         :goal="goalObj.goalFirst"
         :btn="dispInfo.goalFirstEditFlag"
         @update="updateFirst"
@@ -81,7 +81,7 @@ const updateSecond = (child: child): void => {
       <GoalEdit
         icon="fa-solid fa-star"
         title="目標 2 "
-        class="w-50"
+        class="w-50 bg-backsub"
         :goal="goalObj.goalSecond"
         :btn="dispInfo.goalSecondEditFlag"
         @update="updateSecond"

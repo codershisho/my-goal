@@ -37,15 +37,10 @@ const save = async () => {
 </script>
 
 <template>
-  <v-sheet color="" class="pa-4" rounded="lg">
-    <v-toolbar
-      density="compact"
-      color="blue-grey-darken-2"
-      class="mb-2 pl-3"
-      rounded
-    >
+  <v-sheet class="pa-4 bg-backsub" rounded="lg">
+    <v-toolbar density="compact" class="mb-2 pl-3 bg-backtitle" rounded>
       <v-toolbar-title>
-        <v-icon class="mr-3 mb-1" size="x-small" color="yellow-darken-2">
+        <v-icon class="mr-3 mb-1" size="x-small" color="icon">
           fa-solid fa-circle-info
         </v-icon>
         面談予定作成
@@ -61,7 +56,7 @@ const save = async () => {
       <TopComponent v-model="header" />
     </div>
     <v-alert
-      color="blue-accent-4"
+      color="primary"
       border="start"
       title="トピック"
       density="compact"

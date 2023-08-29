@@ -74,8 +74,8 @@ onMounted(async () => {
   align-items: center;
   display: flex;
   width: 18%;
-  background-color: #2962ff;
-  color: white;
+  /* background-color: #2962ff;
+  color: white; */
   border-radius: 4px;
   /* margin-left: 16px; */
 }

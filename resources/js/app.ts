@@ -13,6 +13,8 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import '@mdi/font/css/materialdesignicons.css'
 import { aliases, fa } from 'vuetify/iconsets/fa'
 import { mdi } from 'vuetify/iconsets/mdi'
+/// theme
+import { customLight, customDark } from './theme'
 
 const app = createApp(App)
 const vuetify = createVuetify({
@@ -21,7 +23,14 @@ const vuetify = createVuetify({
     aliases,
     sets: {
       fa,
-      mdi
+      mdi,
+    },
+  },
+  theme: {
+    defaultTheme: 'customLight',
+    themes: {
+      customLight,
+      customDark,
     },
   },
 })
