@@ -58,17 +58,15 @@ const savePartnerMemo = (): void => {
 
 <template>
   <v-sheet class="py-2 px-4 goal" rounded="lg" :elevation="2">
-    <v-toolbar density="compact" color="white" class="" rounded>
+    <v-toolbar density="compact" class="mb-2 pl-3 bg-backtitle" rounded>
       <v-toolbar-title class="ma-0">
-        <!-- <v-icon class="mr-3 mb-1" size="x-small" color="yellow-darken-2">
-          fa-solid fa-magnifying-glass
-        </v-icon> -->
-        <i :class="icon" class="title-icon"></i>
+        <v-icon class="mr-3 mb-1" size="x-small" color="icon">
+          {{ icon }}
+        </v-icon>
         {{ title }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
-    <div class="divider-border"></div>
     <template v-if="pEditFlag">
       <TinyMCE
         ref="editor"
@@ -79,7 +77,7 @@ const savePartnerMemo = (): void => {
     </template>
     <template v-else>
       <div
-        class="py-2 px-6 goal--area rounded-lg"
+        class="py-2 px-6 goal--area rounded-lg bg-backcontent text-textmain"
         v-html="pGoal"
         @dblclick="dbClickEdit"
       ></div>
@@ -89,8 +87,8 @@ const savePartnerMemo = (): void => {
 
 <style>
 .goal--area {
-  color: #333;
-  background: #f4faff;
+  /* color: #333;
+  background: #f4faff; */
   overflow-y: scroll;
   /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
   -ms-overflow-style: none;
@@ -105,8 +103,5 @@ const savePartnerMemo = (): void => {
 }
 .goal-wrap > .personal > .goal > .goal--area {
   height: 85%;
-}
-.title-icon {
-  color: #fbc02d;
 }
 </style>

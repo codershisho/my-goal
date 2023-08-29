@@ -18,8 +18,6 @@ class MtgStoreRequest extends FormRequest
     {
         return [
             "mtg_date" => "string|nullable",
-            "status" => "integer|nullable",
-            "from_user_id" => "integer|nullable",
             "to_user_id" => "integer|nullable",
             "details.*.topic_detail_id" => "integer|nullable",
             "details.*.from_memo" => "string|nullable",

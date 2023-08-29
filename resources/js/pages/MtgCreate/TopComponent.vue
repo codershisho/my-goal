@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 
 // props
 defineProps({
@@ -10,12 +10,30 @@ defineProps({
 })
 // emit
 defineEmits(['update:modelValue'])
+
+// data
+const users = ref([])
+
+// mounted
+onMounted(async () => {
+  const result = await axios.get('/api/my-goal/v1/users')
+  users.value = result.data.data
+})
+// method
 </script>
 <template>
   <div class="d-flex">
     <div class="w-50 d-flex">
-      <div class="label-base px-4 mr-5">日付</div>
+      <div class="label-base px-4 mr-5">
+        <v-icon
+          class="mr-3"
+          color="white"
+          icon="mdi:mdi-archive-clock"
+        ></v-icon>
+        日付
+      </div>
       <v-text-field
+        class="mr-3"
         placeholder="日付を選択"
         variant="outlined"
         flat
@@ -26,35 +44,39 @@ defineEmits(['update:modelValue'])
       ></v-text-field>
     </div>
     <div class="w-50 d-flex">
-      <div class="label-base px-4 mr-5">面談する人</div>
+      <div class="label-base px-4 mr-5">
+        <v-icon
+          class="mr-3"
+          color="white"
+          icon="mdi:mdi-account-arrow-right"
+        ></v-icon>
+        面談する人
+      </div>
       <v-autocomplete
         placeholder="選択…"
-        :items="[
-          'California',
-          'Colorado',
-          'Florida',
-          'Georgia',
-          'Texas',
-          'Wyoming',
-        ]"
+        :items="users"
+        item-title="name"
+        item-value="id"
         flat
         hide-details
         density="compact"
         variant="outlined"
+        :model-value="modelValue.to_user_id"
+        @update:modelValue="(v) => (modelValue.to_user_id = v)"
       ></v-autocomplete>
     </div>
   </div>
 </template>
 <style scoped>
 .label-base {
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 20%;
-  background-color: #2962ff;
-  color: white;
+  width: 18%;
+  /* background-color: #2962ff;
+  color: white; */
   border-radius: 4px;
-  margin-left: 16px;
+  /* margin-left: 16px; */
 }
 </style>

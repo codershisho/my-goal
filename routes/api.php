@@ -33,6 +33,10 @@ Route::prefix('/my-goal/v1')->group(function () {
         Route::get('/', [App\Http\Controllers\MtgApi::class, 'index']);
         Route::post('/', [App\Http\Controllers\MtgApi::class, 'store']);
     });
+
+    Route::prefix('/users')->group(function () {
+        Route::get('/', [App\Http\Controllers\UserApi::class, 'index']);
+    });
 });
 
 

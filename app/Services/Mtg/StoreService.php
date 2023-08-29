@@ -4,6 +4,7 @@ namespace App\Services\Mtg;
 
 use App\Http\Requests\MtgStoreRequest;
 use App\Interfaces\IMtgRepository;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * 面談作成処理
@@ -21,8 +22,8 @@ class StoreService
     {
         $model = [
             "mtg_date" => $request->mtg_date,
-            "status" => $request->status,
-            "from_user_id" => $request->from_user_id,
+            "status" => 0,
+            "from_user_id" => Auth::id(),
             "to_user_id" => $request->to_user_id,
         ];
 

@@ -7,7 +7,7 @@ import TopComponent from './TopComponent.vue'
 const topics = ref([])
 const header = reactive({
   mtg_date: null,
-  from_user_id: null,
+  to_user_id: null,
 })
 const bodies = reactive([])
 
@@ -28,9 +28,7 @@ onMounted(async () => {
 const save = async () => {
   const data = {
     mtg_date: header.mtg_date,
-    status: 0,
-    from_user_id: 1,
-    to_user_id: 1,
+    to_user_id: header.to_user_id,
     details: bodies,
   }
   const result = await axios.post('/api/my-goal/v1/mtgs', data)
@@ -39,21 +37,30 @@ const save = async () => {
 </script>
 
 <template>
-  <v-sheet color="" class="pa-4" rounded="lg">
-    <v-toolbar density="compact" color="white" class="" rounded>
-      <v-toolbar-title>面談予定作成</v-toolbar-title>
-      <v-spacer></v-spacer>
+  <v-sheet class="pa-4 bg-backsub" rounded="lg">
+    <v-toolbar density="compact" class="mb-2 pl-3 bg-backtitle" rounded>
+      <v-toolbar-title>
+        <v-icon class="mr-3 mb-1" size="x-small" color="icon">
+          fa-solid fa-circle-info
+        </v-icon>
+        面談予定作成
+      </v-toolbar-title>
+      <v-spacer />
+      <v-btn color="success" variant="flat" @click="save">
+        <v-icon class="mr-3" color="white" icon="mdi:mdi-content-save">
+        </v-icon>
+        保存
+      </v-btn>
     </v-toolbar>
-    <div>
+    <div class="mb-6">
       <TopComponent v-model="header" />
     </div>
-    <v-divider :thickness="5" class="my-5"></v-divider>
     <v-alert
-      color="blue-accent-4"
-      class="ml-4"
+      color="primary"
       border="start"
       title="トピック"
       density="compact"
+      icon="mdi:mdi-account-voice"
     />
     <div class="mt-5">
       <RequestChoise
@@ -65,6 +72,5 @@ const save = async () => {
         v-model="bodies[index]"
       />
     </div>
-    <v-btn color="success" @click="save">保存</v-btn>
   </v-sheet>
 </template>
