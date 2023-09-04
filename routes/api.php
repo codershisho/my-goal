@@ -19,7 +19,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 });
 
-Route::prefix('/my-goal/v1')->group(function () {
+Route::middleware('auth:sanctum')->prefix('/my-goal/v1')->group(function () {
     Route::prefix('/goals')->group(function () {
         Route::get('/{term_id}', [App\Http\Controllers\GoalApi::class, 'index']);
         Route::put('/{term_id}', [App\Http\Controllers\GoalApi::class, 'update']);

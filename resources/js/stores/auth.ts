@@ -34,12 +34,19 @@ export const useAuthStore = defineStore('my-goal-auth', {
       }
     },
     async logout() {
-        const res = await axios.post('/api/auth/logout')
-        if (res.status == 200) {
-            this._isAuth = false
-            this._user = null
-        }
-    }
+      const res = await axios.post('/api/auth/logout')
+      if (res.status == 200) {
+        this._isAuth = false
+        this._user = null
+      }
+    },
+    /**
+     * サーバーとの認証切れの際に認証情報をクリアする関数
+     */
+    authClear() {
+      this._isAuth = false
+      this._user = null
+    },
   },
   persist: true,
 })

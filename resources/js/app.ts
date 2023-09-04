@@ -15,6 +15,8 @@ import { aliases, fa } from 'vuetify/iconsets/fa'
 import { mdi } from 'vuetify/iconsets/mdi'
 /// theme
 import { customLight, customDark } from './theme'
+// plugins
+import axios from './plugins/axios'
 
 const app = createApp(App)
 const vuetify = createVuetify({
@@ -40,4 +42,8 @@ pinia.use(createPersistedState())
 app.use(router)
 app.use(vuetify)
 app.use(pinia)
+app.use(axios, {
+  baseURL: 'http://localhost/',
+  pinia,
+})
 app.mount('#app')
