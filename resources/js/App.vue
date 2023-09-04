@@ -18,7 +18,7 @@ const links: Array<menu> = [
 
 const authStore = useAuthStore()
 const router = useRouter()
-const darkTheme = ref(true)
+const darkTheme = ref(false)
 const theme = useTheme()
 
 const logout = async () => {
