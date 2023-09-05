@@ -28,17 +28,16 @@ onMounted(async () => {
         <v-icon class="mr-3" color="icon" icon="mdi:mdi-archive-clock"></v-icon>
         日付
       </div>
-      <v-text-field
-        bg-color="backinput"
-        class="mr-3"
-        placeholder="日付を選択"
-        variant="outlined"
-        flat
-        hide-details
-        density="compact"
-        :value="modelValue.mtg_date"
-        @update:modelValue="(v) => (modelValue.mtg_date = v)"
-      ></v-text-field>
+      <VueDatePicker
+        format="yyyy-MM-dd"
+        week-start="0"
+        locale="ja"
+        :enable-time-picker="false"
+        auto-apply
+        model-type="yyyy-MM-dd"
+        :model-value="modelValue.mtg_date"
+        @update:model-value="(v) => (modelValue.mtg_date = v)"
+      />
     </div>
     <div class="w-50 d-flex">
       <div class="label-base px-4 mr-5 text-textmain">

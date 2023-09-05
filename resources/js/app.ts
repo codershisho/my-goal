@@ -17,6 +17,9 @@ import { mdi } from 'vuetify/iconsets/mdi'
 import { customLight, customDark } from './theme'
 // plugins
 import axios from './plugins/axios'
+// lib
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const app = createApp(App)
 const vuetify = createVuetify({
@@ -46,4 +49,5 @@ app.use(axios, {
   baseURL: 'http://localhost/',
   pinia,
 })
+app.component('VueDatePicker', VueDatePicker)
 app.mount('#app')
