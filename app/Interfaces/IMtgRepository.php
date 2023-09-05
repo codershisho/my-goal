@@ -22,5 +22,12 @@ interface IMtgRepository
      * @param [type] $model
      * @return void
      */
-    public function storeMtgDetail(int $mtgId, $model): void;
+    public function storeMtgDetail($model): void;
+
+    /**
+     * 作成しようとしているMTGに重複するデータがないかチェック
+     *
+     * @return boolean
+     */
+    public function duplicateMtg($model): bool;
 }

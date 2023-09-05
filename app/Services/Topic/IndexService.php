@@ -25,6 +25,13 @@ class IndexService
     public function execIndex()
     {
         $data = $this->repo->all();
+        $dataDetails = $this->repo->allDetails();
+
+        $data = $data->map(function ($topic) use ($dataDetails) {
+            $topic->details = $dataDetails;
+            return $topic;
+        });
+
         return TopicsResource::collection($data);
     }
 }

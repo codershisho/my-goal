@@ -3,15 +3,7 @@ import { ref, reactive, computed } from 'vue'
 import { useTheme } from 'vuetify'
 import TinyMCE from '@/components/TinyMCE.vue'
 // data
-defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
-  details: {
-    type: Array,
-    default: () => [],
-  },
+const props = defineProps({
   modelValue: {
     type: Object,
     default: () => [],
@@ -64,7 +56,7 @@ const dbClickPartnerMemo = (): void => {
   <div class="request-form">
     <v-checkbox
       class="ml-16 pl-5 checkbox bg-backinput"
-      v-model="check"
+      v-model="props.modelValue.checked"
       hide-details
       density="compact"
       @click="clickCheck"
@@ -78,21 +70,16 @@ const dbClickPartnerMemo = (): void => {
               : 'text-first'
           "
         >
-          {{ title }}
+          {{ props.modelValue.topic_name }}
         </div>
       </template>
     </v-checkbox>
     <div v-if="displayFlag" class="choise-radio">
-      <v-radio-group
-        hide-details
-        inline
-        :value="modelValue.topic_detail_id"
-        @update:modelValue="(v) => (modelValue.topic_detail_id = v)"
-      >
+      <v-radio-group hide-details inline v-model="props.modelValue.selected">
         <v-radio
           style="width: 33%"
           class="text-textmain"
-          v-for="detail in details"
+          v-for="detail in props.modelValue.details"
           :label="detail.topic_detail_name"
           :value="detail.topic_detail_id"
         ></v-radio>
@@ -107,7 +94,7 @@ const dbClickPartnerMemo = (): void => {
           <div v-show="!myMemoDispFlag" class="mb-2 mr-2">
             <TinyMCE
               ref="editorMyMemo"
-              :html="modelValue.from_memo"
+              :html="props.modelValue.from_memo"
               @update="handleUpdMyMemo"
               @update:modelValue="(v) => (modelValue.from_memo = v)"
               @blur="saveMyMemo"
@@ -163,12 +150,6 @@ const dbClickPartnerMemo = (): void => {
 }
 
 .request-form .checkbox {
-  /* color: white;
-  background: linear-gradient(
-    90deg,
-    rgba(41, 98, 255, 1) 24%,
-    rgba(255, 255, 255, 1) 100%
-  ); */
   border-radius: 30px;
 }
 
@@ -179,7 +160,6 @@ const dbClickPartnerMemo = (): void => {
 .request-form .memo {
   color: #333;
   background: #e3f2fd;
-  /* border-left: solid 5px #2962ff; */
   min-height: 200px;
   border-radius: 4px;
 }
@@ -187,7 +167,6 @@ const dbClickPartnerMemo = (): void => {
 .request-form .memo-partner {
   color: #333;
   background: #fff3e0;
-  /* border-left: solid 5px #ff6d00; */
   min-height: 200px;
   border-radius: 4px;
 }

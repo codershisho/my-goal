@@ -15,12 +15,9 @@ return new class extends Migration
     {
         Schema::create('m_topic_details', function (Blueprint $table) {
             $table->id()->comment('トピック詳細ID');
-            $table->unsignedBigInteger('topic_id')->comment('トピックID');
             $table->string('name')->comment('トピック詳細名');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('topic_id')->references('id')->on('m_topics')->onDelete('cascade');
         });
     }
 

@@ -64,7 +64,7 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-<style scoped>
+<style>
 .label-base {
   flex-direction: row;
   justify-content: center;
@@ -75,5 +75,10 @@ onMounted(async () => {
   color: white; */
   border-radius: 4px;
   /* margin-left: 16px; */
+}
+
+.dp__input {
+  background-color: rgb(var(--v-theme-backinput)) !important;
+  color: rgb(var(--v-theme-textmain)) !important;
 }
 </style>

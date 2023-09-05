@@ -15,13 +15,6 @@ const bodies = reactive([])
 onMounted(async () => {
   const result = await axios.get('/api/my-goal/v1/topics')
   topics.value = result.data.data
-  topics.value.forEach((e) => {
-    bodies.push({
-      topic_detail_id: null,
-      from_memo: '',
-      to_memo: '',
-    })
-  })
 })
 
 // method
@@ -29,7 +22,7 @@ const save = async () => {
   const data = {
     mtg_date: header.mtg_date,
     to_user_id: header.to_user_id,
-    details: bodies,
+    topics: topics.value,
   }
   const result = await axios.post('/api/my-goal/v1/mtgs', data)
   console.log(data)
@@ -63,14 +56,9 @@ const save = async () => {
       icon="mdi:mdi-account-voice"
     />
     <div class="mt-5">
-      <RequestChoise
-        v-for="(topic, index) in topics"
-        :key="index"
-        class="py-2"
-        :title="topic.topic_name"
-        :details="topic.details"
-        v-model="bodies[index]"
-      />
+      <template v-for="(topic, index) in topics" :key="index">
+        <RequestChoise class="py-2" v-model="topics[index]" />
+      </template>
     </div>
   </v-sheet>
 </template>
