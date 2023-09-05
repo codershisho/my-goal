@@ -57,16 +57,17 @@ const savePartnerMemo = (): void => {
 </script>
 
 <template>
-  <v-sheet class="py-2 px-4 goal" rounded="lg" :elevation="2">
-    <v-toolbar density="compact" class="mb-2 pl-3 bg-backtitle" rounded>
-      <v-toolbar-title class="ma-0">
-        <v-icon class="mr-3 mb-1" size="x-small" color="icon">
+  <v-sheet class="px-4 py-1 goal bg-backSub" rounded="lg">
+    <v-toolbar density="compact" class="bg-transparent" rounded>
+      <v-toolbar-title class="a-card-title">
+        <v-icon class="mr-2" size="x-small" color="icon">
           {{ icon }}
         </v-icon>
         {{ title }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
+    <div class="border-section"></div>
     <template v-if="pEditFlag">
       <TinyMCE
         ref="editor"
@@ -77,7 +78,7 @@ const savePartnerMemo = (): void => {
     </template>
     <template v-else>
       <div
-        class="py-2 px-6 goal--area rounded-lg bg-backcontent text-textmain"
+        class="py-2 px-6 goal--area rounded-lg"
         v-html="pGoal"
         @dblclick="dbClickEdit"
       ></div>

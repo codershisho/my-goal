@@ -29,7 +29,7 @@ const vuetify = createVuetify({
     },
   },
   theme: {
-    defaultTheme: 'customLight',
+    defaultTheme: 'customDark',
     themes: {
       customLight,
       customDark,

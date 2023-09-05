@@ -27,21 +27,17 @@ const clickRow = (info: Info) => {
 }
 </script>
 <template>
-  <v-sheet
-    class="pa-4 bg-backsub"
-    style="height: 88vh"
-    rounded="lg"
-    :elevation="2"
-  >
-    <v-toolbar density="compact" class="mb-2 pl-3 bg-backtitle" rounded>
-      <v-toolbar-title>
-        <v-icon class="mr-3 mb-1" size="x-small" color="icon">
+  <v-sheet class="px-4 py-1 bg-backSub" style="height: 88vh" rounded="lg">
+    <v-toolbar density="compact" class="bg-transparent" rounded>
+      <v-toolbar-title class="a-card-title">
+        <v-icon class="mr-2" size="x-small" color="icon">
           fa-solid fa-bars
         </v-icon>
         一覧
       </v-toolbar-title>
     </v-toolbar>
-    <v-table class="info-table bg-backcontent text-textmain">
+    <div class="border-section"></div>
+    <v-table class="info-table bg-backSub text-textmain">
       <thead>
         <tr>
           <th class="text-center text-textmain">日付</th>

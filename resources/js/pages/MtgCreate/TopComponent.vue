@@ -24,15 +24,12 @@ onMounted(async () => {
 <template>
   <div class="d-flex">
     <div class="w-50 d-flex">
-      <div class="label-base px-4 mr-5">
-        <v-icon
-          class="mr-3"
-          color="white"
-          icon="mdi:mdi-archive-clock"
-        ></v-icon>
+      <div class="label-base px-4 mr-5 text-textmain">
+        <v-icon class="mr-3" color="icon" icon="mdi:mdi-archive-clock"></v-icon>
         日付
       </div>
       <v-text-field
+        bg-color="backinput"
         class="mr-3"
         placeholder="日付を選択"
         variant="outlined"
@@ -44,15 +41,16 @@ onMounted(async () => {
       ></v-text-field>
     </div>
     <div class="w-50 d-flex">
-      <div class="label-base px-4 mr-5">
+      <div class="label-base px-4 mr-5 text-textmain">
         <v-icon
           class="mr-3"
-          color="white"
+          color="icon"
           icon="mdi:mdi-account-arrow-right"
         ></v-icon>
         面談する人
       </div>
       <v-autocomplete
+        bg-color="backinput"
         placeholder="選択…"
         :items="users"
         item-title="name"

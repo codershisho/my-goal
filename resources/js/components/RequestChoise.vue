@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
+import { useTheme } from 'vuetify'
 import TinyMCE from '@/components/TinyMCE.vue'
 // data
 defineProps({
@@ -18,7 +19,7 @@ defineProps({
 })
 
 // data
-
+const theme = useTheme()
 // emit
 defineEmits(['update:modelValue'])
 
@@ -62,14 +63,21 @@ const dbClickPartnerMemo = (): void => {
 <template>
   <div class="request-form">
     <v-checkbox
-      class="ml-16 pl-5 checkbox bg-secondary"
+      class="ml-16 pl-5 checkbox bg-backinput"
       v-model="check"
       hide-details
       density="compact"
       @click="clickCheck"
     >
       <template #label>
-        <div class="pl-3 py-3 w-100">
+        <div
+          class="pl-3 py-3 w-100 check-text"
+          :class="
+            theme.global.name.value == 'customDark'
+              ? 'text-textlight'
+              : 'text-first'
+          "
+        >
           {{ title }}
         </div>
       </template>
@@ -83,6 +91,7 @@ const dbClickPartnerMemo = (): void => {
       >
         <v-radio
           style="width: 33%"
+          class="text-textmain"
           v-for="detail in details"
           :label="detail.topic_detail_name"
           :value="detail.topic_detail_id"
@@ -91,8 +100,7 @@ const dbClickPartnerMemo = (): void => {
       <div class="d-flex mt-4">
         <div class="w-50">
           <v-alert
-            class="mb-2 mr-2"
-            color="secondary"
+            class="mb-2 mr-2 bg-first text-textlight"
             text="自分用Memo"
             density="compact"
           ></v-alert>
@@ -115,7 +123,7 @@ const dbClickPartnerMemo = (): void => {
         <div class="w-50">
           <v-alert
             color="accent"
-            class="mb-2 mr-2 text-textmain"
+            class="mb-2 mr-2 bg-accent text-textlight"
             text="面談者Memo"
             density="compact"
           ></v-alert>
@@ -141,6 +149,11 @@ const dbClickPartnerMemo = (): void => {
 </template>
 
 <style>
+.check-text {
+  font-weight: 600;
+  letter-spacing: 0.125rem;
+  font-size: 1.05rem;
+}
 .choise-radio {
   margin-top: 1%;
   margin-left: 4.2%;

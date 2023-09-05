@@ -18,7 +18,7 @@ const links: Array<menu> = [
 
 const authStore = useAuthStore()
 const router = useRouter()
-const darkTheme = ref(false)
+const darkTheme = ref(true)
 const theme = useTheme()
 
 const logout = async () => {
@@ -33,8 +33,8 @@ const onChange = () => {
 
 <template>
   <v-app>
-    <v-app-bar color="backsub">
-      <v-app-bar-title class="text-textmain"
+    <v-app-bar color="first">
+      <v-app-bar-title class="text-textlight"
         >目標進捗管理ツール</v-app-bar-title
       >
       <v-spacer></v-spacer>
@@ -44,8 +44,7 @@ const onChange = () => {
         ></v-icon>
       </v-btn>
       <v-btn
-        color="white"
-        class="mr-2"
+        class="mr-2 bg-first text-textlight"
         variant="flat"
         v-for="link in links"
         :key="link.id"
@@ -58,7 +57,7 @@ const onChange = () => {
       </v-btn>
     </v-app-bar>
 
-    <v-main class="main px-16 overflow-y-auto bg-backmain">
+    <v-main class="main px-16 overflow-y-auto bg-back">
       <router-view></router-view>
     </v-main>
   </v-app>

@@ -22,7 +22,7 @@ async function login() {
 </script>
 <template>
   <v-sheet
-    class="pa-10 mx-auto login-wrap bg-backsub"
+    class="pa-10 mx-auto login-wrap bg-backSub"
     :elevation="2"
     rounded="lg"
     :width="600"
@@ -30,18 +30,26 @@ async function login() {
   >
     <div class="label text-textmain">ユーザー名</div>
     <v-text-field
+      bg-color="backinput"
       placeholder="e-mail"
       variant="outlined"
       v-model="credentials.email"
     ></v-text-field>
     <div class="label text-textmain">パスワード</div>
     <v-text-field
+      bg-color="backinput"
       placeholder="password"
       variant="outlined"
       v-model="credentials.password"
     ></v-text-field>
-    <v-btn class="w-100" style="height: 60px" color="primary" @click="login">
-      <div class="label-btn text-textmain">ログイン</div>
+    <v-btn
+      class="w-100"
+      style="height: 60px"
+      color="second"
+      rounded="xl"
+      @click="login"
+    >
+      <div class="label-btn text-textlight">ログイン</div>
     </v-btn>
   </v-sheet>
 </template>

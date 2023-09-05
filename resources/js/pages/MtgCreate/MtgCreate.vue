@@ -37,26 +37,26 @@ const save = async () => {
 </script>
 
 <template>
-  <v-sheet class="pa-4 bg-backsub" rounded="lg">
-    <v-toolbar density="compact" class="mb-2 pl-3 bg-backtitle" rounded>
-      <v-toolbar-title>
-        <v-icon class="mr-3 mb-1" size="x-small" color="icon">
+  <v-sheet class="px-4 py-1 bg-backSub" rounded="lg">
+    <v-toolbar density="compact" class="bg-transparent" rounded>
+      <v-toolbar-title class="a-card-title">
+        <v-icon class="mr-2" size="x-small" color="icon">
           fa-solid fa-circle-info
         </v-icon>
         面談予定作成
       </v-toolbar-title>
       <v-spacer />
-      <v-btn color="success" variant="flat" @click="save">
-        <v-icon class="mr-3" color="white" icon="mdi:mdi-content-save">
-        </v-icon>
+      <v-btn color="first" variant="flat" @click="save">
+        <v-icon class="mr-3" color="back" icon="mdi:mdi-content-save"> </v-icon>
         保存
       </v-btn>
     </v-toolbar>
-    <div class="mb-6">
+    <div class="border-section"></div>
+    <div class="my-6">
       <TopComponent v-model="header" />
     </div>
     <v-alert
-      color="primary"
+      color="second"
       border="start"
       title="トピック"
       density="compact"
