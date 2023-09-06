@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->prefix('/my-goal/v1')->group(function () {
 
     Route::prefix('/mtgs')->group(function () {
         Route::get('/', [App\Http\Controllers\MtgApi::class, 'index']);
+        Route::get('/{id}', [App\Http\Controllers\MtgApi::class, 'show']);
         Route::post('/', [App\Http\Controllers\MtgApi::class, 'store']);
     });
 

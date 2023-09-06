@@ -1,29 +1,23 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import { Info } from './types.d.ts'
+import { ref, reactive, onMounted } from 'vue'
+import { useMeetingStore } from '@/stores/mtg'
 
-const infos = reactive<Array<Info>>([{}])
-
-const test: Info = {
-  id: 1,
-  date: '2023-07-01',
-  status: 1,
-  partner_user_id: 1,
-  partner_user_name: '下津曲',
-}
-const test2: Info = {
-  id: 2,
-  date: '2023-07-01',
-  status: 1,
-  partner_user_id: 2,
-  partner_user_name: '吉岡',
+// data
+const infos = ref([])
+const meetingStore = useMeetingStore()
+// mounted
+onMounted(async () => {
+  const result = await axios.get('/api/my-goal/v1/mtgs')
+  infos.value = result.data.data
+})
+// methods
+const clickRow = async (info: Info) => {
+  await show(info.mtg_id)
 }
 
-infos.push(test)
-infos.push(test2)
-
-const clickRow = (info: Info) => {
-  console.log(info)
+async function show($id) {
+  const result = await axios.get('/api/my-goal/v1/mtgs/' + $id)
+  meetingStore.setMtg(result.data.data)
 }
 </script>
 <template>
@@ -47,10 +41,10 @@ const clickRow = (info: Info) => {
       </thead>
       <tbody>
         <tr v-for="info in infos" :key="info" @click="clickRow(info)">
-          <td class="text-center text-textmain">{{ info.date }}</td>
+          <td class="text-center text-textmain">{{ info.created_at }}</td>
           <td class="text-center text-textmain">{{ info.status }}</td>
           <td class="text-center text-textmain">
-            {{ info.partner_user_name }}
+            {{ info.to_user_name }}
           </td>
         </tr>
       </tbody>

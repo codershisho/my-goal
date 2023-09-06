@@ -77,7 +77,7 @@ messageStore.$subscribe((mutation, state) => {
       </v-btn>
     </v-app-bar>
 
-    <v-main class="main px-16 overflow-y-auto bg-back">
+    <v-main class="main px-16 bg-back">
       <router-view></router-view>
     </v-main>
     <v-snackbar

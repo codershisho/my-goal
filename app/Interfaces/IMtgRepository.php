@@ -30,4 +30,19 @@ interface IMtgRepository
      * @return boolean
      */
     public function duplicateMtg($model): bool;
+
+    /**
+     * ログイン者に紐づくMTG一覧を検索
+     *
+     * @return Collection
+     */
+    public function all(): Collection;
+
+    /**
+     * MTGの詳細検索
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function find($id);
 }

@@ -158,15 +158,15 @@ const dbClickPartnerMemo = (): void => {
 }
 
 .request-form .memo {
-  color: #333;
-  background: #e3f2fd;
+  color: rgb(var(--v-theme-textmain));
+  background-color: rgb(var(--v-theme-frommemo));
   min-height: 200px;
   border-radius: 4px;
 }
 
 .request-form .memo-partner {
   color: #333;
-  background: #fff3e0;
+  background-color: rgb(var(--v-theme-tomemo));
   min-height: 200px;
   border-radius: 4px;
 }

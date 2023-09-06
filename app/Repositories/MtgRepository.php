@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Interfaces\IMtgRepository;
 use App\Models\TMtg;
 use App\Models\TMtgDetail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
 
 class MtgRepository implements IMtgRepository
 {
@@ -35,5 +37,20 @@ class MtgRepository implements IMtgRepository
             return true;
         }
         return false;
+    }
+
+    public function all(): Collection
+    {
+        $data = TMtg::with(['fromUser', 'toUser'])->get();
+
+        return $data->where('from_user_id', Auth::id());
+    }
+
+    public function find($id)
+    {
+        $data = TMtgDetail::with(['topic', 'topicDetail'])
+            ->where('mtg_id', $id)->get();
+
+        return $data;
     }
 }

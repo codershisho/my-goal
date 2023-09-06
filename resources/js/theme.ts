@@ -11,6 +11,8 @@ export const customLight = {
     textsub: '#A8B1CE',
     textlight: '#F8F9FD',
     icon: '#5A81FA',
+    frommemo: '#d5e7ff',
+    tomemo: '#f9f9f9',
   },
 }
 
@@ -27,6 +29,8 @@ export const customDark = {
     textsub: '#A8B1CE',
     textlight: '#FFFFFF',
     icon: '#FBC02D',
+    frommemo: '#393f48',
+    tomemo: '#ddd4d9',
 
     // primary: '#719DDC',
     // secondary: '#00B8D4',

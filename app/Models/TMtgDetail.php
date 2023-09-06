@@ -12,4 +12,14 @@ class TMtgDetail extends Model
     use SoftDeletes;
 
     protected $guarded = ['id'];
+
+    public function topic()
+    {
+        return $this->hasOne('App\Models\MTopic', 'id', 'topic_id');
+    }
+
+    public function topicDetail()
+    {
+        return $this->hasOne('App\Models\MTopicDetail', 'id', 'topic_detail_id');
+    }
 }
