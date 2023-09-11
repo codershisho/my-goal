@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import Dashboard from '@/pages/Dashboard.vue'
 import Login from '@/pages/Login/Index.vue'
-import MtgInfo from '@/pages/MtgInfo/MtgInfo.vue'
+import MeetingInfos from '@/pages/MeetingInfos/MeetingInfos.vue'
 import MtgCreate from '@/pages/MtgCreate/MtgCreate.vue'
 
 const routes = [
@@ -17,8 +17,8 @@ const routes = [
   },
   {
     path: '/mtg/infos',
-    name: 'MtgInfo',
-    component: MtgInfo,
+    name: 'MeetingInfos',
+    component: MeetingInfos,
     meta: {
       isAuthenticated: true,
     },
