@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import MeetingInfosTable from './MeetingInfosTable.vue'
 import MeetingEdit from './MeetingEdit.vue'
-import { fetchTopics, fetchUsers } from './request'
-
-// methods
-fetchTopics()
-fetchUsers()
 </script>
 
 <template>

@@ -19,14 +19,9 @@ class MtgStoreRequest extends FormRequest
         return [
             "mtg_date" => "string|nullable",
             "to_user_id" => "integer|nullable",
-            "topics.*.checked" => "integer|nullable",
-            "topics.*.from_memo" => "string|nullable",
-            "topics.*.to_memo" => "string|nullable",
+            "topics.*.checked" => "boolean|nullable",
             "topics.*.selected" => "integer|nullable",
             "topics.*.topic_id" => "integer|nullable",
-            "topics.*.topic_name" => "string|nullable",
-            "topics.*.details.*.topic_detail_id" => "integer|nullable",
-            "topics.*.details.*.topic_detail_name" => "string|nullable",
         ];
     }
 }

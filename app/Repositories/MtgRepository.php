@@ -48,9 +48,7 @@ class MtgRepository implements IMtgRepository
 
     public function find($id)
     {
-        $data = TMtgDetail::with(['topic', 'topicDetail'])
-            ->where('mtg_id', $id)->get();
-
+        $data = TMtg::with('children')->where('id', $id)->get();
         return $data;
     }
 }

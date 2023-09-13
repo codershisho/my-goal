@@ -28,4 +28,9 @@ class TMtg extends Model
     {
         return $this->hasOne('App\Models\User', 'id', 'to_user_id');
     }
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\TMtgDetail', 'mtg_id', 'id');
+    }
 }

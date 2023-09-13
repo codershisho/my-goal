@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useMeetingStore } from '../../stores/meeting'
 import RequestChoise from '../../components/RequestChoise.vue'
 
 const meetingStore = useMeetingStore()
 
-// type
-type _TMeetingInfo = {
-  mtg_date: String
-  to_user_id: Number
+let _model = ref(meetingStore.editModel)
+
+const input = () => {
+  // store updte
+  meetingStore.setMtgDate(_model.value.mtg_date)
+  meetingStore.setToUserId(_model.value.to_user_id)
+}
+const save = () => {
+  // create api call
+  meetingStore.storeMeeting()
 }
 
-// data
-const model = ref<_TMeetingInfo>({
-  mtg_date: '',
-  to_user_id: 0,
+meetingStore.$subscribe((mutation, state) => {
+  _model.value = state._editModel
 })
 </script>
 <template>
@@ -47,7 +51,8 @@ const model = ref<_TMeetingInfo>({
           :enable-time-picker="false"
           auto-apply
           model-type="yyyy-MM-dd"
-          v-model="model.mtg_date"
+          v-model="_model.mtg_date"
+          @input="input"
         />
       </div>
       <div class="d-flex">
@@ -69,14 +74,16 @@ const model = ref<_TMeetingInfo>({
           hide-details
           density="compact"
           variant="outlined"
-          v-model="model.to_user_id"
+          v-model="_model.to_user_id"
+          @input="input"
         ></v-autocomplete>
       </div>
       <div>
-        <template v-for="(topic, index) in meetingStore.topics" :key="index">
-          <div>ss</div>
-        </template>
+        <!-- <template > -->
+        <RequestChoise />
+        <!-- </template> -->
       </div>
+      <v-btn @click="save">保存</v-btn>
     </div>
   </v-sheet>
 </template>

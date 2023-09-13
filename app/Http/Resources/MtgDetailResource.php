@@ -11,17 +11,21 @@ class MtgDetailResource extends JsonResource
 {
     public function toArray($request)
     {
+
+        $children = collect($this->children);
+
+        $topics = $children->map(function ($child) {
+            return [
+                "topic_id" => $child["topic_id"],
+                "checked" => $child["topic_checked"] == 1 ? true : false,
+                "selected" => $child["topic_detail_id"],
+            ];
+        });
+
         return [
-            "mtg_id" => $this->mtg_id,
-            "mtg_detail_id" => $this->id,
-            "topic_id" => $this->topic_id,
-            "topic_name" => $this->topic->name,
-            "topic_detail_id" => $this->topicDetail->id,
-            "topic_detail_name" => $this->topicDetail->name,
-            "from_memo" => $this->from_memo,
-            "to_memo" => $this->to_memo,
-            "created_at" => $this->created_at->format('Y-m-d'),
-            "updated_at" => $this->updated_at->format('Y-m-d'),
+            "mtg_date" => $this->mtg_date,
+            "to_user_id" => $this->to_user_id,
+            "topics" => $topics
         ];
     }
 }

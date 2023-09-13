@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
-// import { useMeetingStore } from '@/stores/mtg'
+import { ref, onMounted } from 'vue'
+import { useMeetingStore } from '../../stores/meeting'
 
-// data
+// // data
 const infos = ref([])
-// const meetingStore = useMeetingStore()
-// mounted
+const meetingStore = useMeetingStore()
+
+// // mounted
 onMounted(async () => {
   const result = await axios.get('/api/my-goal/v1/mtgs')
   infos.value = result.data.data
@@ -15,12 +16,11 @@ const clickRow = async (info: Info) => {
   await show(info.mtg_id)
 }
 
-async function show($id) {
-  const result = await axios.get('/api/my-goal/v1/mtgs/' + $id)
-  meetingStore.setMtg(result.data.data)
+async function show(id) {
+  await meetingStore.fetchMeeting(id)
 }
 </script>
-<!-- <template>
+<template>
   <v-sheet class="px-4 py-1 bg-backSub" style="height: 88vh" rounded="lg">
     <v-toolbar density="compact" class="bg-transparent" rounded>
       <v-toolbar-title class="a-card-title">
@@ -50,7 +50,7 @@ async function show($id) {
       </tbody>
     </v-table>
   </v-sheet>
-</template> -->
+</template>
 <style>
 .info-table tr {
   cursor: pointer;

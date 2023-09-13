@@ -22,4 +22,9 @@ class TMtgDetail extends Model
     {
         return $this->hasOne('App\Models\MTopicDetail', 'id', 'topic_detail_id');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\TMtg', 'id', 'mtg_id');
+    }
 }

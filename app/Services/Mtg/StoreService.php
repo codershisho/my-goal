@@ -42,13 +42,14 @@ class StoreService
             $mtgId = $mtg->id;
 
             // t_mtg_detailの登録
-            $request->collect('topics')->each(function ($detail) use ($mtgId) {
+            $request->collect('topics')->each(function ($topic) use ($mtgId) {
                 $model = [
                     "mtg_id" => $mtgId,
-                    "topic_id" => $detail['topic_id'],
-                    "topic_detail_id" => $detail['selected'] ?? 1,
-                    "from_memo" => $detail['from_memo'] ?? null,
-                    "to_memo" => $detail['to_memo'] ?? null,
+                    "topic_id" => $topic['topic_id'],
+                    "topic_checked" => $topic['checked'],
+                    "topic_detail_id" => $topic['selected'] == 0 ? 6: $topic['selected'],
+                    "from_memo" => $topic['from_memo'] ?? null,
+                    "to_memo" => $topic['to_memo'] ?? null,
                 ];
                 $this->repo->storeMtgDetail($model);
             });
