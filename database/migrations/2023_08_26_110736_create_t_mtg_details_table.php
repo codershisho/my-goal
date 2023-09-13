@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id()->comment('MTG詳細ID');
             $table->unsignedBigInteger('mtg_id')->comment('MTGID');
             $table->unsignedBigInteger('topic_id')->comment('トピックID');
+            $table->tinyInteger('topic_checked')->default(0)->comment('トピックの選択状態');
             $table->unsignedBigInteger('topic_detail_id')->comment('トピック詳細ID');
             $table->text('from_memo')->nullable()->default(null)->comment('自分用メモ');
             $table->text('to_memo')->nullable()->default(null)->comment('面談者メモ');
