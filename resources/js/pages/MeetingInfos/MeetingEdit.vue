@@ -1,156 +1,42 @@
+<template>
+  <div id="meeting-edit">
+    <div class="header">
+      <div>日付{{ meetingBase?.mtg_date }}</div>
+      <div>面談者{{ meetingBase?.to_user_name }}</div>
+    </div>
+    <div class="body">
+      <!-- {{ meetingDetails }} -->
+      <div v-for="(detail, i) in meetingDetails" :key="i">
+        <v-checkbox
+          :label="detail.topic_name"
+          v-model="detail.checked"
+        ></v-checkbox>
+        <v-radio-group v-model="detail.selected">
+          <template v-for="(topicDetail, j) in detail.details" :key="j">
+            <v-radio
+              :label="topicDetail.name"
+              :value="topicDetail.id"
+            ></v-radio>
+          </template>
+        </v-radio-group>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useMeetingStore } from '../../stores/meeting'
-import RequestChoise from '../../components/RequestChoise.vue'
+import { ref } from 'vue'
+import { IMeeting, ITopic } from '../../types/meeting'
+import { fetchMeetingBase, fetchMeetingDetail } from './ApiMeeting'
 
 const meetingStore = useMeetingStore()
 
-let _model = ref(meetingStore.editModel)
+const meetingDetails = ref<ITopic[]>()
+const meetingBase = ref<IMeeting>()
 
-const input = () => {
-  // store updte
-  meetingStore.setMtgDate(_model.value.mtg_date)
-  meetingStore.setToUserId(_model.value.to_user_id)
-  meetingStore.setStatus(_model.value.status)
-}
-const create = () => {
-  meetingStore.changeModeCreate()
-  meetingStore.clearModel()
-}
-const save = () => {
-  // create or update api call
-  meetingStore.storeMeeting()
-}
-
-meetingStore.$subscribe((mutation, state) => {
-  _model.value = state._editModel
+meetingStore.$subscribe(async (mutation, state) => {
+  meetingBase.value = await fetchMeetingBase(state._selectedMeetingId)
+  meetingDetails.value = await fetchMeetingDetail(state._selectedMeetingId)
 })
 </script>
-<template>
-  <v-sheet class="px-4 info-sheet bg-backSub" style="height: 88vh" rounded="lg">
-    <div class="header-sticky">
-      <v-toolbar density="compact" class="bg-transparent" rounded>
-        <v-toolbar-title class="a-card-title">
-          <v-icon class="mr-2" size="x-small" color="icon">
-            fa-solid fa-circle-info
-          </v-icon>
-          詳細情報
-        </v-toolbar-title>
-        <v-btn @click="create">新規</v-btn>
-        <v-btn @click="save">保存</v-btn>
-      </v-toolbar>
-      <div class="border-section"></div>
-    </div>
-    <div>
-      <div class="d-flex">
-        <div class="label-base px-4 mr-5 text-textmain">
-          <v-icon
-            class="mr-3"
-            color="icon"
-            icon="mdi:mdi-archive-clock"
-          ></v-icon>
-          日付
-        </div>
-        <VueDatePicker
-          format="yyyy-MM-dd"
-          week-start="0"
-          locale="ja"
-          :enable-time-picker="false"
-          auto-apply
-          model-type="yyyy-MM-dd"
-          v-model="_model.mtg_date"
-          @input="input"
-        />
-      </div>
-      <div class="d-flex">
-        <div class="label-base px-4 mr-5 text-textmain">
-          <v-icon
-            class="mr-3"
-            color="icon"
-            icon="mdi:mdi-account-arrow-right"
-          ></v-icon>
-          面談する人
-        </div>
-        <v-autocomplete
-          bg-color="backinput"
-          placeholder="選択…"
-          :items="meetingStore.users"
-          item-title="name"
-          item-value="id"
-          flat
-          hide-details
-          density="compact"
-          variant="outlined"
-          v-model="_model.to_user_id"
-          @input="input"
-        ></v-autocomplete>
-      </div>
-      <div class="d-flex">
-        <div class="label-base px-4 mr-5 text-textmain">
-          <v-icon
-            class="mr-3"
-            color="icon"
-            icon="mdi:mdi-account-arrow-right"
-          ></v-icon>
-          ステータス
-        </div>
-        <v-autocomplete
-          bg-color="backinput"
-          placeholder="選択…"
-          :items="[
-            { id: 0, name: '未実施' },
-            { id: 1, name: '実施済み' },
-          ]"
-          item-title="name"
-          item-value="id"
-          flat
-          hide-details
-          density="compact"
-          variant="outlined"
-          v-model="_model.status"
-          @input="input"
-        ></v-autocomplete>
-      </div>
-      <div>
-        <RequestChoise />
-      </div>
-    </div>
-  </v-sheet>
-</template>
-
-<style>
-.info-sheet {
-  overflow-y: scroll;
-  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
-  -ms-overflow-style: none;
-  /*Firefoxへの対応*/
-  scrollbar-width: none;
-}
-.info-sheet::-webkit-scrollbar {
-  display: none;
-}
-.header-sticky {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: rgb(var(--v-theme-backSub));
-}
-.topic {
-  background-color: rgb(var(--v-theme-second));
-  padding: 10px;
-  /* margin: 4px 0px; */
-}
-.topic > .name {
-  font-size: 1.25rem;
-  letter-spacing: 0.125rem;
-  font-weight: 600;
-}
-.from--memo {
-  background-color: rgb(var(--v-theme-frommemo));
-  min-height: 200px;
-}
-.to--memo {
-  background-color: rgb(var(--v-theme-tomemo));
-  min-height: 200px;
-}
-</style>

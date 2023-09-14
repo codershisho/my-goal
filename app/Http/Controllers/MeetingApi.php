@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MtgStoreRequest;
 use App\Services\Mtg\IndexService;
-use App\Services\Mtg\ShowSerivice;
+use App\Services\Mtg\BaseSerivice;
+use App\Services\Mtg\DetailService;
 use App\Services\Mtg\StoreService;
 use App\Services\Mtg\UpdateService;
 
 /**
  * 面談API
  */
-class MtgApi extends AbstractApi
+class MeetingApi extends AbstractApi
 {
     /**
      * 面談一覧検索
@@ -26,16 +27,29 @@ class MtgApi extends AbstractApi
     }
 
     /**
-     * 面談の詳細情報検索
+     * t_mtgの情報を返す
      *
      * @param [type] $id
-     * @param ShowSerivice $service
+     * @param BaseSerivice $service
      * @return void
      */
-    public function show($id, ShowSerivice $service)
+    public function base($id, BaseSerivice $service)
     {
-        $data = $service->execShow($id);
+        $data = $service->execBase($id);
         return $this->setResponse($data, "検索完了");
+    }
+
+    /**
+     * t_mtg_detailの情報をトピック付きで返す
+     *
+     * @param [type] $id
+     * @param DetailService $service
+     * @return void
+     */
+    public function detail($id, DetailService $service)
+    {
+        $data = $service->execDetail($id);
+        return $this->setResponse($data);
     }
 
     /**

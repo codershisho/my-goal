@@ -32,13 +32,12 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.isAuthenticated)) {
     const authStore = useAuthStore()
-
     if (!authStore.isAuth) {
       next({ name: 'Login' })
-    } else {
-      next()
+      return
     }
   }
   next()
+  return
 })
 export default router

@@ -40,15 +40,6 @@ interface IMtgRepository
     public function all(): Collection;
 
     /**
-     * MTGの詳細検索
-     * - mtg_idに紐づくmtg,mtg_detailを返す
-     *
-     * @param [type] $id
-     * @return void
-     */
-    public function find($id);
-
-    /**
      * t_mtgの単純なfind
      *
      * @param [type] $id
@@ -57,12 +48,12 @@ interface IMtgRepository
     public function findOfMtg($id): TMtg;
 
     /**
-     * t_mtg_detailsの単純なfind
+     * t_mtg_detailsのid検索
      *
      * @param [type] $id
-     * @return TMtgDetail
+     * @return Collection
      */
-    public function findOfMtgDetail($id): TMtgDetail;
+    public function findMeetingDetails($id): Collection;
 
     /**
      * MTGの更新

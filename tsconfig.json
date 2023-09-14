@@ -12,7 +12,8 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "types": ["node"],
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "typeRoots": ["./resources/js/types"]
   },
   "include": ["resources/js/**/*.ts", "resources/js/**/*.vue"],
   "exclude": ["node_modules"],

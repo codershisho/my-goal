@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import MeetingInfosTable from './MeetingInfosTable.vue'
-import MeetingEdit from './MeetingEdit.vue'
-</script>
-
 <template>
   <div class="d-flex">
     <div class="w-25 mr-2">
@@ -13,3 +8,8 @@ import MeetingEdit from './MeetingEdit.vue'
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import MeetingInfosTable from './MeetingInfosTable.vue'
+import MeetingEdit from './MeetingEdit.vue'
+</script>

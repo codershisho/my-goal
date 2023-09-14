@@ -2,8 +2,6 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
-
 export const useAuthStore = defineStore('my-goal-auth', {
   state: () => ({
     _isAuth: false,
@@ -19,6 +17,7 @@ export const useAuthStore = defineStore('my-goal-auth', {
   },
   actions: {
     async login(credentials) {
+      const router = useRouter()
       if (this._isAuth) {
         router.replace({ name: 'Dashboard' })
         return

@@ -2,10 +2,10 @@
 
 namespace App\Services\Mtg;
 
-use App\Http\Resources\MtgDetailResource;
+use App\Http\Resources\MtgResource;
 use App\Interfaces\IMtgRepository;
 
-class ShowSerivice
+class BaseSerivice
 {
     private $repo;
 
@@ -14,9 +14,9 @@ class ShowSerivice
         $this->repo = $repo;
     }
 
-    public function execShow($id)
+    public function execBase($id)
     {
-        $data = $this->repo->find($id);
-        return MtgDetailResource::collection($data);
+        $data = $this->repo->findOfMtg($id);
+        return new MtgResource($data);
     }
 }

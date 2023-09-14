@@ -25,7 +25,7 @@ const message = ref({})
 const snackbar = ref(false)
 
 const attributes_snack = ref({
-  'multi-line': 'true',
+  'multi-line': true,
 })
 
 const logout = async () => {

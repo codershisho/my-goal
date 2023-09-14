@@ -9,26 +9,24 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class MtgDetailResource extends JsonResource
 {
+    private static $details;
+
     public function toArray($request)
     {
-
-        $children = collect($this->children);
-
-        $topics = $children->map(function ($child) {
-            return [
-                "mtg_detail_id" => $child["id"],
-                "topic_id" => $child["topic_id"],
-                "checked" => $child["topic_checked"] == 1 ? true : false,
-                "selected" => $child["topic_detail_id"],
-            ];
-        });
-
         return [
-            "mtg_id" => $this->id,
-            "mtg_date" => $this->mtg_date,
-            "to_user_id" => $this->to_user_id,
-            "status" => $this->status,
-            "topics" => $topics
+            "topic_id" => $this->topic_id,
+            "topic_name" => $this->topic->name,
+            "details" => self::$details,
+
+            "checked" => $this->topic_checked == 1 ? true : false,
+            "selected" => $this->topic_detail_id,
+            "from_memo" => $this->from_memo,
+            "to_memo" => $this->to_memo
         ];
+    }
+
+    public static function setTopicDetails($details)
+    {
+        self::$details = $details;
     }
 }

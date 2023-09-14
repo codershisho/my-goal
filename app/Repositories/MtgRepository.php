@@ -47,15 +47,14 @@ class MtgRepository implements IMtgRepository
         return $data->where('from_user_id', Auth::id());
     }
 
-    public function find($id)
-    {
-        $data = TMtg::with('children')->where('id', $id)->get();
-        return $data;
-    }
-
     public function findOfMtg($id): TMtg
     {
         return TMtg::find($id);
+    }
+
+    public function findMeetingDetails($id): Collection
+    {
+        return TMtgDetail::with(['topic'])->where('mtg_id', $id)->get();
     }
 
     public function findOfMtgDetail($id): TMtgDetail
