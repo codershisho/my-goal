@@ -14,7 +14,6 @@ type menu = {
 const links: Array<menu> = [
   { id: 1, name: 'ダッシュボード', url: '/' },
   { id: 2, name: '面談情報', url: '/mtg/infos' },
-  { id: 3, name: '面談作成', url: '/mtg/create' },
 ]
 
 const authStore = useAuthStore()

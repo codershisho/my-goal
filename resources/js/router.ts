@@ -3,7 +3,6 @@ import { useAuthStore } from '@/stores/auth'
 import Dashboard from '@/pages/Dashboard.vue'
 import Login from '@/pages/Login/Index.vue'
 import MeetingInfos from '@/pages/MeetingInfos/MeetingInfos.vue'
-import MtgCreate from '@/pages/MtgCreate/MtgCreate.vue'
 
 const routes = [
   { path: '/login', name: 'Login', component: Login },
@@ -19,14 +18,6 @@ const routes = [
     path: '/mtg/infos',
     name: 'MeetingInfos',
     component: MeetingInfos,
-    meta: {
-      isAuthenticated: true,
-    },
-  },
-  {
-    path: '/mtg/create',
-    name: 'MtgCreate',
-    component: MtgCreate,
     meta: {
       isAuthenticated: true,
     },
