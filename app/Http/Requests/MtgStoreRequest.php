@@ -17,11 +17,13 @@ class MtgStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            "mtg_id" => "integer|nullable",
             "mtg_date" => "string|nullable",
             "to_user_id" => "integer|nullable",
             "topics.*.checked" => "boolean|nullable",
             "topics.*.selected" => "integer|nullable",
             "topics.*.topic_id" => "integer|nullable",
+            "topics.*.mtg_detail_id" => "integer|nullable",
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\IMtgRepository;
 use App\Models\TMtg;
 use App\Models\TMtgDetail;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -50,5 +51,39 @@ class MtgRepository implements IMtgRepository
     {
         $data = TMtg::with('children')->where('id', $id)->get();
         return $data;
+    }
+
+    public function findOfMtg($id): TMtg
+    {
+        return TMtg::find($id);
+    }
+
+    public function findOfMtgDetail($id): TMtgDetail
+    {
+        return TMtgDetail::find($id);
+    }
+
+    public function updateMtg($model)
+    {
+        $m = $this->findOfMtg($model['id']);
+
+        if (!isset($m)) {
+            throw new Exception("更新対象が存在しません");
+        }
+
+        $m->fill($model);
+        $m->save();
+    }
+
+    public function updateMtgDetail($model)
+    {
+        $m = $this->findOfMtgDetail($model['id']);
+
+        if (!isset($m)) {
+            throw new Exception("更新対象が存在しません");
+        }
+
+        $m->fill($model);
+        $m->save();
     }
 }

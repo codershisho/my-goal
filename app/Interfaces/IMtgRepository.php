@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use App\Models\TMtg;
+use App\Models\TMtgDetail;
 use Illuminate\Database\Eloquent\Collection;
 
 interface IMtgRepository
@@ -40,9 +41,42 @@ interface IMtgRepository
 
     /**
      * MTGの詳細検索
+     * - mtg_idに紐づくmtg,mtg_detailを返す
      *
      * @param [type] $id
      * @return void
      */
     public function find($id);
+
+    /**
+     * t_mtgの単純なfind
+     *
+     * @param [type] $id
+     * @return TMtg
+     */
+    public function findOfMtg($id): TMtg;
+
+    /**
+     * t_mtg_detailsの単純なfind
+     *
+     * @param [type] $id
+     * @return TMtgDetail
+     */
+    public function findOfMtgDetail($id): TMtgDetail;
+
+    /**
+     * MTGの更新
+     *
+     * @param [type] $model
+     * @return void
+     */
+    public function updateMtg($model);
+
+    /**
+     * MTG詳細の更新
+     *
+     * @param [type] $model
+     * @return void
+     */
+    public function updateMtgDetail($model);
 }

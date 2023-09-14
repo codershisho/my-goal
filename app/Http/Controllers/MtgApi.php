@@ -6,6 +6,7 @@ use App\Http\Requests\MtgStoreRequest;
 use App\Services\Mtg\IndexService;
 use App\Services\Mtg\ShowSerivice;
 use App\Services\Mtg\StoreService;
+use App\Services\Mtg\UpdateService;
 
 /**
  * 面談API
@@ -48,5 +49,18 @@ class MtgApi extends AbstractApi
     {
         $service->execStore($request);
         return $this->setResponseMessage("登録完了");
+    }
+
+    /**
+     * 面談の更新
+     *
+     * @param MtgStoreRequest $request
+     * @param UpdateService $service
+     * @return void
+     */
+    public function update(MtgStoreRequest $request, UpdateService $service)
+    {
+        $service->execUpdate($request->all());
+        return $this->setResponseMessage("更新完了");
     }
 }
