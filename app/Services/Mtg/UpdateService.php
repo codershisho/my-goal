@@ -23,6 +23,7 @@ class UpdateService
             $model = [
                 'id' => $params['mtg_id'],
                 'mtg_date' => $params['mtg_date'],
+                'status' => $params['status'],
                 "from_user_id" => Auth::id(),
                 'to_user_id' => $params['to_user_id'],
             ];

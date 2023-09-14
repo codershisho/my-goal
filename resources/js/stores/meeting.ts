@@ -8,6 +8,7 @@ export const useMeetingStore = defineStore('my-goal-meeting', {
       mtg_id: 0,
       mtg_date: '2023-10-22',
       to_user_id: 1,
+      status: 0,
       topics: [],
     },
     _mode: 1,
@@ -57,6 +58,9 @@ export const useMeetingStore = defineStore('my-goal-meeting', {
     setToUserId(id: number) {
       this._editModel.to_user_id = id
     },
+    setStatus(id: number) {
+      this._editModel.status = id
+    },
     setTopics(topic: Object, i: number) {
       this._editModel.topics.splice(i, 1, topic)
     },
@@ -81,6 +85,7 @@ export const useMeetingStore = defineStore('my-goal-meeting', {
       this._editModel.mtg_id = 0
       this._editModel.mtg_date = ''
       this._editModel.to_user_id = 1
+      this._editModel.status = 0
       this._editModel.topics = []
 
       this._topics.forEach((topic) => {

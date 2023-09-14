@@ -11,6 +11,7 @@ const input = () => {
   // store updte
   meetingStore.setMtgDate(_model.value.mtg_date)
   meetingStore.setToUserId(_model.value.to_user_id)
+  meetingStore.setStatus(_model.value.status)
 }
 const create = () => {
   meetingStore.changeModeCreate()
@@ -81,6 +82,32 @@ meetingStore.$subscribe((mutation, state) => {
           density="compact"
           variant="outlined"
           v-model="_model.to_user_id"
+          @input="input"
+        ></v-autocomplete>
+      </div>
+      <div class="d-flex">
+        <div class="label-base px-4 mr-5 text-textmain">
+          <v-icon
+            class="mr-3"
+            color="icon"
+            icon="mdi:mdi-account-arrow-right"
+          ></v-icon>
+          ステータス
+        </div>
+        <v-autocomplete
+          bg-color="backinput"
+          placeholder="選択…"
+          :items="[
+            { id: 0, name: '未実施' },
+            { id: 1, name: '実施済み' },
+          ]"
+          item-title="name"
+          item-value="id"
+          flat
+          hide-details
+          density="compact"
+          variant="outlined"
+          v-model="_model.status"
           @input="input"
         ></v-autocomplete>
       </div>

@@ -27,6 +27,7 @@ class MtgDetailResource extends JsonResource
             "mtg_id" => $this->id,
             "mtg_date" => $this->mtg_date,
             "to_user_id" => $this->to_user_id,
+            "status" => $this->status,
             "topics" => $topics
         ];
     }

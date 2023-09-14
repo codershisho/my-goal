@@ -27,7 +27,7 @@ class StoreService
 
             $model = [
                 "mtg_date" => $request->mtg_date,
-                "status" => 0,
+                "status" => $request->status,
                 "from_user_id" => Auth::id(),
                 "to_user_id" => $request->to_user_id,
             ];
@@ -47,7 +47,7 @@ class StoreService
                     "mtg_id" => $mtgId,
                     "topic_id" => $topic['topic_id'],
                     "topic_checked" => $topic['checked'],
-                    "topic_detail_id" => $topic['selected'] == 0 ? 6: $topic['selected'],
+                    "topic_detail_id" => $topic['selected'] == 0 ? 6 : $topic['selected'],
                     "from_memo" => $topic['from_memo'] ?? null,
                     "to_memo" => $topic['to_memo'] ?? null,
                 ];
