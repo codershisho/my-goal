@@ -8,31 +8,33 @@ import TinyMCE from '@/components/TinyMCE.vue'
 const meetingStore = useMeetingStore()
 
 // data
-let _model = ref(meetingStore.editModel)
+let _model = ref(meetingStore.editTopics)
+const isLoading = ref(true);
 
 meetingStore.$subscribe((mutation, state) => {
-  _model.value = state._editModel
+  _model.value = state._editModel.topics
 })
 
 onMounted(async () => {
   await meetingStore.fetchTopics()
   await meetingStore.fetchUsers()
+  isLoading.value = false;
 })
 
-const input = () => {
+const input = (i: number) => {
   // store updte
-  meetingStore.setTopics(_model)
+  meetingStore.setTopics(_model.value[i], i)
 }
 </script>
 
 <template>
-  <div class="request-form" v-for="(topic, i) in meetingStore.topics" :key="i">
+  <div v-if="!isLoading" class="request-form" v-for="(topic, i) in meetingStore.topics" :key="i">
     <v-checkbox
       class="ml-16 pl-5 checkbox bg-backinput"
       hide-details
       density="compact"
-      v-model="_model.topics[i].checked"
-      @input="input"
+      v-model="_model[i].checked"
+      @input="input(i)"
     >
       <template #label>
         <div class="pl-3 py-3 w-100">
@@ -43,8 +45,8 @@ const input = () => {
     <v-radio-group
       hide-details
       inline
-      v-model="_model.topics[i].selected"
-      @input="input"
+      v-model="_model[i].selected"
+      @input="input(i)"
     >
       <v-radio
         style="width: 33%"

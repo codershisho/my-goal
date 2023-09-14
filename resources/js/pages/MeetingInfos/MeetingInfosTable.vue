@@ -14,9 +14,10 @@ onMounted(async () => {
 // methods
 const clickRow = async (info: Info) => {
   await show(info.mtg_id)
+  meetingStore.changeModeUpdate()
 }
 
-async function show(id) {
+async function show(id: number) {
   await meetingStore.fetchMeeting(id)
 }
 </script>

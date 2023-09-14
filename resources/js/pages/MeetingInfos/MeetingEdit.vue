@@ -12,8 +12,12 @@ const input = () => {
   meetingStore.setMtgDate(_model.value.mtg_date)
   meetingStore.setToUserId(_model.value.to_user_id)
 }
+const create = () => {
+  meetingStore.changeModeCreate()
+  meetingStore.clearModel()
+}
 const save = () => {
-  // create api call
+  // create or update api call
   meetingStore.storeMeeting()
 }
 
@@ -31,6 +35,8 @@ meetingStore.$subscribe((mutation, state) => {
           </v-icon>
           詳細情報
         </v-toolbar-title>
+        <v-btn @click="create">新規</v-btn>
+        <v-btn @click="save">保存</v-btn>
       </v-toolbar>
       <div class="border-section"></div>
     </div>
@@ -79,11 +85,8 @@ meetingStore.$subscribe((mutation, state) => {
         ></v-autocomplete>
       </div>
       <div>
-        <!-- <template > -->
         <RequestChoise />
-        <!-- </template> -->
       </div>
-      <v-btn @click="save">保存</v-btn>
     </div>
   </v-sheet>
 </template>
