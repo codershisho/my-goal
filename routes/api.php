@@ -25,6 +25,10 @@ Route::prefix('/my-goal/v1')->group(function () {
         Route::put('/{term_id}', [App\Http\Controllers\GoalApi::class, 'update']);
     });
 
+    Route::prefix('/topics')->group(function () {
+        Route::get('/', [App\Http\Controllers\TopicApi::class, 'index']);
+    });
+
     Route::prefix('/meetings')->group(function () {
         Route::get('/', [App\Http\Controllers\MeetingApi::class, 'index']);
         Route::get('/{id}/base', [App\Http\Controllers\MeetingApi::class, 'base']);

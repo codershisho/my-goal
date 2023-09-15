@@ -32,11 +32,6 @@ class StoreService
                 "to_user_id" => $request->to_user_id,
             ];
 
-            $exist = $this->repo->duplicateMtg($model);
-            if ($exist) {
-                throw new Exception('すでにデータが存在しています');
-            }
-
             // t_mtgsの登録
             $mtg = $this->repo->storeMtg($model);
             $mtgId = $mtg->id;
@@ -46,8 +41,8 @@ class StoreService
                 $model = [
                     "mtg_id" => $mtgId,
                     "topic_id" => $topic['topic_id'],
-                    "topic_checked" => $topic['checked'],
-                    "topic_detail_id" => $topic['selected'] == 0 ? 6 : $topic['selected'],
+                    "topic_checked" => $topic['checked'] ?? 0,
+                    "topic_detail_id" => $topic['selected'] ?? 6,
                     "from_memo" => $topic['from_memo'] ?? null,
                     "to_memo" => $topic['to_memo'] ?? null,
                 ];

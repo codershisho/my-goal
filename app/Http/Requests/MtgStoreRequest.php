@@ -25,6 +25,8 @@ class MtgStoreRequest extends FormRequest
             "topics.*.selected" => "integer|nullable",
             "topics.*.topic_id" => "integer|nullable",
             "topics.*.mtg_detail_id" => "integer|nullable",
+            "topics.*.from_memo" => "string|nullable",
+            "topics.*.to_memo" => "string|nullable",
         ];
     }
 }

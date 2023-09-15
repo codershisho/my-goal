@@ -17,7 +17,7 @@ class MtgDetailResource extends JsonResource
             "topic_id" => $this->topic_id,
             "topic_name" => $this->topic->name,
             "details" => self::$details,
-
+            "mtg_detail_id" => $this->id,
             "checked" => $this->topic_checked == 1 ? true : false,
             "selected" => $this->topic_detail_id,
             "from_memo" => $this->from_memo,

@@ -15,7 +15,7 @@
           @click="onClickRow(meeting)"
         >
           <td>{{ meeting.created_at }}</td>
-          <td>{{ meeting.status }}</td>
+          <td>{{ meeting.status_name }}</td>
           <td>
             {{ meeting.to_user_name }}
           </td>
@@ -27,18 +27,18 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { IMeeting } from '../../types/meeting'
+import { _IMeeting } from '../../types/meeting'
 import { fetchMeetings } from './ApiMeeting'
 import { useMeetingStore } from '../../stores/meeting'
 
 const meetingStore = useMeetingStore()
-const meetings = ref<IMeeting[]>()
+const meetings = ref<_IMeeting[]>()
 
 onMounted(async () => {
   meetings.value = await fetchMeetings()
 })
 
-const onClickRow = (meeting: IMeeting): void => {
+const onClickRow = (meeting: _IMeeting): void => {
   meetingStore.setSelectedMeetingId(meeting.mtg_id)
 }
 </script>
