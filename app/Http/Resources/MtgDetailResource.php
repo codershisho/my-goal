@@ -20,8 +20,8 @@ class MtgDetailResource extends JsonResource
             "mtg_detail_id" => $this->id,
             "checked" => $this->topic_checked == 1 ? true : false,
             "selected" => $this->topic_detail_id,
-            "from_memo" => $this->from_memo,
-            "to_memo" => $this->to_memo
+            "from_memo" => $this->from_memo ?? '',
+            "to_memo" => $this->to_memo ?? ''
         ];
     }
 

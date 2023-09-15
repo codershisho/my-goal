@@ -48,6 +48,8 @@
             ></v-radio>
           </template>
         </v-radio-group>
+        <TinyMCEMeeting v-model="detail.from_memo" />
+        <TinyMCEMeeting v-model="detail.to_memo" />
       </div>
     </div>
   </div>
@@ -66,6 +68,7 @@ import {
   updateMeeting,
 } from './ApiMeeting'
 import { _IUser } from '../../types/user'
+import TinyMCEMeeting from '../../components/TinyMCEMeeting.vue'
 
 const meetingStore = useMeetingStore()
 

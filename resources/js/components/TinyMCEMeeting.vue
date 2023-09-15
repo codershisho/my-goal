@@ -1,30 +1,18 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import Editor from '@tinymce/tinymce-vue'
 
-type memo = {
-  text: String
-  index: Number
-}
+const props = defineProps(['modelValue'])
+const emit = defineEmits(['update:modelValue'])
 
-interface Props {
-  text: String
-  index: number
-}
-interface Emits {
-  (e: 'changeMemo', editor: memo): void
-}
-
-const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
-const editor = ref(props.text)
-
-const blurMemo = () => {
-  emit('changeMemo', {
-    text: editor.value,
-    index: props.index,
-  })
-}
+const value = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    emit('update:modelValue', value)
+  },
+})
 
 // エディタのツールバー設定
 const editorToolbar = ref(
@@ -40,10 +28,7 @@ const editorInitObj = reactive({
       () => {
         editor.execCommand('Strikethrough', true, true)
       }
-    ),
-      editor.on('blur', (e: any) => {
-        blurMemo()
-      })
+    )
   },
   // リストの際にtabでインデント
   lists_indent_on_tab: true,
@@ -60,6 +45,6 @@ const editorInitObj = reactive({
     plugins="code lists"
     :toolbar="editorToolbar"
     :init="editorInitObj"
-    v-model="editor"
+    v-model="value"
   />
 </template>
