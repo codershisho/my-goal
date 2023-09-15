@@ -1,8 +1,16 @@
 <template>
   <div id="meeting-edit">
     <div class="header">
-      <div>日付{{ meetingBase.mtg_date }}</div>
-      <div>面談者{{ meetingBase.to_user_name }}</div>
+      <div>日付</div>
+      <VueDatePicker
+        format="yyyy-MM-dd"
+        week-start="0"
+        locale="ja"
+        :enable-time-picker="false"
+        auto-apply
+        model-type="yyyy-MM-dd"
+        v-model="meetingBase.mtg_date"
+      />
       <v-autocomplete
         label="面談者"
         :items="users"
