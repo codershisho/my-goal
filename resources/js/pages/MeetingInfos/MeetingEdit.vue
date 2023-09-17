@@ -58,9 +58,10 @@
         ></v-autocomplete>
       </div>
     </div>
-    <div class="body">
+    <div class="my-3 stickey-border"></div>
+    <div class="body stickey">
       <!-- {{ meetingDetails }} -->
-      <div v-for="(detail, i) in meetingDetails" :key="i" class="my-5">
+      <div v-for="(detail, i) in meetingDetails" :key="i" class="mb-5">
         <v-checkbox
           class="topic--base mb-1 pl-4"
           :label="detail.topic_name"
@@ -190,5 +191,20 @@ const save = async () => {
   background-color: rgba(var(--v-theme-subtopic), 1);
   color: rgba(var(--v-theme-textmain), 0.85);
   border-radius: 5px;
+}
+
+.stickey-border {
+  border-top: 1px solid rgb(177, 177, 177);
+}
+.stickey {
+  height: 100vh;
+  overflow-y: scroll !important;
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+}
+.stickey::-webkit-scrollbar {
+  display: none;
 }
 </style>

@@ -90,6 +90,6 @@ const save = async () => {
   background-color: rgba(var(--v-theme-secondary), 0.1);
   color: rgb(var(--v-theme-secondary));
   font-weight: 500;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 </style>
