@@ -6,7 +6,7 @@
       </v-card>
     </div>
     <div class="w-70 mr-2">
-      <v-card class="pa-6 card-wrapper">
+      <v-card class="card-wrapper">
         <MeetingEdit />
       </v-card>
     </div>
@@ -21,5 +21,11 @@ import MeetingEdit from './MeetingEdit.vue'
 <style>
 .card-wrapper {
   height: 88vh;
+  overflow-y: scroll !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.card-wrapper::-webkit-scrollbar {
+  display: none;
 }
 </style>

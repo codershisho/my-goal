@@ -1,6 +1,6 @@
 <template>
   <div id="meeting-edit">
-    <div class="header">
+    <div class="header pa-6">
       <div class="d-flex">
         <s-btn
           class="me-auto text-white"
@@ -57,9 +57,9 @@
           v-model="meetingBase.status"
         ></v-autocomplete>
       </div>
+      <div class="mt-4 stickey-border"></div>
     </div>
-    <div class="my-3 stickey-border"></div>
-    <div class="body stickey">
+    <div class="body pa-6">
       <!-- {{ meetingDetails }} -->
       <div v-for="(detail, i) in meetingDetails" :key="i" class="mb-5">
         <v-checkbox
@@ -69,32 +69,34 @@
           density="compact"
           hide-details
         ></v-checkbox>
-        <v-radio-group
-          v-model="detail.selected"
-          inline
-          density="compact"
-          hide-details
-        >
-          <template v-for="(topicDetail, j) in detail.details" :key="j">
-            <v-radio
-              class="pl-4 my-1"
-              style="width: 33%"
-              :label="topicDetail.name"
-              :value="topicDetail.id"
-              color="secondary"
-              density="compact"
-              hide-details
-            ></v-radio>
-          </template>
-        </v-radio-group>
-        <div class="pl-4 mt-5">
-          <div class="py-2 pl-2 mb-2 memo">自分用メモ</div>
-          <TinyMCEMeeting v-model="detail.from_memo" />
-        </div>
-        <div class="pl-4 mt-5">
-          <div class="py-2 pl-2 mb-2 memo">面談者メモ</div>
-          <TinyMCEMeeting v-model="detail.to_memo" />
-        </div>
+        <template v-if="detail.checked">
+          <v-radio-group
+            v-model="detail.selected"
+            inline
+            density="compact"
+            hide-details
+          >
+            <template v-for="(topicDetail, j) in detail.details" :key="j">
+              <v-radio
+                class="pl-4 my-1"
+                style="width: 33%"
+                :label="topicDetail.name"
+                :value="topicDetail.id"
+                color="secondary"
+                density="compact"
+                hide-details
+              ></v-radio>
+            </template>
+          </v-radio-group>
+          <div class="pl-4 mt-5">
+            <div class="py-2 pl-2 mb-2 memo">自分用メモ</div>
+            <TinyMCEMeeting v-model="detail.from_memo" />
+          </div>
+          <div class="pl-4 mt-5">
+            <div class="py-2 pl-2 mb-2 memo">面談者メモ</div>
+            <TinyMCEMeeting v-model="detail.to_memo" />
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -194,17 +196,14 @@ const save = async () => {
 }
 
 .stickey-border {
-  border-top: 1px solid rgb(177, 177, 177);
+  border-top: 1px solid rgb(216, 216, 216);
+  background-color: rgba(var(--v-theme-light), 1);
 }
-.stickey {
-  height: 100vh;
-  overflow-y: scroll !important;
-  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
-  -ms-overflow-style: none;
-  /*Firefoxへの対応*/
-  scrollbar-width: none;
-}
-.stickey::-webkit-scrollbar {
-  display: none;
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 210px;
+  background-color: rgba(var(--v-theme-light), 1);
 }
 </style>

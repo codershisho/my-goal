@@ -21,5 +21,10 @@ export const useMessageStore = defineStore('my-goal-message', {
       this._message.text = message
       this._message.level = level
     },
+    resetMessage() {
+      this._message.title = ''
+      this._message.text = ''
+      this._message.level = 0
+    },
   },
 })

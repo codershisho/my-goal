@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useAuthStore } from './stores/auth'
 import { useMessageStore } from './stores/message'
 import { useRouter } from 'vue-router'
@@ -21,14 +21,28 @@ const messageStore = useMessageStore()
 const router = useRouter()
 const darkTheme = ref(false)
 const theme = useTheme()
-const message = ref({
-  title: '',
-  text: '',
-})
-const snackbar = ref(false)
+
+const message = ref(
+  computed(() => {
+    return messageStore._message
+  })
+)
+
+const snackbar = ref(
+  computed({
+    get() {
+      return !!messageStore._message.text
+    },
+    set(val) {
+      messageStore.resetMessage()
+      return val
+    },
+  })
+)
 
 const attributes_snack = ref({
   'multi-line': true,
+  color: 'info',
 })
 
 const logout = async () => {
@@ -40,13 +54,9 @@ const onChange = () => {
   theme.global.name.value = darkTheme.value ? 'customDark' : 'customLight'
 }
 
-messageStore.$subscribe((mutation, state) => {
-  message.value.title = state._message.title
-  message.value.text = state._message.text
-  if (state._message.level != 0) {
-  }
-  snackbar.value = true
-})
+const closeSnack = () => {
+  messageStore.resetMessage()
+}
 </script>
 
 <template>
@@ -82,7 +92,7 @@ messageStore.$subscribe((mutation, state) => {
       v-model="snackbar"
       v-bind="attributes_snack"
       location="top right"
-      :timeout="1000"
+      :timeout="2000"
     >
       <div>
         {{ message.title }}
@@ -95,7 +105,7 @@ messageStore.$subscribe((mutation, state) => {
           density="compact"
           icon="mdi:mdi-close"
           size="small"
-          @click="snackbar = false"
+          @click="closeSnack"
         />
       </template>
     </v-snackbar>

@@ -50,7 +50,7 @@ class MeetingApi extends AbstractApi
     public function detail($id, DetailService $service)
     {
         $data = $service->execDetail($id);
-        return $this->setResponse($data);
+        return $this->setResponse($data, MessageConst::MESSAGE_001);
     }
 
     /**

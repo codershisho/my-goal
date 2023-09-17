@@ -17,7 +17,7 @@ const axiosPlugin = {
     // response
     axios.interceptors.response.use(
       (response) => {
-        messageStore.setMessage('success', response.data.message, 0)
+        messageStore.setMessage('', response.data.message, 0)
         return response
       },
       (error) => {

@@ -4,6 +4,10 @@ export const customLight = {
     primary: '#2962FF',
     // secondary
     secondary: '#01c0c8',
+    // info
+    info: '#66BB6A',
+    // accent
+    accent: '#FF7043',
     // new button color
     newbtn: '#00BFA5',
     // input属性の背景色
@@ -14,6 +18,8 @@ export const customLight = {
     textmain: '#202124',
     // サブトピック
     subtopic: '#e9e9e9',
+    // カード背景色
+    light: '#FFF',
   },
 }
 
