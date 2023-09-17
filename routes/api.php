@@ -20,9 +20,10 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('/my-goal/v1')->group(function () {
-    Route::prefix('/goals')->group(function () {
-        Route::get('/{term_id}', [App\Http\Controllers\GoalApi::class, 'index']);
-        Route::put('/{term_id}', [App\Http\Controllers\GoalApi::class, 'update']);
+    Route::prefix('/goals/{term_id}')->group(function () {
+        Route::get('/', [App\Http\Controllers\GoalApi::class, 'show']);
+        Route::post('/', [App\Http\Controllers\GoalApi::class, 'store']);
+        Route::put('/', [App\Http\Controllers\GoalApi::class, 'update']);
     });
 
     Route::prefix('/topics')->group(function () {
