@@ -61,8 +61,11 @@ const closeSnack = () => {
 
 <template>
   <v-app>
-    <v-app-bar v-if="authStore._isAuth" class="navi">
-      <v-app-bar-title class="text-textlight"> My Goal </v-app-bar-title>
+    <v-app-bar
+      v-if="authStore._isAuth"
+      :class="darkTheme ? `navi--dark` : 'navi--light'"
+    >
+      <v-app-bar-title class="text-textmain"> My Goal </v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="onChange">
         <v-icon
@@ -112,7 +115,7 @@ const closeSnack = () => {
   </v-app>
 </template>
 <style>
-.navi {
+.navi--light {
   background: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0.452),
@@ -120,5 +123,12 @@ const closeSnack = () => {
     ),
     url('https://source.unsplash.com/v8QdhKbOoC0') !important;
   background-size: cover !important;
+}
+
+.navi--dark {
+  background: linear-gradient(90deg, rgba(13, 13, 13, 0.44), rgba(0, 0, 0, 1)),
+    url('https://source.unsplash.com/35EIRn2T6FQ') !important;
+  background-size: cover !important;
+  background-position: -500px -200px;
 }
 </style>
