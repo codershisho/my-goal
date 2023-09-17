@@ -3,8 +3,8 @@ import { defineStore } from 'pinia'
 export const useMessageStore = defineStore('my-goal-message', {
   state: () => ({
     _message: {
-      title: null,
-      text: null,
+      title: '',
+      text: '',
       level: 0,
     },
   }),
@@ -16,7 +16,7 @@ export const useMessageStore = defineStore('my-goal-message', {
   },
 
   actions: {
-    setMessage(title, message, level) {
+    setMessage(title: string, message: string, level: number) {
       this._message.title = title
       this._message.text = message
       this._message.level = level

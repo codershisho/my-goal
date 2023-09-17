@@ -1,21 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import Dashboard from '@/pages/Dashboard.vue'
-import Login from '@/pages/Login/Index.vue'
-import MeetingInfos from '@/pages/MeetingInfos/MeetingInfos.vue'
+import GoalSetting from './pages/GoalSetting/GoalSetting.vue'
+import Login from './pages/Login/Index.vue'
+import MeetingInfos from './pages/MeetingInfos/MeetingInfos.vue'
 
 const routes = [
   { path: '/login', name: 'Login', component: Login },
   {
     path: '/',
-    name: 'Dashboard',
-    component: Dashboard,
+    name: 'GoalSetting',
+    component: GoalSetting,
     meta: {
       isAuthenticated: true,
     },
   },
   {
-    path: '/mtg/infos',
+    path: '/meeting',
     name: 'MeetingInfos',
     component: MeetingInfos,
     meta: {

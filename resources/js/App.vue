@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useAuthStore } from '@/stores/auth'
-import { useMessageStore } from '@/stores/message'
+import { useAuthStore } from './stores/auth'
+import { useMessageStore } from './stores/message'
 import { useRouter } from 'vue-router'
 import { useTheme } from 'vuetify'
 
@@ -13,7 +13,7 @@ type menu = {
 
 const links: Array<menu> = [
   { id: 1, name: 'ダッシュボード', url: '/' },
-  { id: 2, name: '面談情報', url: '/mtg/infos' },
+  { id: 2, name: '面談情報', url: '/meeting' },
 ]
 
 const authStore = useAuthStore()
@@ -21,7 +21,10 @@ const messageStore = useMessageStore()
 const router = useRouter()
 const darkTheme = ref(true)
 const theme = useTheme()
-const message = ref({})
+const message = ref({
+  title: '',
+  text: '',
+})
 const snackbar = ref(false)
 
 const attributes_snack = ref({
@@ -38,15 +41,11 @@ const onChange = () => {
 }
 
 messageStore.$subscribe((mutation, state) => {
-  if (state._message.text != '') {
-    message.value.title = state._message.title
-    message.value.text = state._message.text
-    attributes_snack.value.color = `second`
-    if (state._message.level != 0) {
-      attributes_snack.value.color = `accent`
-    }
-    snackbar.value = true
+  message.value.title = state._message.title
+  message.value.text = state._message.text
+  if (state._message.level != 0) {
   }
+  snackbar.value = true
 })
 </script>
 
@@ -82,31 +81,23 @@ messageStore.$subscribe((mutation, state) => {
     <v-snackbar
       v-model="snackbar"
       v-bind="attributes_snack"
-      class="snackbar"
       location="top right"
+      :timeout="1000"
     >
-      <div class="snackbar-title mb-1">
+      <div>
         {{ message.title }}
       </div>
-      <div class="snackbar-text">
+      <div>
         {{ message.text }}
       </div>
+      <template v-slot:actions>
+        <v-btn
+          density="compact"
+          icon="mdi:mdi-close"
+          size="small"
+          @click="snackbar = false"
+        />
+      </template>
     </v-snackbar>
   </v-app>
 </template>
-
-<style>
-.main {
-  margin-top: 20px;
-  padding-bottom: 20px !important;
-}
-.snackbar .snackbar-title {
-  font-size: 1.05rem;
-  font-weight: bold;
-  color: rgb(var(--v-theme-textmain));
-}
-.snackbar .snackbar-text {
-  font-size: 1.05rem;
-  color: rgb(var(--v-theme-textmain));
-}
-</style>
