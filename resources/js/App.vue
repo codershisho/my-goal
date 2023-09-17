@@ -19,7 +19,7 @@ const links: Array<menu> = [
 const authStore = useAuthStore()
 const messageStore = useMessageStore()
 const router = useRouter()
-const darkTheme = ref(true)
+const darkTheme = ref(false)
 const theme = useTheme()
 const message = ref({
   title: '',
@@ -51,31 +51,31 @@ messageStore.$subscribe((mutation, state) => {
 
 <template>
   <v-app>
-    <v-app-bar color="first">
-      <v-app-bar-title class="text-textlight"
-        >目標進捗管理ツール</v-app-bar-title
-      >
+    <v-app-bar v-if="authStore._isAuth" class="navi">
+      <v-app-bar-title class="text-textlight"> My Goal </v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="onChange">
         <v-icon
+          color="input"
           :icon="!darkTheme ? 'mdi:mdi-weather-night' : 'mdi:mdi-weather-sunny'"
         ></v-icon>
       </v-btn>
       <v-btn
-        class="mr-2 bg-first text-textlight"
-        variant="flat"
+        class="mr-2"
+        color="input"
+        variant="text"
         v-for="link in links"
         :key="link.id"
         :to="link.url"
       >
         {{ link.name }}
       </v-btn>
-      <v-btn color="grey" class="mr-2" variant="flat" @click="logout">
+      <v-btn class="mr-2" color="input" variant="text" @click="logout">
         ログアウト
       </v-btn>
     </v-app-bar>
 
-    <v-main class="main px-16 bg-back">
+    <v-main>
       <router-view></router-view>
     </v-main>
     <v-snackbar
@@ -101,3 +101,14 @@ messageStore.$subscribe((mutation, state) => {
     </v-snackbar>
   </v-app>
 </template>
+<style>
+.navi {
+  background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.452),
+      rgba(107, 130, 227, 0.71)
+    ),
+    url('https://source.unsplash.com/v8QdhKbOoC0') !important;
+  background-size: cover !important;
+}
+</style>

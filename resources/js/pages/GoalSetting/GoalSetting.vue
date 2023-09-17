@@ -1,22 +1,36 @@
 <template>
-  <div id="goal-setting">
-    <div class="header">
-      <v-autocomplete
-        label="期選択"
-        :items="terms"
-        item-value="id"
-        item-title="name"
-        v-model="goal.term_id"
-        @update:modelValue="selected"
-      ></v-autocomplete>
-      <v-btn @click="save">保存</v-btn>
+  <div class="page goal-setting">
+    <div class="d-flex align-center">
+      <div class="w-25">
+        <v-autocomplete
+          variant="outlined"
+          label="期選択"
+          :items="terms"
+          item-value="id"
+          item-title="name"
+          bg-color="input"
+          hide-details
+          density="compact"
+          v-model="goal.term_id"
+          @update:modelValue="selected"
+        ></v-autocomplete>
+      </div>
+      <div class="w-25 ml-5">
+        <s-btn
+          preicon="fa-regular fa-floppy-disk"
+          label="保存"
+          color="primary"
+          width="150"
+          @click="save"
+        />
+      </div>
     </div>
     <div class="body">
-      <div>部目標</div>
+      <div class="text-xl pa-4 my-2">部目標</div>
       <TinyMCEMeeting v-model="goal.goal_department" />
-      <div>目標１</div>
+      <div class="text-xl pa-4 my-2">目標１</div>
       <TinyMCEMeeting v-model="goal.goal_first" />
-      <div>目標２</div>
+      <div class="text-xl pa-4 my-2">目標２</div>
       <TinyMCEMeeting v-model="goal.goal_secound" />
     </div>
   </div>
@@ -70,3 +84,12 @@ const save = async () => {
   await search()
 }
 </script>
+
+<style>
+.goal-setting > .body > div {
+  background-color: rgba(var(--v-theme-secondary), 0.1);
+  color: rgb(var(--v-theme-secondary));
+  font-weight: 500;
+  border-radius: 5px;
+}
+</style>

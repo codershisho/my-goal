@@ -21,30 +21,42 @@ async function login() {
 }
 </script>
 <template>
-  <v-sheet
-    class="pa-10 mx-auto background--img"
-    :elevation="2"
-    rounded="lg"
-    :width="600"
-    :height="500"
-  >
-    <s-text v-model="credentials.email" label="ユーザー名" placeholder="bbb" />
-    <s-text
-      v-model="credentials.password"
-      label="パスワード"
-      placeholder="password"
-    />
-    <s-btn label="ログイン" block @click="login" />
-  </v-sheet>
+  <div class="login w-100 h-100">
+    <div class="d-flex justify-center">
+      <div class="w-50 mt-16">
+        <s-text
+          v-model="credentials.email"
+          label="ユーザー名"
+          placeholder="bbb"
+        />
+        <s-text
+          v-model="credentials.password"
+          label="パスワード"
+          placeholder="password"
+        />
+        <v-btn
+          class="mt-6"
+          block
+          size="x-large"
+          variant="tonal"
+          color="white"
+          @click="login"
+        >
+          ログイン
+        </v-btn>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style>
-.background--img {
+.login {
   background: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0.452),
-      rgba(116, 41, 104, 0.692)
+      rgba(57, 54, 93, 0.692)
     ),
-    url('https://source.unsplash.com/Ml8WeLdCnRU');
+    url('https://source.unsplash.com/fzOITuS1DIQ') !important;
+  background-size: cover !important;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-btn v-bind="$attrs" rounded="xl" variant="outlined">
+  <v-btn v-bind="$attrs" :prepend-icon="preicon" variant="flat">
     {{ label }}
   </v-btn>
 </template>
@@ -9,5 +9,5 @@ defineOptions({
   inheritAttrs: false,
 })
 
-defineProps(['label'])
+defineProps(['label', 'preicon'])
 </script>

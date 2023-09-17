@@ -1,8 +1,25 @@
 <template>
   <div id="meeting-edit">
     <div class="header">
-      <div>日付</div>
+      <div class="d-flex">
+        <s-btn
+          class="me-auto text-white"
+          preicon="fa-solid fa-plus"
+          label="新規"
+          color="newbtn"
+          width="150"
+          @click="create"
+        />
+        <s-btn
+          preicon="fa-regular fa-floppy-disk"
+          label="保存"
+          color="primary"
+          width="150"
+          @click="save"
+        />
+      </div>
       <VueDatePicker
+        class="w-50 mt-5"
         format="yyyy-MM-dd"
         week-start="0"
         locale="ja"
@@ -11,45 +28,72 @@
         model-type="yyyy-MM-dd"
         v-model="meetingBase.mtg_date"
       />
-      <v-autocomplete
-        label="面談者"
-        :items="users"
-        item-value="id"
-        item-title="name"
-        v-model="meetingBase.to_user_id"
-      ></v-autocomplete>
-      <v-autocomplete
-        label="ステータス"
-        :items="[
-          { id: 0, name: '未実施' },
-          { id: 1, name: '実施済み' },
-        ]"
-        item-value="id"
-        item-title="name"
-        v-model="meetingBase.status"
-      ></v-autocomplete>
-      <div>
-        <v-btn @click="create">新規</v-btn>
-        <v-btn @click="save">保存</v-btn>
+      <div class="d-flex mt-5">
+        <v-autocomplete
+          class="w-25"
+          label="面談者"
+          :items="users"
+          item-value="id"
+          item-title="name"
+          variant="outlined"
+          bg-color="input"
+          density="compact"
+          hide-details
+          v-model="meetingBase.to_user_id"
+        ></v-autocomplete>
+        <v-autocomplete
+          class="w-25 ml-5"
+          label="ステータス"
+          :items="[
+            { id: 0, name: '未実施' },
+            { id: 1, name: '実施済み' },
+          ]"
+          item-value="id"
+          item-title="name"
+          variant="outlined"
+          bg-color="input"
+          density="compact"
+          hide-details
+          v-model="meetingBase.status"
+        ></v-autocomplete>
       </div>
     </div>
     <div class="body">
       <!-- {{ meetingDetails }} -->
-      <div v-for="(detail, i) in meetingDetails" :key="i">
+      <div v-for="(detail, i) in meetingDetails" :key="i" class="my-5">
         <v-checkbox
+          class="topic--base mb-1 pl-4"
           :label="detail.topic_name"
           v-model="detail.checked"
+          density="compact"
+          hide-details
         ></v-checkbox>
-        <v-radio-group v-model="detail.selected">
+        <v-radio-group
+          v-model="detail.selected"
+          inline
+          density="compact"
+          hide-details
+        >
           <template v-for="(topicDetail, j) in detail.details" :key="j">
             <v-radio
+              class="pl-4 my-1"
+              style="width: 33%"
               :label="topicDetail.name"
               :value="topicDetail.id"
+              color="secondary"
+              density="compact"
+              hide-details
             ></v-radio>
           </template>
         </v-radio-group>
-        <TinyMCEMeeting v-model="detail.from_memo" />
-        <TinyMCEMeeting v-model="detail.to_memo" />
+        <div class="pl-4 mt-5">
+          <div class="py-2 pl-2 mb-2 memo">自分用メモ</div>
+          <TinyMCEMeeting v-model="detail.from_memo" />
+        </div>
+        <div class="pl-4 mt-5">
+          <div class="py-2 pl-2 mb-2 memo">面談者メモ</div>
+          <TinyMCEMeeting v-model="detail.to_memo" />
+        </div>
       </div>
     </div>
   </div>
@@ -134,3 +178,17 @@ const save = async () => {
   await updateMeeting(data)
 }
 </script>
+
+<style>
+.topic--base {
+  background-color: rgba(var(--v-theme-secondary), 0.1);
+  color: rgb(var(--v-theme-secondary));
+  font-weight: 500;
+  border-radius: 5px;
+}
+.memo {
+  background-color: rgba(var(--v-theme-subtopic), 1);
+  color: rgba(var(--v-theme-textmain), 0.85);
+  border-radius: 5px;
+}
+</style>

@@ -1,8 +1,17 @@
 <template>
-  <div>
+  <div class="text-xl text-white mb-2">
     {{ label }}
   </div>
-  <v-text-field v-bind="$attrs" v-model="value" variant="outlined" clearable>
+  <v-text-field
+    v-bind="$attrs"
+    v-model="value"
+    variant="outlined"
+    clearable
+    bg-color="input"
+  >
+    <template v-slot:prepend-inner>
+      <v-icon :icon="preicon" :size="15" />
+    </template>
   </v-text-field>
 </template>
 <script setup lang="ts">
@@ -12,7 +21,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps(['modelValue', 'label'])
+const props = defineProps(['modelValue', 'label', 'preicon'])
 const emit = defineEmits(['update:modelValue'])
 
 const value = computed({

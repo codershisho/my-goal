@@ -1,3 +1,63 @@
 :root {
   font-family: 'Noto Sans JP', sans-serif;
 }
+
+.page {
+  padding: 2% 6%;
+  background-color: rgb(var(--v-theme-back));
+}
+
+/*:::::::::::::::::::::::::::::::
+ * text
+ *:::::::::::::::::::::::::::::::*/
+.text-xs {
+  font-size: 0.75rem; /* 12px */
+  line-height: 1rem; /* 16px */
+}
+.text-sm {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+}
+.text-base {
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+}
+.text-lg {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+}
+.text-xl {
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+}
+
+/*:::::::::::::::::::::::::::::::
+ * width
+ *:::::::::::::::::::::::::::::::*/
+.w-30 {
+  width: 30%;
+}
+.w-33 {
+  width: 33%;
+}
+.w-35 {
+  width: 35%;
+}
+.w-65 {
+  width: 65%;
+}
+.w-70 {
+  width: 70%;
+}
+/*:::::::::::::::::::::::::::::::
+ * radio button label
+ *:::::::::::::::::::::::::::::::*/
+.v-radio-group label {
+  padding-left: 8px;
+  color: rgb(var(--v-theme-textmain));
+  opacity: 1;
+}
+
+button > span.v-btn__prepend > i {
+  margin-top: -3px;
+}

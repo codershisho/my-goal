@@ -1,18 +1,19 @@
 export const customLight = {
   colors: {
-    // first: '#5A81FA',
-    // second: '#2C3D8F',
-    // third: '#CDDEFF',
-    // accent: '#fbafaf',
-    // backinput: '#F2F5FF',
-    // back: '#eaeaea',
-    // backSub: '#FFFFFF',
-    // textmain: '#6A6E83',
-    // textsub: '#A8B1CE',
-    // textlight: '#F8F9FD',
-    // icon: '#5A81FA',
-    // frommemo: '#d5e7ff',
-    // tomemo: '#f9f9f9',
+    // primary
+    primary: '#2962FF',
+    // secondary
+    secondary: '#01c0c8',
+    // new button color
+    newbtn: '#00BFA5',
+    // input属性の背景色
+    input: '#FFF',
+    // 背景色
+    back: '#eef0ff',
+    // デフォルトテキスト
+    textmain: '#202124',
+    // サブトピック
+    subtopic: '#e9e9e9',
   },
 }
 
