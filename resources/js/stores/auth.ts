@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
 
 export const useAuthStore = defineStore('my-goal-auth', {
   state: () => ({
@@ -17,9 +16,8 @@ export const useAuthStore = defineStore('my-goal-auth', {
   },
   actions: {
     async login(credentials) {
-      const router = useRouter()
       if (this._isAuth) {
-        router.replace({ name: 'Dashboard' })
+        this.router.push('/')
         return
       }
       await axios.get('/sanctum/csrf-cookie')

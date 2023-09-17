@@ -17,49 +17,34 @@ const credentials = reactive<{ email: string; password: string }>({
  */
 async function login() {
   await authStore.login(credentials)
-  router.replace({ name: 'Dashboard' })
+  router.push('/')
 }
 </script>
 <template>
   <v-sheet
-    class="pa-10 mx-auto login-wrap bg-backSub"
+    class="pa-10 mx-auto background--img"
     :elevation="2"
     rounded="lg"
     :width="600"
     :height="500"
   >
-    <div class="label text-textmain">ユーザー名</div>
-    <v-text-field
-      bg-color="backinput"
-      placeholder="e-mail"
-      variant="outlined"
-      v-model="credentials.email"
-    ></v-text-field>
-    <div class="label text-textmain">パスワード</div>
-    <v-text-field
-      bg-color="backinput"
-      placeholder="password"
-      variant="outlined"
+    <s-text v-model="credentials.email" label="ユーザー名" placeholder="bbb" />
+    <s-text
       v-model="credentials.password"
-    ></v-text-field>
-    <v-btn
-      class="w-100"
-      style="height: 60px"
-      color="second"
-      rounded="xl"
-      @click="login"
-    >
-      <div class="label-btn text-textlight">ログイン</div>
-    </v-btn>
+      label="パスワード"
+      placeholder="password"
+    />
+    <s-btn label="ログイン" block @click="login" />
   </v-sheet>
 </template>
 
 <style>
-.login-wrap .label {
-  font-size: 1.25rem;
-  margin-bottom: 0.85rem;
-}
-.login-wrap .label-btn {
-  font-size: 1.25rem;
+.background--img {
+  background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.452),
+      rgba(116, 41, 104, 0.692)
+    ),
+    url('https://source.unsplash.com/Ml8WeLdCnRU');
 }
 </style>
