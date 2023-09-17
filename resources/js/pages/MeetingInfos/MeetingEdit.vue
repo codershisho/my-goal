@@ -18,20 +18,23 @@
           @click="save"
         />
       </div>
-      <VueDatePicker
-        class="w-50 mt-5"
-        format="yyyy-MM-dd"
-        week-start="0"
-        locale="ja"
-        :enable-time-picker="false"
-        auto-apply
-        model-type="yyyy-MM-dd"
-        v-model="meetingBase.mtg_date"
-      />
-      <div class="d-flex mt-5">
+      <div class="d-flex align-center">
+        <div class="text-textmain mr-9 mt-4 text-lg">日付</div>
+        <VueDatePicker
+          class="w-50 mt-5"
+          format="yyyy-MM-dd"
+          week-start="0"
+          locale="ja"
+          :enable-time-picker="false"
+          auto-apply
+          model-type="yyyy-MM-dd"
+          v-model="meetingBase.mtg_date"
+        />
+      </div>
+      <div class="d-flex mt-5 align-center">
+        <div class="text-textmain mr-5 text-lg">面談者</div>
         <v-autocomplete
           class="w-25"
-          label="面談者"
           :items="users"
           item-value="id"
           item-title="name"
@@ -41,9 +44,9 @@
           hide-details
           v-model="meetingBase.to_user_id"
         ></v-autocomplete>
+        <div class="text-textmain mx-5 text-lg">ステータス</div>
         <v-autocomplete
-          class="w-25 ml-5"
-          label="ステータス"
+          class="w-25"
           :items="[
             { id: 0, name: '未実施' },
             { id: 1, name: '実施済み' },

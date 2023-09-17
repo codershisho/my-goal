@@ -19,7 +19,7 @@ const links: Array<menu> = [
 const authStore = useAuthStore()
 const messageStore = useMessageStore()
 const router = useRouter()
-const darkTheme = ref(false)
+const darkTheme = ref(true)
 const theme = useTheme()
 
 const message = ref(

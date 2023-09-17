@@ -1,10 +1,10 @@
 <template>
   <div class="page goal-setting">
-    <div class="d-flex align-center">
+    <div class="d-flex align-end">
       <div class="w-25">
+        <div class="text-textmain mr-5 text-lg">期選択</div>
         <v-autocomplete
           variant="outlined"
-          label="期選択"
           :items="terms"
           item-value="id"
           item-title="name"
@@ -87,7 +87,7 @@ const save = async () => {
 
 <style>
 .goal-setting > .body > div {
-  background-color: rgba(var(--v-theme-secondary), 0.1);
+  background-color: rgba(var(--v-theme-secondary), 0.3);
   color: rgb(var(--v-theme-secondary));
   font-weight: 500;
   border-radius: 20px;

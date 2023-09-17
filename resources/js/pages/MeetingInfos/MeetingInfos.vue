@@ -1,12 +1,12 @@
 <template>
   <div class="page meeting-setting d-flex">
     <div class="w-30 mr-2">
-      <v-card class="pa-6 card-wrapper">
+      <v-card class="pa-6 card-wrapper bg-light">
         <MeetingInfosTable />
       </v-card>
     </div>
-    <div class="w-70 mr-2">
-      <v-card class="card-wrapper">
+    <div class="w-70 mr-2 bg-light">
+      <v-card class="card-wrapper bg-light">
         <MeetingEdit />
       </v-card>
     </div>

@@ -7,12 +7,12 @@
     density="compact"
     preicon="fa-solid fa-magnifying-glass"
   />
-  <v-table class="meeting-table">
+  <v-table class="meeting-table bg-light">
     <thead>
       <tr>
-        <th>日付</th>
-        <th>ステータス</th>
-        <th>面談した人</th>
+        <th class="text-textmain">日付</th>
+        <th class="text-textmain">ステータス</th>
+        <th class="text-textmain">面談した人</th>
       </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
       >
         <td>{{ meeting.created_at }}</td>
         <td>
-          <v-chip :color="meeting.status == 1 ? '#607D8B' : 'primary'">
+          <v-chip :color="meeting.status == 1 ? '#607D8B' : 'accent'">
             {{ meeting.status_name }}
           </v-chip>
         </td>
