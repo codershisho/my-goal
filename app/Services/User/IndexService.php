@@ -14,6 +14,11 @@ class IndexService
         $this->repo = $repo;
     }
 
+    /**
+     * ユーザー一覧を返す
+     *
+     * @return void
+     */
     public function execIndex()
     {
         $data = $this->repo->all();

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Const\MessageConst;
 use App\Interfaces\IGoalRepository;
 use App\Models\TGoal;
 use Exception;
@@ -34,7 +35,7 @@ class GoalRepository implements IGoalRepository
         $m = $this->findByLoginUser($termId);
 
         if (empty($m)) {
-            throw new Exception("更新対象データが存在しません");
+            throw new Exception(MessageConst::MESSAGE_100);
         }
 
         $m->fill($model);

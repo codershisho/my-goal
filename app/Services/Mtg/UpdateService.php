@@ -15,6 +15,12 @@ class UpdateService
         $this->repo = $repo;
     }
 
+    /**
+     * ミーティング情報を更新
+     *
+     * @param array $params
+     * @return void
+     */
     public function execUpdate(array $params)
     {
         try {
@@ -28,7 +34,7 @@ class UpdateService
                 'to_user_id' => $params['to_user_id'],
             ];
 
-            $this->repo->updateMtg($model);
+            $this->repo->updateMeetingBase($model);
 
             // t_mtg_detailの登録
             collect($params['topics'])->each(function ($topic) {

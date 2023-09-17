@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TermRepository implements ITermRepository
 {
-    public function index(): Collection
+    public function all(): Collection
     {
         return MTerm::all();
     }

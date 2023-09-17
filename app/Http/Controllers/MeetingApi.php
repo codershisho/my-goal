@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Const\MessageConst;
 use App\Http\Requests\MtgStoreRequest;
 use App\Services\Mtg\IndexService;
 use App\Services\Mtg\BaseSerivice;
@@ -23,7 +24,7 @@ class MeetingApi extends AbstractApi
     public function index(IndexService $service)
     {
         $data = $service->execIndex();
-        return $this->setResponse($data, "検索完了");
+        return $this->setResponse($data, MessageConst::MESSAGE_001);
     }
 
     /**
@@ -36,7 +37,7 @@ class MeetingApi extends AbstractApi
     public function base($id, BaseSerivice $service)
     {
         $data = $service->execBase($id);
-        return $this->setResponse($data, "検索完了");
+        return $this->setResponse($data, MessageConst::MESSAGE_001);
     }
 
     /**
@@ -61,8 +62,8 @@ class MeetingApi extends AbstractApi
      */
     public function store(MtgStoreRequest $request, StoreService $service)
     {
-        $service->execStore($request);
-        return $this->setResponseMessage("登録完了");
+        $service->execStore($request->all());
+        return $this->setResponseMessage(MessageConst::MESSAGE_002);
     }
 
     /**
@@ -75,6 +76,6 @@ class MeetingApi extends AbstractApi
     public function update(MtgStoreRequest $request, UpdateService $service)
     {
         $service->execUpdate($request->all());
-        return $this->setResponseMessage("更新完了");
+        return $this->setResponseMessage(MessageConst::MESSAGE_003);
     }
 }

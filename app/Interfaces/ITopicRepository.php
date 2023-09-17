@@ -9,14 +9,14 @@ interface ITopicRepository
     /**
      * m_topicsの全件検索
      *
-     * @return Collection
+     * @return Collection<MTopic>
      */
     public function all(): Collection;
 
     /**
      * m_topic_detailsの全件検索
      *
-     * @return Collection
+     * @return Collection<MTopicDetail>
      */
     public function allDetails(): Collection;
 }

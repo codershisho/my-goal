@@ -14,9 +14,15 @@ class BaseSerivice
         $this->repo = $repo;
     }
 
+    /**
+     * 指定されたt_mtgsの情報を返す
+     *
+     * @param [type] $id
+     * @return MtgResource
+     */
     public function execBase($id)
     {
-        $data = $this->repo->findOfMtg($id);
+        $data = $this->repo->findMeetingBaseById($id);
         return new MtgResource($data);
     }
 }

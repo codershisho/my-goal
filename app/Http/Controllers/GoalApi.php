@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Const\MessageConst;
 use App\Services\Goal\IndexService;
 use App\Services\Goal\ShowService;
 use App\Services\Goal\StoreService;
@@ -21,7 +22,7 @@ class GoalApi extends AbstractApi
     public function index(int $termId, IndexService $service)
     {
         $data = $service->execIndex($termId);
-        return $this->setResponse($data, "検索完了");
+        return $this->setResponse($data, MessageConst::MESSAGE_001);
     }
 
     /**
@@ -34,7 +35,7 @@ class GoalApi extends AbstractApi
     public function show(int $term_id, ShowService $service)
     {
         $data = $service->execShow($term_id);
-        return $this->setResponse($data, "検索完了");
+        return $this->setResponse($data, MessageConst::MESSAGE_001);
     }
 
     /**
@@ -47,8 +48,8 @@ class GoalApi extends AbstractApi
      */
     public function store(int $term_id, Request $request, StoreService $service)
     {
-        $data = $service->execCreate($term_id, $request->all());
-        return $this->setResponse($data, "検索完了");
+        $service->execCreate($term_id, $request->all());
+        return $this->setResponse(MessageConst::MESSAGE_002);
     }
 
     /**
@@ -62,6 +63,6 @@ class GoalApi extends AbstractApi
     public function update(int $termId, Request $request, UpdateService $service)
     {
         $service->execUpdate($termId, $request->all());
-        return $this->setResponseMessage("更新完了");
+        return $this->setResponseMessage(MessageConst::MESSAGE_003);
     }
 }

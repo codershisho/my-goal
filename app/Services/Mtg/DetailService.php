@@ -18,9 +18,16 @@ class DetailService
         $this->trepo = $trepo;
     }
 
-    public function execDetail($id)
+    /**
+     * ミーティングIDに紐づくミーティング詳細を返す
+     * - トピック情報も付加して返す
+     *
+     * @param int $meetingId
+     * @return MtgDetailResource[]
+     */
+    public function execDetail($meetingId)
     {
-        $meetingDetails = $this->repo->findMeetingDetails($id);
+        $meetingDetails = $this->repo->findMeetingDetailsByMeetingId($meetingId);
         $topicDetails = $this->trepo->allDetails();
 
         MtgDetailResource::setTopicDetails($topicDetails);

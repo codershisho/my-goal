@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Const\MessageConst;
 use App\Interfaces\IMtgRepository;
 use App\Models\TMtg;
 use App\Models\TMtgDetail;
@@ -11,7 +12,23 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MtgRepository implements IMtgRepository
 {
-    public function storeMtg($model): TMtg
+    public function findMettingsByLoginUser(): Collection
+    {
+        $data = TMtg::with(['fromUser', 'toUser'])->get();
+        return $data->where('from_user_id', Auth::id());
+    }
+
+    public function findMeetingBaseById($meetingId): TMtg
+    {
+        return TMtg::find($meetingId);
+    }
+
+    public function findMeetingDetailsByMeetingId($meetingId): Collection
+    {
+        return TMtgDetail::with(['topic'])->where('mtg_id', $meetingId)->get();
+    }
+
+    public function createMeetingBase($model): TMtg
     {
         $m = new TMtg();
         $m->fill($model);
@@ -20,66 +37,31 @@ class MtgRepository implements IMtgRepository
         return $m;
     }
 
-    public function storeMtgDetail($model): void
+    public function createMeetingDetail($model): void
     {
         $m = new TMtgDetail();
         $m->fill($model);
         $m->save();
     }
 
-    public function duplicateMtg($model): bool
+    public function updateMeetingBase($model): void
     {
-        $data = TMtg::where('mtg_date', $model['mtg_date'])
-            ->where('from_user_id', $model['from_user_id'])
-            ->where('to_user_id', $model['to_user_id'])
-            ->count();
-
-        if ($data > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    public function all(): Collection
-    {
-        $data = TMtg::with(['fromUser', 'toUser'])->get();
-
-        return $data->where('from_user_id', Auth::id());
-    }
-
-    public function findOfMtg($id): TMtg
-    {
-        return TMtg::find($id);
-    }
-
-    public function findMeetingDetails($id): Collection
-    {
-        return TMtgDetail::with(['topic'])->where('mtg_id', $id)->get();
-    }
-
-    public function findOfMtgDetail($id): TMtgDetail
-    {
-        return TMtgDetail::find($id);
-    }
-
-    public function updateMtg($model)
-    {
-        $m = $this->findOfMtg($model['id']);
+        $m = $this->findMeetingBaseById($model['id']);
 
         if (!isset($m)) {
-            throw new Exception("更新対象が存在しません");
+            throw new Exception(MessageConst::MESSAGE_100);
         }
 
         $m->fill($model);
         $m->save();
     }
 
-    public function updateMtgDetail($model)
+    public function updateMtgDetail($model): void
     {
-        $m = $this->findOfMtgDetail($model['id']);
+        $m = TMtgDetail::find($model['id']);
 
         if (!isset($m)) {
-            throw new Exception("更新対象が存在しません");
+            throw new Exception(MessageConst::MESSAGE_100);
         }
 
         $m->fill($model);

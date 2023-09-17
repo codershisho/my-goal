@@ -17,11 +17,11 @@ class IndexService
     /**
      * 期の一覧を検索して返す
      *
-     * @return void
+     * @return TermResource[]
      */
     public function execIndex()
     {
-        $data = $this->repo->index();
+        $data = $this->repo->all();
         return TermResource::collection($data);
     }
 }

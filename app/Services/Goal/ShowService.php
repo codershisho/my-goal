@@ -2,6 +2,7 @@
 
 namespace App\Services\Goal;
 
+use App\Http\Resources\GoalResource;
 use App\Interfaces\IGoalRepository;
 
 class ShowService
@@ -22,6 +23,6 @@ class ShowService
     public function execShow($termId)
     {
         $data = $this->repo->findByLoginUser($termId);
-        return $data;
+        return new GoalResource($data);
     }
 }

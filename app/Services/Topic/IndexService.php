@@ -20,7 +20,7 @@ class IndexService
     /**
      * m_topicsの全件検索
      *
-     * @return void
+     * @return TopicsResource[]
      */
     public function execIndex()
     {

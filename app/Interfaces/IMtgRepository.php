@@ -9,65 +9,83 @@ use Illuminate\Database\Eloquent\Collection;
 interface IMtgRepository
 {
     /**
-     * MTGの登録
-     *
-     * @param [type] $model
-     * @return TMtg
-     */
-    public function storeMtg($model): TMtg;
-
-    /**
-     * MTG詳細の登録
-     *
-     * @param int $mtgId
-     * @param [type] $model
-     * @return void
-     */
-    public function storeMtgDetail($model): void;
-
-    /**
-     * 作成しようとしているMTGに重複するデータがないかチェック
-     *
-     * @return boolean
-     */
-    public function duplicateMtg($model): bool;
-
-    /**
      * ログイン者に紐づくMTG一覧を検索
      *
      * @return Collection
      */
-    public function all(): Collection;
+    public function findMettingsByLoginUser(): Collection;
 
     /**
-     * t_mtgの単純なfind
+     * t_mtgsのid検索
      *
-     * @param [type] $id
+     * @param int $meetingId
      * @return TMtg
      */
-    public function findOfMtg($id): TMtg;
+    public function findMeetingBaseById($meetingId): TMtg;
 
     /**
      * t_mtg_detailsのid検索
      *
-     * @param [type] $id
+     * @param int $meetingId
      * @return Collection
      */
-    public function findMeetingDetails($id): Collection;
+    public function findMeetingDetailsByMeetingId($meetingId): Collection;
 
     /**
-     * MTGの更新
+     * t_mtgsへ新規登録
      *
-     * @param [type] $model
-     * @return void
+     * @param array{
+     *   mtg_date: string,
+     *   status: int,
+     *   from_user_id: int,
+     *   to_user_id: int
+     * } $model
+     *
+     * @return TMtg
      */
-    public function updateMtg($model);
+    public function createMeetingBase($model): TMtg;
 
     /**
-     * MTG詳細の更新
+     * t_mtg_detalsへ新規登録
      *
-     * @param [type] $model
+     * @param array{
+     *   mtg_id:int,
+     *   topic_id:int,
+     *   topic_checked:int,
+     *   topic_detail_id:int,
+     *   from_memo:string,
+     *   to_memo:string,
+     * } $model
      * @return void
      */
-    public function updateMtgDetail($model);
+    public function createMeetingDetail($model): void;
+
+    /**
+     * t_mtgsの更新
+     *
+     * @param array{
+     *   id: int,
+     *   mtg_date: string,
+     *   status: int,
+     *   from_user_id: int,
+     *   to_user_id: int
+     * } $model
+     * @return void
+     */
+    public function updateMeetingBase($model): void;
+
+    /**
+     * t_mtg_detalsの更新
+     *
+     * @param array{
+     *   id: int,
+     *   topic_id:int,
+     *   topic_checked:int,
+     *   topic_detail_id:int,
+     *   from_memo:string,
+     *   to_memo:string,
+     * } $model
+     * @return void
+     */
+    public function updateMtgDetail($model): void;
 }

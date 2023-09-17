@@ -9,7 +9,7 @@ interface ITermRepository
     /**
      * m_termsの全件検索
      *
-     * @return Collection
+     * @return Collection<MTerm>
      */
-    public function index(): Collection;
+    public function all(): Collection;
 }

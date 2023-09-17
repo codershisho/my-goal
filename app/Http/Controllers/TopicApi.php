@@ -19,6 +19,6 @@ class TopicApi extends AbstractApi
     public function index(IndexService $service)
     {
         $data = $service->execIndex();
-        return $this->setResponse($data, "検索完了");
+        return $this->setResponse($data);
     }
 }
