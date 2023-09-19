@@ -1,3 +1,14 @@
+## 環境構築
+
+- clone
+- env のコピー
+  - .env.example -> .env
+- composer install
+- php artisan key:generate
+- npm install
+- npm run dev
+- [画面確認](http://localhost/login)
+
 ## TinyMCE 導入方法
 
 - [リンク](https://www.tiny.cloud/docs/tinymce/6/vue-pm/)

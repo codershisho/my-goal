@@ -2,8 +2,15 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\MTerm;
+use App\Models\MTopic;
+use App\Models\MTopicDetail;
+use App\Models\TGoal;
+use App\Models\TMtg;
+use App\Models\TMtgDetail;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +21,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Schema::disableForeignKeyConstraints();
+        // truncate
+        User::truncate();
+        MTerm::truncate();
+        MTopic::truncate();
+        MTopicDetail::truncate();
+        TGoal::truncate();
+        TMtg::truncate();
+        TMtgDetail::truncate();
+        Schema::enableForeignKeyConstraints();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // create
+        $this->call(UserSeeder::class);
+        $this->call(MTermsTableSeeder::class);
+        $this->call(MTopicsTableSeeder::class);
+        $this->call(MTopicDetailsTableSeeder::class);
     }
 }

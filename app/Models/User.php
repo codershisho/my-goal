@@ -41,4 +41,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | リレーション
+    |--------------------------------------------------------------------------
+    */
+    public function goals()
+    {
+        return $this->hasMany('App\Models\TGoal');
+    }
+
+    public function goalDetails()
+    {
+        return $this->hasMany('App\Models\TGoalDetail');
+    }
 }
