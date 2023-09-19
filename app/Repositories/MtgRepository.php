@@ -2,49 +2,69 @@
 
 namespace App\Repositories;
 
+use App\Const\MessageConst;
 use App\Interfaces\IMtgRepository;
 use App\Models\TMtg;
 use App\Models\TMtgDetail;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 class MtgRepository implements IMtgRepository
 {
-    public function storeMtg($model): TMtg
+    public function findMettingsByLoginUser(): Collection
     {
-        try {
-            DB::beginTransaction();
+        $data = TMtg::with(['fromUser', 'toUser'])->get();
+        return $data->where('from_user_id', Auth::id());
+    }
 
-            $m = new TMtg();
-            $m->fill($model);
-            $m->save();
+    public function findMeetingBaseById($meetingId): TMtg
+    {
+        return TMtg::find($meetingId);
+    }
 
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            throw $th;
-        }
+    public function findMeetingDetailsByMeetingId($meetingId): Collection
+    {
+        return TMtgDetail::with(['topic'])->where('mtg_id', $meetingId)->get();
+    }
+
+    public function createMeetingBase($model): TMtg
+    {
+        $m = new TMtg();
+        $m->fill($model);
+        $m->save();
+
         return $m;
     }
 
-    public function storeMtgDetail(int $mtgId, $model): void
+    public function createMeetingDetail($model): void
     {
-        try {
-            DB::beginTransaction();
+        $m = new TMtgDetail();
+        $m->fill($model);
+        $m->save();
+    }
 
-            // ラジオボタンが未選択のデータは登録しない
-            if (!isset($model['topic_detail_id'])) {
-                return;
-            }
-            $m = new TMtgDetail();
-            $m->fill($model);
-            $m->mtg_id = $mtgId;
-            $m->save();
+    public function updateMeetingBase($model): void
+    {
+        $m = $this->findMeetingBaseById($model['id']);
 
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            throw $th;
+        if (!isset($m)) {
+            throw new Exception(MessageConst::MESSAGE_100);
         }
+
+        $m->fill($model);
+        $m->save();
+    }
+
+    public function updateMtgDetail($model): void
+    {
+        $m = TMtgDetail::find($model['id']);
+
+        if (!isset($m)) {
+            throw new Exception(MessageConst::MESSAGE_100);
+        }
+
+        $m->fill($model);
+        $m->save();
     }
 }

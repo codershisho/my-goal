@@ -21,16 +21,25 @@ interface IGoalRepository
      *
      * @param integer $termId
      * @param integer $userId
-     * @return TGoal
+     * @return TGoal|null
      */
-    public function find(int $termId): TGoal;
+    public function findByLoginUser(int $termId): ?TGoal;
+
+    /**
+     * t_goalの新規登録
+     *
+     * @param integer $termId
+     * @param array $model
+     * @return void
+     */
+    public function create(int $termId, array $model): void;
 
     /**
      * t_goalsの1件更新
      *
      * @param int $termId
-     * @param object $request
+     * @param array $model
      * @return void
      */
-    public function update(int $termId, $request): void;
+    public function update(int $termId, array $model): void;
 }

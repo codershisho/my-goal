@@ -9,7 +9,7 @@ interface IUserRepository
     /**
      * usersの全件検索
      *
-     * @return Collection
+     * @return Collection<User>
      */
     public function all(): Collection;
 }

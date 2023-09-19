@@ -2,40 +2,44 @@
 
 namespace App\Repositories;
 
+use App\Const\MessageConst;
 use App\Interfaces\IGoalRepository;
 use App\Models\TGoal;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class GoalRepository implements IGoalRepository
 {
-    // TODO termidとuseridで一意になるので、これ、いらんね。。。
     public function index(int $termId): Collection
     {
         $goals = TGoal::where('term_id', $termId)->get();
         return $goals;
     }
 
-    public function find(int $termId): TGoal
+    public function findByLoginUser(int $termId): ?TGoal
     {
-        // TODO userIdの絞り込みもプラス
-        // loginを通しているからAuth::user()で取れるはず。。。
-        return TGoal::where($termId)->get();
+        return TGoal::where('term_id', $termId)->where('user_id', Auth::id())->first();
     }
 
-    public function update($termId, $request): void
+    public function create(int $termId, array $model): void
     {
-        try {
-            DB::beginTransaction();
+        $m = new TGoal();
+        $m->fill($model);
+        $m->user_id = Auth::id();
+        $m->save();
+    }
 
-            $goal = $this->find($termId);
-            // TODO userIdは更新させないほうがいいかも念のため
-            $goal->fill($request->all())->save();
+    public function update(int $termId, array $model): void
+    {
+        $m = $this->findByLoginUser($termId);
 
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            throw $th;
+        if (empty($m)) {
+            throw new Exception(MessageConst::MESSAGE_100);
         }
+
+        $m->fill($model);
+        $m->user_id = Auth::id();
+        $m->save();
     }
 }

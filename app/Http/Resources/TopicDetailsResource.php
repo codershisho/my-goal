@@ -12,8 +12,8 @@ class TopicDetailsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "topic_detail_id" => $this->id,
-            "topic_detail_name" => $this->name,
+            "id" => $this->id,
+            "name" => $this->name,
         ];
     }
 }

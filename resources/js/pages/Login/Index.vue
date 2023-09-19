@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '../../stores/auth'
 import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
@@ -17,41 +17,46 @@ const credentials = reactive<{ email: string; password: string }>({
  */
 async function login() {
   await authStore.login(credentials)
-  router.replace({ name: 'Dashboard' })
+  router.push('/')
 }
 </script>
 <template>
-  <v-sheet
-    class="pa-10 mx-auto login-wrap bg-backsub"
-    :elevation="2"
-    rounded="lg"
-    :width="600"
-    :height="500"
-  >
-    <div class="label text-textmain">ユーザー名</div>
-    <v-text-field
-      placeholder="e-mail"
-      variant="outlined"
-      v-model="credentials.email"
-    ></v-text-field>
-    <div class="label text-textmain">パスワード</div>
-    <v-text-field
-      placeholder="password"
-      variant="outlined"
-      v-model="credentials.password"
-    ></v-text-field>
-    <v-btn class="w-100" style="height: 60px" color="primary" @click="login">
-      <div class="label-btn text-textmain">ログイン</div>
-    </v-btn>
-  </v-sheet>
+  <div class="login w-100 h-100">
+    <div class="d-flex justify-center">
+      <div class="w-50 mt-16">
+        <s-text
+          v-model="credentials.email"
+          label="ユーザー名"
+          placeholder="bbb"
+        />
+        <s-text
+          v-model="credentials.password"
+          label="パスワード"
+          placeholder="password"
+        />
+        <v-btn
+          class="mt-6"
+          block
+          size="x-large"
+          variant="tonal"
+          color="white"
+          @click="login"
+        >
+          ログイン
+        </v-btn>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style>
-.login-wrap .label {
-  font-size: 1.25rem;
-  margin-bottom: 0.85rem;
-}
-.login-wrap .label-btn {
-  font-size: 1.25rem;
+.login {
+  background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.452),
+      rgba(57, 54, 93, 0.692)
+    ),
+    url('https://source.unsplash.com/fzOITuS1DIQ') !important;
+  background-size: cover !important;
 }
 </style>

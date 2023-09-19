@@ -3,7 +3,7 @@
 namespace App\Services\Goal;
 
 use App\Interfaces\IGoalRepository;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UpdateService
 {
@@ -19,11 +19,20 @@ class UpdateService
      * t_goalsの1件更新
      *
      * @param integer $termId
-     * @param Request $request
+     * @param array $request
      * @return void
      */
-    public function execUpdate(int $termId, Request $request)
+    public function execUpdate(int $termId, array $request)
     {
-        $this->repo->update($termId, $request);
+        try {
+            DB::beginTransaction();
+
+            $this->repo->update($termId, $request);
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 }

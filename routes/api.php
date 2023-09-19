@@ -20,18 +20,26 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('/my-goal/v1')->group(function () {
-    Route::prefix('/goals')->group(function () {
-        Route::get('/{term_id}', [App\Http\Controllers\GoalApi::class, 'index']);
-        Route::put('/{term_id}', [App\Http\Controllers\GoalApi::class, 'update']);
+    Route::prefix('/goals/{term_id}')->group(function () {
+        Route::get('/', [App\Http\Controllers\GoalApi::class, 'show']);
+        Route::post('/', [App\Http\Controllers\GoalApi::class, 'store']);
+        Route::put('/', [App\Http\Controllers\GoalApi::class, 'update']);
     });
 
     Route::prefix('/topics')->group(function () {
         Route::get('/', [App\Http\Controllers\TopicApi::class, 'index']);
     });
 
-    Route::prefix('/mtgs')->group(function () {
-        Route::get('/', [App\Http\Controllers\MtgApi::class, 'index']);
-        Route::post('/', [App\Http\Controllers\MtgApi::class, 'store']);
+    Route::prefix('/terms')->group(function () {
+        Route::get('/', [App\Http\Controllers\TermApi::class, 'index']);
+    });
+
+    Route::prefix('/meetings')->group(function () {
+        Route::get('/', [App\Http\Controllers\MeetingApi::class, 'index']);
+        Route::get('/{id}/base', [App\Http\Controllers\MeetingApi::class, 'base']);
+        Route::get('/{id}/detail', [App\Http\Controllers\MeetingApi::class, 'detail']);
+        Route::post('/', [App\Http\Controllers\MeetingApi::class, 'store']);
+        Route::put('/', [App\Http\Controllers\MeetingApi::class, 'update']);
     });
 
     Route::prefix('/users')->group(function () {
