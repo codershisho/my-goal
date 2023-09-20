@@ -36,9 +36,9 @@ export const customDark = {
     // new button color
     newbtn: '#00BFA5',
     // input属性の背景色
-    input: '#BBDEFB',
+    input: '#323232',
     // 背景色
-    back: '#121212',
+    back: '#1A1A1A',
     // デフォルトテキスト
     textmain: '#FFF',
     // サブトピック

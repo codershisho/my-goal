@@ -1,37 +1,33 @@
 <template>
-  <div class="page goal-setting">
-    <div class="d-flex align-end">
-      <div class="w-25">
-        <div class="text-textmain mr-5 text-lg">期選択</div>
-        <v-autocomplete
-          variant="outlined"
-          :items="terms"
-          item-value="id"
-          item-title="name"
-          bg-color="input"
-          hide-details
-          density="compact"
-          v-model="goal.term_id"
-          @update:modelValue="selected"
-        ></v-autocomplete>
-      </div>
-      <div class="w-25 ml-5">
-        <s-btn
-          preicon="fa-regular fa-floppy-disk"
-          label="保存"
-          color="primary"
-          width="150"
-          @click="save"
-        />
-      </div>
+  <div class="page">
+    <div class="d-flex align-center w-35">
+      <div class="input-label text-xl mr-3">期選択</div>
+      <v-autocomplete
+        variant="outlined"
+        :items="terms"
+        item-value="id"
+        item-title="name"
+        bg-color="input"
+        hide-details
+        density="compact"
+        v-model="termId"
+        @update:modelValue="search"
+      ></v-autocomplete>
+      <s-btn
+        preicon="fa-regular fa-floppy-disk"
+        label="保存"
+        color="primary"
+        width="150"
+        @click="save"
+      />
     </div>
-    <div class="body">
-      <div class="text-xl pa-4 my-2">部目標</div>
-      <TinyMCEMeeting v-model="goal.goal_department" />
-      <div class="text-xl pa-4 my-2">目標１</div>
-      <TinyMCEMeeting v-model="goal.goal_first" />
-      <div class="text-xl pa-4 my-2">目標２</div>
-      <TinyMCEMeeting v-model="goal.goal_secound" />
+    <div class="goal-setting d-flex">
+      <div class="w-20 goal-table">
+        <GoalTable></GoalTable>
+      </div>
+      <div class="w-80">
+        <GoalEdit></GoalEdit>
+      </div>
     </div>
   </div>
 </template>
@@ -39,49 +35,31 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { _IGoal, _ITerm } from '../../types/goal'
-import { createGoal, fetchGoal, fetchTerms, updateGoal } from './ApiGoalSetting'
-import TinyMCEMeeting from '../../components/TinyMCEMeeting.vue'
+import { useGoalStore } from '../../stores/goal'
+import GoalTable from './GoalTable.vue'
+import GoalEdit from './GoalEdit.vue'
 
+const goalStore = useGoalStore()
 const terms = ref<_ITerm[]>()
-
-const goal = ref<_IGoal>({
-  term_id: 0,
-  goal_department: '',
-  goal_first: '',
-  goal_secound: '',
-})
+const termId = ref(0)
 
 onMounted(async (): Promise<void> => {
-  terms.value = await fetchTerms()
+  await goalStore.searchTerms()
+  terms.value = goalStore.terms
 })
-
-/**
- * 期選択時
- */
-const selected = async () => {
-  await search()
-}
 
 /**
  * 検索処理
  */
 const search = async () => {
-  const resGoal = await fetchGoal(goal.value.term_id)
-  if (resGoal != null) {
-    goal.value = resGoal
-  }
+  await goalStore.searchGoal(termId.value)
 }
 
 /**
  * 保存処理
  */
 const save = async () => {
-  if ('id' in goal.value) {
-    await updateGoal(goal.value.term_id, goal.value)
-  } else {
-    await createGoal(goal.value.term_id, goal.value)
-  }
-  await search()
+  await goalStore.save(termId.value)
 }
 </script>
 
