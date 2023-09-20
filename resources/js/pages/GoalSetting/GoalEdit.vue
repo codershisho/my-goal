@@ -1,23 +1,13 @@
 <template>
   <div class="mt-9">
-    <!-- <TinyMCEMeeting v-model="goalText" /> -->
-    <v-textarea
-      label="目標"
-      bg-color="input"
-      hide-details
-      density="compact"
-      variant="outlined"
-      auto-grow
-      :rows="15"
-      v-model="goalText"
-    ></v-textarea>
+    <RichTextEditor v-model="goalText" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-// import TinyMCEMeeting from '../../components/TinyMCEMeeting.vue'
+import { ref, computed } from 'vue'
 import { useGoalStore } from '../../stores/goal'
+import RichTextEditor from '../../components/QuillEditor.vue'
 
 const goalStore = useGoalStore()
 

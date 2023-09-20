@@ -26,6 +26,7 @@
     "@tinymce/tinymce-vue": "^5.1.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vuepic/vue-datepicker": "^6.1.0",
+    "@vueup/vue-quill": "^1.2.0",
     "pinia": "^2.1.6",
     "pinia-plugin-persistedstate": "^3.2.0",
     "tinymce": "^6.5.1",
