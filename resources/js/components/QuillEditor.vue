@@ -44,7 +44,7 @@ const toolbars = ref([
 
 <style>
 .ql-container {
-  color: white !important;
+  color: rgb(var(--v-theme-contract)) !important;
   font-size: 18px !important;
   font-family: 'Noto Sans JP', sans-serif !important;
 }
@@ -52,6 +52,6 @@ const toolbars = ref([
   line-height: 1.6 !important;
 }
 .ql-toolbar {
-  background-color: #d3d3d3 !important;
+  background-color: rgb(var(--v-theme-bInputLabel)) !important;
 }
 </style>

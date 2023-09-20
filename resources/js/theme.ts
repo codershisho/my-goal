@@ -2,48 +2,52 @@ export const customLight = {
   colors: {
     // primary
     primary: '#2962FF',
-    // secondary
-    secondary: '#01c0c8',
     // info
     info: '#66BB6A',
     // accent
     accent: '#FF7043',
+    // back
+    back: '#eeeeee',
+    // input back
+    input: '#FFF',
     // new button color
     newbtn: '#00BFA5',
-    // input属性の背景色
-    input: '#FFF',
-    // 背景色
-    back: '#eef0ff',
-    // デフォルトテキスト
-    textmain: '#202124',
-    // サブトピック
-    subtopic: '#e9e9e9',
-    // カード背景色
-    light: '#FFF',
+    // text main
+    textmain: '#FFF',
+    // input label back font
+    bInputLabel: '#d8faf5',
+    fInputLabel: '#00BFA5',
+    // input sub label back font
+    bInputSubLabel: '#d5d3d3',
+    fInputSubLabel: '#333333',
+    // 反対色
+    contract: '#333',
   },
 }
 
 export const customDark = {
   colors: {
     // primary
-    primary: '#01579B',
-    // secondary
-    secondary: '#FFF',
+    primary: '#2962FF',
     // info
     info: '#66BB6A',
     // accent
     accent: '#FF7043',
+    // back
+    back: '#1E1E20',
+    // input back
+    input: '#383838',
     // new button color
     newbtn: '#00BFA5',
-    // input属性の背景色
-    input: '#323232',
-    // 背景色
-    back: '#1A1A1A',
-    // デフォルトテキスト
+    // text main
     textmain: '#FFF',
-    // サブトピック
-    subtopic: '#01579B',
-    // カード背景色
-    light: '#212121',
+    // input label back font
+    bInputLabel: '#b7adad',
+    fInputLabel: '#f2f2f2',
+    // input sub label back font
+    bInputSubLabel: '#484848',
+    fInputSubLabel: '#d9d9d9',
+    // 反対色
+    contract: '#FFF',
   },
 }

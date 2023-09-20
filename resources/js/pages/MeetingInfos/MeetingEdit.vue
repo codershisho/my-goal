@@ -18,10 +18,10 @@
           @click="save"
         />
       </div>
-      <div class="d-flex align-center">
-        <div class="text-textmain mr-9 mt-4 text-lg">日付</div>
+      <div class="d-flex align-center mt-5">
+        <div class="input-label text-lg mr-3">日付</div>
         <VueDatePicker
-          class="w-50 mt-5"
+          class="w-50"
           format="yyyy-MM-dd"
           week-start="0"
           locale="ja"
@@ -32,7 +32,7 @@
         />
       </div>
       <div class="d-flex mt-5 align-center">
-        <div class="text-textmain mr-5 text-lg">面談者</div>
+        <div class="input-label text-lg mr-3">面談者</div>
         <v-autocomplete
           class="w-25"
           :items="users"
@@ -44,7 +44,7 @@
           hide-details
           v-model="meetingBase.to_user_id"
         ></v-autocomplete>
-        <div class="text-textmain mx-5 text-lg">ステータス</div>
+        <div class="input-label text-lg mx-3">ステータス</div>
         <v-autocomplete
           class="w-25"
           :items="[
@@ -187,26 +187,27 @@ const save = async () => {
 
 <style>
 .topic--base {
-  background-color: rgba(var(--v-theme-secondary), 0.1);
-  color: rgb(var(--v-theme-secondary));
+  background-color: rgb(var(--v-theme-bInputLabel));
+  color: rgb(var(--v-theme-fInputLabel));
+  opacity: 1;
   font-weight: 500;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 .memo {
-  background-color: rgba(var(--v-theme-subtopic), 1);
-  color: rgba(var(--v-theme-textmain), 0.85);
+  background-color: rgba(var(--v-theme-bInputSubLabel), 1);
+  color: rgba(var(--v-theme-fInputSubLabel), 0.85);
   border-radius: 5px;
 }
 
 .stickey-border {
   border-top: 1px solid rgb(216, 216, 216);
-  background-color: rgba(var(--v-theme-light), 1);
+  background-color: rgb(var(--v-theme-input));
 }
 .header {
   position: sticky;
   top: 0;
   z-index: 10;
   height: 210px;
-  background-color: rgba(var(--v-theme-light), 1);
+  background-color: rgb(var(--v-theme-input));
 }
 </style>

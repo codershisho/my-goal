@@ -7,12 +7,12 @@
     density="compact"
     preicon="fa-solid fa-magnifying-glass"
   />
-  <v-table class="meeting-table bg-light">
+  <v-table class="meeting-table bg-input">
     <thead>
       <tr>
-        <th class="text-textmain">日付</th>
-        <th class="text-textmain">ステータス</th>
-        <th class="text-textmain">面談した人</th>
+        <th class="text-contract">日付</th>
+        <th class="text-contract">ステータス</th>
+        <th class="text-contract">面談した人</th>
       </tr>
     </thead>
     <tbody>

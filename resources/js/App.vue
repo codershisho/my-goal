@@ -69,13 +69,13 @@ const closeSnack = () => {
       <v-spacer></v-spacer>
       <v-btn icon @click="onChange">
         <v-icon
-          color="input"
+          color="textmain"
           :icon="!darkTheme ? 'mdi:mdi-weather-night' : 'mdi:mdi-weather-sunny'"
         ></v-icon>
       </v-btn>
       <v-btn
         class="mr-2"
-        color="input"
+        color="textmain"
         variant="text"
         v-for="link in links"
         :key="link.id"
@@ -83,7 +83,7 @@ const closeSnack = () => {
       >
         {{ link.name }}
       </v-btn>
-      <v-btn class="mr-2" color="input" variant="text" @click="logout">
+      <v-btn class="mr-2" color="textmain" variant="text" @click="logout">
         ログアウト
       </v-btn>
     </v-app-bar>

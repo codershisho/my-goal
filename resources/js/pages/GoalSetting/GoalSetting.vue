@@ -1,19 +1,23 @@
 <template>
   <div class="page">
-    <div class="d-flex align-center w-35">
-      <div class="input-label text-xl mr-3">期選択</div>
-      <v-autocomplete
-        variant="outlined"
-        :items="terms"
-        item-value="id"
-        item-title="name"
-        bg-color="input"
-        hide-details
-        density="compact"
-        v-model="termId"
-        @update:modelValue="search"
-      ></v-autocomplete>
+    <div class="d-flex align-center align-stretch w-100">
+      <div class="input-label text-lg mr-3">期選択</div>
+      <div class="w-20">
+        <v-autocomplete
+          variant="outlined"
+          :items="terms"
+          item-value="id"
+          item-title="name"
+          bg-color="input"
+          hide-details
+          density="compact"
+          v-model="termId"
+          @update:modelValue="search"
+        ></v-autocomplete>
+      </div>
+      <v-spacer></v-spacer>
       <s-btn
+        style="height: inherit"
         preicon="fa-regular fa-floppy-disk"
         label="保存"
         color="primary"
@@ -62,12 +66,3 @@ const save = async () => {
   await goalStore.save(termId.value)
 }
 </script>
-
-<style>
-.goal-setting > .body > div {
-  background-color: rgba(var(--v-theme-secondary), 0.3);
-  color: rgb(var(--v-theme-secondary));
-  font-weight: 500;
-  border-radius: 20px;
-}
-</style>
