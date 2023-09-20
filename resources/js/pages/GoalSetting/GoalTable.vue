@@ -1,26 +1,34 @@
 <template>
-  <div class="left-menu w-80">
-    <div
-      class="input-label text-lg"
+  <div class="w-80">
+    <v-card
+      class="text-lg text-center pt-2"
       :class="btnState.department ? 'active-btn' : ''"
-      @click="clickDepartment"
+      variant="outlined"
+      :color="btnState.department ? '' : 'primary'"
+      min-height="50"
     >
-      部目標
-    </div>
-    <div
-      class="input-label text-lg"
+      <div @click="clickDepartment">部目標</div>
+    </v-card>
+    <v-card
+      class="my-3 text-lg text-center pt-2"
       :class="btnState.first ? 'active-btn' : ''"
-      @click="clickFirst"
+      variant="outlined"
+      :color="btnState.first ? '' : 'primary'"
+      min-height="50"
+      flat
     >
-      目標1
-    </div>
-    <div
-      class="input-label text-lg"
+      <div @click="clickFirst">目標１</div>
+    </v-card>
+    <v-card
+      class="my-3 text-lg text-center pt-2"
       :class="btnState.secound ? 'active-btn' : ''"
-      @click="clickSecound"
+      variant="outlined"
+      :color="btnState.secound ? '' : 'primary'"
+      min-height="50"
+      flat
     >
-      目標2
-    </div>
+      <div @click="clickSecound">目標2</div>
+    </v-card>
   </div>
 </template>
 
@@ -53,24 +61,3 @@ const clickSecound = () => {
   btnState.value.secound = true
 }
 </script>
-
-<style>
-.goal-setting .left-menu {
-  border-right: 1px solid rgba(var(--v-theme-contract), 0.2);
-  margin-top: 36px;
-}
-.goal-setting .left-menu > div {
-  margin: 30px 0px;
-}
-
-.left-menu > .input-label {
-  background-color: rgb(var(--v-theme-bInputSubLabel));
-  color: rgb(var(--v-theme-fInputSubLabel));
-  opacity: 1;
-  padding: 8px;
-  width: 200px;
-  text-align: center;
-  border-radius: 4px;
-  cursor: pointer;
-}
-</style>

@@ -1,6 +1,6 @@
 <template>
   <div id="meeting-edit">
-    <div class="header pa-6">
+    <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
       <div class="d-flex">
         <s-btn
           class="me-auto text-white"
@@ -8,6 +8,7 @@
           label="新規"
           color="newbtn"
           width="150"
+          variant="outlined"
           @click="create"
         />
         <s-btn
@@ -18,23 +19,40 @@
           @click="save"
         />
       </div>
-      <div class="d-flex align-center mt-5">
-        <div class="input-label text-lg mr-3">日付</div>
-        <VueDatePicker
-          class="w-50"
-          format="yyyy-MM-dd"
-          week-start="0"
-          locale="ja"
-          :enable-time-picker="false"
-          auto-apply
-          model-type="yyyy-MM-dd"
-          v-model="meetingBase.mtg_date"
-        />
+      <div class="d-flex align-center mt-5 w-50">
+        <div class="w-33">
+          <v-alert
+            class="mr-3"
+            border="start"
+            variant="tonal"
+            color="secondary"
+            text="日付"
+            density="compact"
+          />
+        </div>
+        <div class="w-80">
+          <VueDatePicker
+            format="yyyy-MM-dd"
+            week-start="0"
+            locale="ja"
+            :enable-time-picker="false"
+            auto-apply
+            model-type="yyyy-MM-dd"
+            v-model="meetingBase.mtg_date"
+          />
+        </div>
       </div>
-      <div class="d-flex mt-5 align-center">
-        <div class="input-label text-lg mr-3">面談者</div>
+      <div class="d-flex align-stretch mt-2">
+        <v-alert
+          class="mr-3"
+          border="start"
+          variant="tonal"
+          color="secondary"
+          text="面談者"
+          density="compact"
+        />
         <v-autocomplete
-          class="w-25"
+          class="w-25 mr-3"
           :items="users"
           item-value="id"
           item-title="name"
@@ -44,7 +62,14 @@
           hide-details
           v-model="meetingBase.to_user_id"
         ></v-autocomplete>
-        <div class="input-label text-lg mx-3">ステータス</div>
+        <v-alert
+          class="mr-3"
+          border="start"
+          variant="tonal"
+          color="secondary"
+          text="ステータス"
+          density="compact"
+        />
         <v-autocomplete
           class="w-25"
           :items="[
@@ -60,18 +85,24 @@
           v-model="meetingBase.status"
         ></v-autocomplete>
       </div>
-      <div class="mt-4 stickey-border"></div>
-    </div>
-    <div class="body pa-6">
-      <!-- {{ meetingDetails }} -->
+    </v-sheet>
+    <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
       <div v-for="(detail, i) in meetingDetails" :key="i" class="mb-5">
-        <v-checkbox
-          class="topic--base mb-1 pl-4"
-          :label="detail.topic_name"
-          v-model="detail.checked"
+        <v-alert
+          class="pa-0"
+          border="start"
+          variant="tonal"
+          color="secondary"
           density="compact"
-          hide-details
-        ></v-checkbox>
+        >
+          <v-checkbox
+            class="mb-1 pl-4"
+            :label="detail.topic_name"
+            v-model="detail.checked"
+            density="compact"
+            hide-details
+          ></v-checkbox>
+        </v-alert>
         <template v-if="detail.checked">
           <v-radio-group
             v-model="detail.selected"
@@ -91,17 +122,33 @@
               ></v-radio>
             </template>
           </v-radio-group>
-          <div class="pl-4 mt-5">
-            <div class="py-2 pl-2 mb-2 memo">自分用メモ</div>
-            <TinyMCEMeeting v-model="detail.from_memo" />
+          <div class="pl-4">
+            <v-alert
+              class="my-2"
+              border="start"
+              variant="text"
+              color="newbtn"
+              density="compact"
+              text="自分用メモ"
+            >
+            </v-alert>
+            <RichTextEditor v-model="detail.from_memo" />
           </div>
-          <div class="pl-4 mt-5">
-            <div class="py-2 pl-2 mb-2 memo">面談者メモ</div>
-            <TinyMCEMeeting v-model="detail.to_memo" />
+          <div class="pl-4">
+            <v-alert
+              class="my-2"
+              border="start"
+              variant="text"
+              color="newbtn"
+              density="compact"
+              text="面談者メモ"
+            >
+            </v-alert>
+            <RichTextEditor v-model="detail.to_memo" />
           </div>
         </template>
       </div>
-    </div>
+    </v-sheet>
   </div>
 </template>
 
@@ -118,7 +165,7 @@ import {
   updateMeeting,
 } from './ApiMeeting'
 import { _IUser } from '../../types/user'
-import TinyMCEMeeting from '../../components/TinyMCEMeeting.vue'
+import RichTextEditor from '../../components/QuillEditor.vue'
 
 const meetingStore = useMeetingStore()
 
@@ -163,6 +210,9 @@ const changeMode = (insertFlag: boolean) => {
 const create = () => {
   changeMode(true)
   meetingDetails.value = createModel.value
+  meetingBase.value.mtg_date = ''
+  meetingBase.value.status = 0
+  meetingBase.value.to_user_id = undefined
 }
 
 /**
@@ -184,30 +234,3 @@ const save = async () => {
   await updateMeeting(data)
 }
 </script>
-
-<style>
-.topic--base {
-  background-color: rgb(var(--v-theme-bInputLabel));
-  color: rgb(var(--v-theme-fInputLabel));
-  opacity: 1;
-  font-weight: 500;
-  border-radius: 4px;
-}
-.memo {
-  background-color: rgba(var(--v-theme-bInputSubLabel), 1);
-  color: rgba(var(--v-theme-fInputSubLabel), 0.85);
-  border-radius: 5px;
-}
-
-.stickey-border {
-  border-top: 1px solid rgb(216, 216, 216);
-  background-color: rgb(var(--v-theme-input));
-}
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  height: 210px;
-  background-color: rgb(var(--v-theme-input));
-}
-</style>

@@ -1,38 +1,61 @@
 <template>
   <div class="page">
-    <div class="d-flex align-center align-stretch w-100">
-      <div class="input-label text-lg mr-3">期選択</div>
-      <div class="w-20">
-        <v-autocomplete
-          variant="outlined"
-          :items="terms"
-          item-value="id"
-          item-title="name"
-          bg-color="input"
-          hide-details
-          density="compact"
-          v-model="termId"
-          @update:modelValue="search"
-        ></v-autocomplete>
+    <v-sheet
+      class="pa-6 d-flex align-stretch mb-5 rounded-lg"
+      color="input"
+      elevation="1"
+    >
+      <div class="w-50 d-flex align-stretch">
+        <div class="w-20 mr-3">
+          <v-alert
+            class="h-100"
+            border="start"
+            variant="tonal"
+            color="secondary"
+            text="期の選択"
+            density="compact"
+          >
+          </v-alert>
+        </div>
+        <div class="w-33">
+          <v-autocomplete
+            variant="outlined"
+            :items="terms"
+            item-value="id"
+            item-title="name"
+            bg-color="input"
+            hide-details
+            density="compact"
+            v-model="termId"
+            @update:modelValue="search"
+          >
+          </v-autocomplete>
+        </div>
       </div>
-      <v-spacer></v-spacer>
-      <s-btn
-        style="height: inherit"
-        preicon="fa-regular fa-floppy-disk"
-        label="保存"
-        color="primary"
-        width="150"
-        @click="save"
-      />
-    </div>
-    <div class="goal-setting d-flex">
-      <div class="w-20 goal-table">
+      <div class="w-50 text-right">
+        <s-btn
+          class="h-100"
+          preicon="fa-regular fa-floppy-disk"
+          label="保存"
+          color="primary"
+          width="150"
+          @click="save"
+        />
+      </div>
+    </v-sheet>
+    <v-sheet
+      class="pa-6 d-flex rounded-lg"
+      color="input"
+      elevation="1"
+      style="max-height: 800"
+    >
+      <div class="w-20">
         <GoalTable></GoalTable>
       </div>
       <div class="w-80">
         <GoalEdit></GoalEdit>
       </div>
-    </div>
+    </v-sheet>
   </div>
 </template>
 

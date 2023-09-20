@@ -52,6 +52,6 @@ const toolbars = ref([
   line-height: 1.6 !important;
 }
 .ql-toolbar {
-  background-color: rgb(var(--v-theme-bInputLabel)) !important;
+  background-color: rgba(var(--v-theme-secondary), 0.15) !important;
 }
 </style>

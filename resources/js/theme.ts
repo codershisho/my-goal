@@ -1,15 +1,17 @@
 export const customLight = {
   colors: {
     // primary
-    primary: '#2962FF',
+    primary: '#638CFF',
+    // secondary
+    secondary: '#49BEFF',
     // info
     info: '#66BB6A',
     // accent
     accent: '#FF7043',
     // back
-    back: '#eeeeee',
+    back: '#EEF2F6',
     // input back
-    input: '#FFF',
+    input: '#FFFFFF',
     // new button color
     newbtn: '#00BFA5',
     // text main

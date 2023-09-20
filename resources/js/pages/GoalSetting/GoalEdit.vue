@@ -1,11 +1,9 @@
 <template>
-  <div class="mt-9">
-    <RichTextEditor v-model="goalText" />
-  </div>
+  <RichTextEditor v-model="goalText" />
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useGoalStore } from '../../stores/goal'
 import RichTextEditor from '../../components/QuillEditor.vue'
 
