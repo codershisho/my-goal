@@ -2,6 +2,13 @@
 
 <p>会社での個人目標を管理したり、メンバー間の月次面談(1on1)を管理することができます。</p>
 
+<b>目標の管理</b>
+![image](https://github.com/codershisho/my-goal/assets/120914888/a633398c-a468-4f5d-a936-7f762acaee9b)
+
+<b>月次面談（1on1）の管理</b>
+![image](https://github.com/codershisho/my-goal/assets/120914888/b7839526-ebb2-46b7-837d-cab0b10d9cee)
+
+
 ## 作成の背景
 
 - プロジェクトメンバー毎の目標や進捗状況を把握したい
@@ -162,6 +169,15 @@ Clone
 git clone -b main https://github.com/codershisho/my-goal.git
 ```
 
+Dockerの準備
+
+```bash
+docker-compose build
+docker-compose up -d
+docker-compose exec -u root app bash
+```
+<b>※以降はappコンテナ内で実行</b>
+
 env ファイルのコピー
 
 ```bash
@@ -194,15 +210,18 @@ npm run dev
 ## 工夫したポイント
 
 - <b>デザイン面</b>
+
   動きや、ロジックを考えて実装することは得意としているのですが、
   UI/UX については、未熟者すぎるため、CSS フレームワークを使用して極力きれいにしました。
   また、light/dark テーマの切り替えも容易に実現できました。
 
 - <b>WYSIWYG エディター</b>
+
   毎月の目標進捗確認の際に、重要事項や備忘のために文字の装飾をしたいと思っていて、
   初めて WYSIWYG エディターを導入してみました。
 
 - <b>習得していない言語のキャッチアップ</b>
+
   Vue3 や Vite、Typescript を初めて使用して開発を実施しました。
   また、掴みかけている段階ですが、今までよりは理解が進みました。
   開発の効率もあがったので継続して、臆することなくキャッチアップしていこうとおもいます。
