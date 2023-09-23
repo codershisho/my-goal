@@ -34,7 +34,7 @@
           :key="i"
           @click="onClickRow(meeting)"
         >
-          <td>{{ meeting.created_at }}</td>
+          <td>{{ meeting.mtg_date }}</td>
           <td>
             <v-chip :color="meeting.status == 1 ? '#607D8B' : 'accent'">
               {{ meeting.status_name }}

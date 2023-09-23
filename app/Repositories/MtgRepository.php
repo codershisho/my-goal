@@ -14,7 +14,7 @@ class MtgRepository implements IMtgRepository
 {
     public function findMettingsByLoginUser(): Collection
     {
-        $data = TMtg::with(['fromUser', 'toUser'])->get();
+        $data = TMtg::with(['fromUser', 'toUser'])->orderBy('mtg_date', 'desc')->orderBy('id', 'desc')->get();
         return $data->where('from_user_id', Auth::id());
     }
 
