@@ -40,6 +40,7 @@
           label="保存"
           color="primary"
           width="150"
+          :disabled="!termId"
           @click="save"
         />
       </div>
@@ -53,7 +54,7 @@
       <div class="w-20">
         <GoalTable></GoalTable>
       </div>
-      <div class="w-80">
+      <div class="w-80" v-if="termId">
         <GoalEdit></GoalEdit>
       </div>
     </v-sheet>
