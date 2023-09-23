@@ -1,75 +1,8 @@
-## 環境構築
+<h3 align="center">A passionate frontend developer from India</h3>
 
-- clone
-- env のコピー
-  - .env.example -> .env
-- composer install
-- php artisan key:generate
-- npm install
-- npm run dev
-- [画面確認](http://localhost/login)
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+</p>
 
-## TinyMCE 導入方法
-
-- [リンク](https://www.tiny.cloud/docs/tinymce/6/vue-pm/)
-- Vue ファイルをコピー
-
-```vue
-<script setup lang="ts">
-import { ref, reactive } from 'vue'
-import Editor from '@tinymce/tinymce-vue'
-
-// const props = defineProps({
-//   editorArr: Array,
-//   workdayIndex: Number,
-// });
-
-// const index = props.workdayIndex;
-
-// エディタのmodel
-// let editorHtml = props.editorArr[index];
-// const editor: string = ref(editorHtml);
-
-// type Emits = { (e: 'update', value: object): void };
-// const emit = defineEmits<Emits>();
-// const save = () => {
-//   emit('update', { html: editor.value, index: index });
-// };
-
-/**
- * エディタの初期処理オブジェクト
- */
-const editorInitObj = reactive({
-  setup: (editor) => {
-    // 取り消し線のショートカット追加
-    editor.addShortcut(
-      'ctrl+alt+t',
-      'Add yellow highlight to selected text.',
-      () => {
-        editor.execCommand('Strikethrough', true, true)
-      }
-    )
-    // editor.ui.registry.addButton('saveButton', {
-    //   text: 'Save',
-    //   icon: 'save',
-    //   tooltip: '保存',
-    //   onAction: () => save(),
-    // })
-  },
-  // リストの際にtabでインデント
-  lists_indent_on_tab: true,
-  // メニューを非表示
-  menubar: false,
-  placeholder: 'ここに記載（markdown使用可）...',
-})
-</script>
-
-<template>
-  <Editor
-    api-key="uxuv5mcna6rpk2blhue26reiad1yc455ujsix9mznz3jyroy"
-    plugins="code lists table checklist"
-    toolbar="saveButton bold italic underline strikethrough h1 h2 h3 h4 numlist bullist checklist fontsize forecolor backcolor code hr indent outdent lineheight table"
-    :init="editorInitObj"
-  />
-</template>
-```
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://laravel.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/laravel/laravel-plain-wordmark.svg" alt="laravel" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://mariadb.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/mariadb/mariadb-icon.svg" alt="mariadb" width="40" height="40"/> </a> <a href="https://www.nginx.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nginx/nginx-original.svg" alt="nginx" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://www.php.net" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> <a href="https://vuejs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original-wordmark.svg" alt="vuejs" width="40" height="40"/> </a> <a href="https://vuetifyjs.com/en/" target="_blank" rel="noreferrer"> <img src="https://bestofjs.org/logos/vuetify.svg" alt="vuetify" width="40" height="40"/> </a> </p>
