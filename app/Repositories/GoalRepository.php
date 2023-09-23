@@ -26,6 +26,7 @@ class GoalRepository implements IGoalRepository
     {
         $m = new TGoal();
         $m->fill($model);
+        $m->term_id = $termId;
         $m->user_id = Auth::id();
         $m->save();
     }

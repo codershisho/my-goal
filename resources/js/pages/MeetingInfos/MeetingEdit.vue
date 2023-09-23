@@ -60,6 +60,7 @@
           bg-color="input"
           density="compact"
           hide-details
+          placeholder="面談相手を選択してください"
           v-model="meetingBase.to_user_id"
         ></v-autocomplete>
         <v-alert

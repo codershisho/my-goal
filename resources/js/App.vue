@@ -12,7 +12,7 @@ type menu = {
 }
 
 const links: Array<menu> = [
-  { id: 1, name: 'ダッシュボード', url: '/' },
+  { id: 1, name: '目標設定', url: '/' },
   { id: 2, name: '面談情報', url: '/meeting' },
 ]
 
@@ -31,6 +31,13 @@ const message = ref(
 const snackbar = ref(
   computed({
     get() {
+      const color = messageStore._message.level ? 'accent' : 'info'
+      const timeout = messageStore._message.level ? -1 : 3000
+      attributes_snack.value = {
+        'multi-line': true,
+        color: color,
+        timeout: timeout,
+      }
       return !!messageStore._message.text
     },
     set(val) {
@@ -43,6 +50,7 @@ const snackbar = ref(
 const attributes_snack = ref({
   'multi-line': true,
   color: 'info',
+  timeout: 3000,
 })
 
 const logout = async () => {
@@ -94,8 +102,7 @@ const closeSnack = () => {
     <v-snackbar
       v-model="snackbar"
       v-bind="attributes_snack"
-      location="right"
-      :timeout="2000"
+      location="bottom right"
     >
       <div>
         {{ message.title }}

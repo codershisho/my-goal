@@ -27,6 +27,7 @@
             hide-details
             density="compact"
             v-model="termId"
+            placeholder="期を選択してください"
             @update:modelValue="search"
           >
           </v-autocomplete>
@@ -68,7 +69,7 @@ import GoalEdit from './GoalEdit.vue'
 
 const goalStore = useGoalStore()
 const terms = ref<_ITerm[]>()
-const termId = ref(0)
+const termId = ref()
 
 onMounted(async (): Promise<void> => {
   await goalStore.searchTerms()

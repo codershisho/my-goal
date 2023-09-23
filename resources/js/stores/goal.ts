@@ -45,7 +45,11 @@ export const useGoalStore = defineStore('my-goal-goal', {
       this._goal.goal_secound = text
     },
     async save(termId: number): Promise<void> {
-      this.update(termId)
+      if (this._goal.id != 0) {
+        await this.update(termId)
+        return
+      }
+      await this.create(termId)
     },
     async create(termId: number): Promise<void> {
       await axios.post('api/my-goal/v1/goals/' + termId, this._goal)
