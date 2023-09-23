@@ -48,7 +48,7 @@
           border="start"
           variant="tonal"
           color="secondary"
-          text="面談者"
+          text="面談する人"
           density="compact"
         />
         <v-autocomplete

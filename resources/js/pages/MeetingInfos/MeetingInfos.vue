@@ -1,9 +1,9 @@
 <template>
   <div class="page d-flex">
-    <div class="w-30 mr-5">
+    <div class="w-35 mr-5">
       <MeetingInfosTable />
     </div>
-    <div class="w-70">
+    <div class="w-65">
       <MeetingEdit />
     </div>
   </div>

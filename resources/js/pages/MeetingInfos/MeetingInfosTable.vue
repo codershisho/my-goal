@@ -41,7 +41,21 @@
             </v-chip>
           </td>
           <td>
-            {{ meeting.to_user_name }}
+            <v-avatar size="35" color="primary" class="mr-2">
+              <v-img
+                :src="'storage/avatar/' + meeting.from_user_avatar"
+              ></v-img>
+            </v-avatar>
+            <v-chip class="mr-2" label color="primary">
+              {{ meeting.from_user_name }}</v-chip
+            >
+            <span class="mx-2">⇒</span>
+            <v-avatar size="35" color="accent" class="mr-2">
+              <v-img :src="'storage/avatar/' + meeting.to_user_avatar"></v-img>
+            </v-avatar>
+            <v-chip class="mr-2" label color="accent">
+              {{ meeting.to_user_name }}</v-chip
+            >
           </td>
         </tr>
       </tbody>

@@ -94,7 +94,7 @@ const closeSnack = () => {
     <v-snackbar
       v-model="snackbar"
       v-bind="attributes_snack"
-      location="top right"
+      location="right"
       :timeout="2000"
     >
       <div>
