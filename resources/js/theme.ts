@@ -1,49 +1,45 @@
 export const customLight = {
   colors: {
     // primary
-    primary: '#2962FF',
+    primary: '#638CFF',
     // secondary
-    secondary: '#01c0c8',
+    secondary: '#49BEFF',
     // info
     info: '#66BB6A',
     // accent
     accent: '#FF7043',
+    // back
+    back: '#EEF2F6',
+    // input back
+    input: '#FFFFFF',
     // new button color
     newbtn: '#00BFA5',
-    // input属性の背景色
-    input: '#FFF',
-    // 背景色
-    back: '#eef0ff',
-    // デフォルトテキスト
-    textmain: '#202124',
-    // サブトピック
-    subtopic: '#e9e9e9',
-    // カード背景色
-    light: '#FFF',
+    // text main
+    textmain: '#FFF',
+    // 反対色
+    contract: '#333',
   },
 }
 
 export const customDark = {
   colors: {
     // primary
-    primary: '#01579B',
+    primary: '#60B7FF',
     // secondary
-    secondary: '#FFF',
+    secondary: '#5CEBF7',
     // info
     info: '#66BB6A',
     // accent
     accent: '#FF7043',
+    // back
+    back: '#2A3447',
+    // input back
+    input: '#424e66',
     // new button color
     newbtn: '#00BFA5',
-    // input属性の背景色
-    input: '#BBDEFB',
-    // 背景色
-    back: '#121212',
-    // デフォルトテキスト
+    // text main
     textmain: '#FFF',
-    // サブトピック
-    subtopic: '#01579B',
-    // カード背景色
-    light: '#212121',
+    // 反対色
+    contract: '#FFF',
   },
 }

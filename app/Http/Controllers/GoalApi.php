@@ -49,7 +49,7 @@ class GoalApi extends AbstractApi
     public function store(int $term_id, Request $request, StoreService $service)
     {
         $service->execCreate($term_id, $request->all());
-        return $this->setResponse(MessageConst::MESSAGE_002);
+        return $this->setResponseMessage(MessageConst::MESSAGE_002);
     }
 
     /**
