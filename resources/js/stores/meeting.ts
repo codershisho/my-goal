@@ -9,7 +9,7 @@ export const useMeetingStore = defineStore('my-goal-meeting', {
     _meetingBase: {} as _IMeeting,
     _meetingDetails: [] as _IMeetingDetail[],
     _users: [] as _IUser[],
-    _insertMode: false,
+    _insertMode: true,
     _meetingsFiltered: [] as _IMeeting[],
   }),
 
@@ -25,6 +25,9 @@ export const useMeetingStore = defineStore('my-goal-meeting', {
     },
     meetingDetails(state) {
       return state._meetingDetails
+    },
+    meetingDetailsLength(state) {
+      return state._meetingDetails.length
     },
     users(state) {
       return state._users

@@ -201,6 +201,27 @@ const create = async () => {
  * 保存時イベント
  */
 const save = async () => {
+  // チェック
+  if (meetingStore.meetingDetailsLength == 0) {
+    alert('新規作成を押してから入力してください')
+    return
+  }
+  if (!meetingBase.value.mtg_date) {
+    alert('面談日を選択してください')
+    return
+  }
+  if (!meetingBase.value.to_user_id) {
+    alert('面談する人を選択してください')
+    return
+  }
+  if (
+    meetingBase.value.status == null ||
+    meetingBase.value.status == undefined
+  ) {
+    alert('ステータスを選択してください')
+    return
+  }
+
   // 更新
   const data = {
     mtg_id: meetingBase.value.mtg_id,
