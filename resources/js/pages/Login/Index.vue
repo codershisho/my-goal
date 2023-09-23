@@ -6,8 +6,8 @@ import { useRouter } from 'vue-router'
 const authStore = useAuthStore()
 const router = useRouter()
 
-const credentials = reactive<{ email: string; password: string }>({
-  email: 'aaa@example.com',
+const credentials = reactive<{ name: string; password: string }>({
+  name: 'aaa',
   password: 'hogehoge',
 })
 
@@ -25,7 +25,7 @@ async function login() {
     <div class="d-flex justify-center">
       <div class="w-50 mt-16">
         <s-text
-          v-model="credentials.email"
+          v-model="credentials.name"
           label="ユーザー名"
           placeholder="bbb"
         />

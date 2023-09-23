@@ -4,6 +4,8 @@ import { useAuthStore } from './stores/auth'
 import { useMessageStore } from './stores/message'
 import { useRouter } from 'vue-router'
 import { useTheme } from 'vuetify'
+import { useMeetingStore } from './stores/meeting'
+import { useGoalStore } from './stores/goal'
 
 type menu = {
   id: number
@@ -12,12 +14,14 @@ type menu = {
 }
 
 const links: Array<menu> = [
-  { id: 1, name: 'ダッシュボード', url: '/' },
+  { id: 1, name: '目標設定', url: '/' },
   { id: 2, name: '面談情報', url: '/meeting' },
 ]
 
 const authStore = useAuthStore()
 const messageStore = useMessageStore()
+const meetingStore = useMeetingStore()
+const goalStore = useGoalStore()
 const router = useRouter()
 const darkTheme = ref(true)
 const theme = useTheme()
@@ -31,6 +35,13 @@ const message = ref(
 const snackbar = ref(
   computed({
     get() {
+      const color = messageStore._message.level ? 'accent' : 'info'
+      const timeout = messageStore._message.level ? -1 : 3000
+      attributes_snack.value = {
+        'multi-line': true,
+        color: color,
+        timeout: timeout,
+      }
       return !!messageStore._message.text
     },
     set(val) {
@@ -43,10 +54,15 @@ const snackbar = ref(
 const attributes_snack = ref({
   'multi-line': true,
   color: 'info',
+  timeout: 3000,
 })
 
 const logout = async () => {
   await authStore.logout()
+  authStore.$reset()
+  messageStore.$reset()
+  meetingStore.$reset()
+  goalStore.$reset()
   router.replace({ name: 'Login' })
 }
 const onChange = () => {
@@ -69,13 +85,13 @@ const closeSnack = () => {
       <v-spacer></v-spacer>
       <v-btn icon @click="onChange">
         <v-icon
-          color="input"
+          color="textmain"
           :icon="!darkTheme ? 'mdi:mdi-weather-night' : 'mdi:mdi-weather-sunny'"
         ></v-icon>
       </v-btn>
       <v-btn
         class="mr-2"
-        color="input"
+        color="textmain"
         variant="text"
         v-for="link in links"
         :key="link.id"
@@ -83,7 +99,7 @@ const closeSnack = () => {
       >
         {{ link.name }}
       </v-btn>
-      <v-btn class="mr-2" color="input" variant="text" @click="logout">
+      <v-btn class="mr-2" color="textmain" variant="text" @click="logout">
         ログアウト
       </v-btn>
     </v-app-bar>
@@ -94,8 +110,7 @@ const closeSnack = () => {
     <v-snackbar
       v-model="snackbar"
       v-bind="attributes_snack"
-      location="top right"
-      :timeout="2000"
+      location="bottom right"
     >
       <div>
         {{ message.title }}

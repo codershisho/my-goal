@@ -22,7 +22,6 @@ class IndexService
      */
     public function execIndex(int $termId)
     {
-        // TODO Resourceクラスの導入
         $data = $this->repo->find($termId);
         return $data;
     }

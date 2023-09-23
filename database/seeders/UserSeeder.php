@@ -17,37 +17,37 @@ class UserSeeder extends Seeder
         User::insert([
             [
                 'name' => 'aaa',
-                'email' => 'aaa@example.com',
+                'department' => 1,
+                'role' => 'default',
+                'avatar' => 'aaa.svg',
                 'password' => bcrypt('hogehoge'),
             ],
             [
                 'name' => 'yoshi',
-                'email' => 'bbb@example.com',
-                'password' => bcrypt('hogehoge'),
-            ],
-            [
-                'name' => 'aku',
-                'email' => 'ccc@example.com',
-                'password' => bcrypt('hogehoge'),
-            ],
-            [
-                'name' => 'kuma',
-                'email' => 'ddd@example.com',
-                'password' => bcrypt('hogehoge'),
-            ],
-            [
-                'name' => 'taru',
-                'email' => 'eee@example.com',
+                'department' => 1,
+                'role' => 'admin',
+                'avatar' => 'yoshi.svg',
                 'password' => bcrypt('hogehoge'),
             ],
             [
                 'name' => 'yama',
-                'email' => 'fff@example.com',
+                'department' => 1,
+                'role' => 'admin',
+                'avatar' => 'yama.svg',
                 'password' => bcrypt('hogehoge'),
             ],
             [
                 'name' => 'shimo',
-                'email' => 'ggg@example.com',
+                'department' => 1,
+                'role' => 'admin',
+                'avatar' => 'shimo.svg',
+                'password' => bcrypt('hogehoge'),
+            ],
+            [
+                'name' => 'taru',
+                'department' => 2,
+                'role' => 'default',
+                'avatar' => 'aaa.svg',
                 'password' => bcrypt('hogehoge'),
             ],
         ]);

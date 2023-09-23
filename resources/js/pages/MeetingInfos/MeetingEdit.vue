@@ -1,13 +1,14 @@
 <template>
   <div id="meeting-edit">
-    <div class="header pa-6">
+    <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
       <div class="d-flex">
         <s-btn
           class="me-auto text-white"
           preicon="fa-solid fa-plus"
-          label="新規"
+          label="新規作成する"
           color="newbtn"
           width="150"
+          variant="outlined"
           @click="create"
         />
         <s-btn
@@ -18,23 +19,40 @@
           @click="save"
         />
       </div>
-      <div class="d-flex align-center">
-        <div class="text-textmain mr-9 mt-4 text-lg">日付</div>
-        <VueDatePicker
-          class="w-50 mt-5"
-          format="yyyy-MM-dd"
-          week-start="0"
-          locale="ja"
-          :enable-time-picker="false"
-          auto-apply
-          model-type="yyyy-MM-dd"
-          v-model="meetingBase.mtg_date"
-        />
+      <div class="d-flex align-center mt-5 w-50">
+        <div class="w-33">
+          <v-alert
+            class="mr-3"
+            border="start"
+            variant="tonal"
+            color="secondary"
+            text="日付"
+            density="compact"
+          />
+        </div>
+        <div class="w-80">
+          <VueDatePicker
+            format="yyyy-MM-dd"
+            week-start="0"
+            locale="ja"
+            :enable-time-picker="false"
+            auto-apply
+            model-type="yyyy-MM-dd"
+            v-model="meetingBase.mtg_date"
+          />
+        </div>
       </div>
-      <div class="d-flex mt-5 align-center">
-        <div class="text-textmain mr-5 text-lg">面談者</div>
+      <div class="d-flex align-stretch mt-2">
+        <v-alert
+          class="mr-3"
+          border="start"
+          variant="tonal"
+          color="secondary"
+          text="面談する人"
+          density="compact"
+        />
         <v-autocomplete
-          class="w-25"
+          class="w-25 mr-3"
           :items="users"
           item-value="id"
           item-title="name"
@@ -42,9 +60,17 @@
           bg-color="input"
           density="compact"
           hide-details
+          placeholder="面談相手を選択してください"
           v-model="meetingBase.to_user_id"
         ></v-autocomplete>
-        <div class="text-textmain mx-5 text-lg">ステータス</div>
+        <v-alert
+          class="mr-3"
+          border="start"
+          variant="tonal"
+          color="secondary"
+          text="ステータス"
+          density="compact"
+        />
         <v-autocomplete
           class="w-25"
           :items="[
@@ -60,18 +86,24 @@
           v-model="meetingBase.status"
         ></v-autocomplete>
       </div>
-      <div class="mt-4 stickey-border"></div>
-    </div>
-    <div class="body pa-6">
-      <!-- {{ meetingDetails }} -->
+    </v-sheet>
+    <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
       <div v-for="(detail, i) in meetingDetails" :key="i" class="mb-5">
-        <v-checkbox
-          class="topic--base mb-1 pl-4"
-          :label="detail.topic_name"
-          v-model="detail.checked"
+        <v-alert
+          class="pa-0"
+          border="start"
+          variant="tonal"
+          color="secondary"
           density="compact"
-          hide-details
-        ></v-checkbox>
+        >
+          <v-checkbox
+            class="mb-1 pl-4"
+            :label="detail.topic_name"
+            v-model="detail.checked"
+            density="compact"
+            hide-details
+          ></v-checkbox>
+        </v-alert>
         <template v-if="detail.checked">
           <v-radio-group
             v-model="detail.selected"
@@ -91,84 +123,105 @@
               ></v-radio>
             </template>
           </v-radio-group>
-          <div class="pl-4 mt-5">
-            <div class="py-2 pl-2 mb-2 memo">自分用メモ</div>
-            <TinyMCEMeeting v-model="detail.from_memo" />
+          <div class="pl-4">
+            <v-alert
+              class="my-2"
+              border="start"
+              variant="text"
+              color="newbtn"
+              density="compact"
+              text="自分用メモ"
+            >
+            </v-alert>
+            <RichTextEditor v-model="detail.from_memo" />
           </div>
-          <div class="pl-4 mt-5">
-            <div class="py-2 pl-2 mb-2 memo">面談者メモ</div>
-            <TinyMCEMeeting v-model="detail.to_memo" />
+          <div class="pl-4">
+            <v-alert
+              class="my-2"
+              border="start"
+              variant="text"
+              color="newbtn"
+              density="compact"
+              text="面談者メモ"
+            >
+            </v-alert>
+            <RichTextEditor v-model="detail.to_memo" />
           </div>
         </template>
       </div>
-    </div>
+    </v-sheet>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useMeetingStore } from '../../stores/meeting'
-import { onMounted, ref } from 'vue'
+import { onMounted, computed } from 'vue'
 import { _IMeeting, _IMeetingDetail } from '../../types/meeting'
-import {
-  createMeeting,
-  fetchMeetingBase,
-  fetchMeetingDetail,
-  fetchTopics,
-  fetchUsers,
-  updateMeeting,
-} from './ApiMeeting'
 import { _IUser } from '../../types/user'
-import TinyMCEMeeting from '../../components/TinyMCEMeeting.vue'
+import RichTextEditor from '../../components/QuillEditor.vue'
 
 const meetingStore = useMeetingStore()
 
-const meetingDetails = ref<_IMeetingDetail[]>()
-const createModel = ref<_IMeetingDetail[]>()
-const meetingBase = ref<_IMeeting>({
-  mtg_id: 0,
-  mtg_date: '',
-  status: 0,
+// store async
+const meetingDetails = computed({
+  get() {
+    return meetingStore.meetingDetails
+  },
+  set(v) {
+    meetingStore.setMeetingDetails(v)
+  },
 })
-const users = ref<_IUser[]>()
-let insertMode = true
+const meetingBase = computed({
+  get() {
+    return meetingStore.meetingBase
+  },
+  set(v) {
+    meetingStore.setMeetingBase(v)
+  },
+})
+const users = computed(() => {
+  return meetingStore.users
+})
 
 onMounted(async () => {
-  // 新規作成時に使用するためトピック情報を取得
-  createModel.value = await fetchTopics()
-  meetingDetails.value = createModel.value
-  // プルダウンのユーザー取得
-  users.value = await fetchUsers()
+  await meetingStore.searchUsers()
 })
 
-/**
- * idの変更を監視し、データの更新を実施
- */
-meetingStore.$subscribe(async (mutation, state) => {
-  meetingBase.value = await fetchMeetingBase(state._selectedMeetingId)
-  meetingDetails.value = await fetchMeetingDetail(state._selectedMeetingId)
-  changeMode(false)
-})
-
-/**
- * 登録/更新のモード判定
- * @param insertFlag
- */
-const changeMode = (insertFlag: boolean) => {
-  insertMode = insertFlag
-}
-
-/**
- * 新規作成時イベント
- */
-const create = () => {
-  changeMode(true)
-  meetingDetails.value = createModel.value
+const create = async () => {
+  meetingStore.setInsertMode(true)
+  meetingStore.setMeetingBase({
+    mtg_id: 0,
+    mtg_date: '',
+    status: 0,
+  })
+  await meetingStore.searchTopics()
 }
 
 /**
  * 保存時イベント
  */
 const save = async () => {
+  // チェック
+  if (meetingStore.meetingDetailsLength == 0) {
+    alert('新規作成を押してから入力してください')
+    return
+  }
+  if (!meetingBase.value.mtg_date) {
+    alert('面談日を選択してください')
+    return
+  }
+  if (!meetingBase.value.to_user_id) {
+    alert('面談する人を選択してください')
+    return
+  }
+  if (
+    meetingBase.value.status == null ||
+    meetingBase.value.status == undefined
+  ) {
+    alert('ステータスを選択してください')
+    return
+  }
+
   // 更新
   const data = {
     mtg_id: meetingBase.value.mtg_id,
@@ -177,36 +230,19 @@ const save = async () => {
     status: meetingBase.value.status,
     topics: meetingDetails.value,
   }
-  if (insertMode) {
-    await createMeeting(data)
-    return
-  }
-  await updateMeeting(data)
+
+  const insertMode = meetingStore.insertMode
+
+  insertMode
+    ? await meetingStore.createMeeting(data)
+    : await meetingStore.updateMeeting(data)
+
+  await meetingStore.searchMeetings()
 }
 </script>
-
 <style>
-.topic--base {
-  background-color: rgba(var(--v-theme-secondary), 0.1);
-  color: rgb(var(--v-theme-secondary));
-  font-weight: 500;
-  border-radius: 5px;
-}
-.memo {
-  background-color: rgba(var(--v-theme-subtopic), 1);
-  color: rgba(var(--v-theme-textmain), 0.85);
-  border-radius: 5px;
-}
-
-.stickey-border {
-  border-top: 1px solid rgb(216, 216, 216);
-  background-color: rgba(var(--v-theme-light), 1);
-}
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  height: 210px;
-  background-color: rgba(var(--v-theme-light), 1);
+.dp__main input {
+  background-color: rgb(var(--v-theme-input)) !important;
+  color: rgb(var(--v-theme-contract)) !important;
 }
 </style>

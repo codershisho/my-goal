@@ -4,6 +4,7 @@ namespace App\Services\Goal;
 
 use App\Http\Resources\GoalResource;
 use App\Interfaces\IGoalRepository;
+use Illuminate\Support\Facades\Auth;
 
 class ShowService
 {
@@ -23,6 +24,16 @@ class ShowService
     public function execShow($termId)
     {
         $data = $this->repo->findByLoginUser($termId);
+        if (empty($data)) {
+            $data = (object)[
+                'id' => 0,
+                'term_id' => $termId,
+                'user_id' => Auth::id(),
+                'goal_department' => '',
+                'goal_first' => '',
+                'goal_secound' => ''
+            ];
+        }
         return new GoalResource($data);
     }
 }

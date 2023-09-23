@@ -1,95 +1,96 @@
 <template>
-  <div class="page goal-setting">
-    <div class="d-flex align-end">
-      <div class="w-25">
-        <div class="text-textmain mr-5 text-lg">期選択</div>
-        <v-autocomplete
-          variant="outlined"
-          :items="terms"
-          item-value="id"
-          item-title="name"
-          bg-color="input"
-          hide-details
-          density="compact"
-          v-model="goal.term_id"
-          @update:modelValue="selected"
-        ></v-autocomplete>
+  <div class="page">
+    <v-sheet
+      class="pa-6 d-flex align-stretch mb-5 rounded-lg"
+      color="input"
+      elevation="1"
+    >
+      <div class="w-50 d-flex align-stretch">
+        <div class="w-20 mr-3">
+          <v-alert
+            class="h-100"
+            border="start"
+            variant="tonal"
+            color="secondary"
+            text="期の選択"
+            density="compact"
+          >
+          </v-alert>
+        </div>
+        <div class="w-33">
+          <v-autocomplete
+            variant="outlined"
+            :items="goalStore.terms"
+            item-value="id"
+            item-title="name"
+            bg-color="input"
+            hide-details
+            density="compact"
+            v-model="termId"
+            placeholder="期を選択してください"
+            @update:modelValue="search"
+          >
+          </v-autocomplete>
+        </div>
       </div>
-      <div class="w-25 ml-5">
+      <div class="w-50 text-right">
         <s-btn
+          class="h-100"
           preicon="fa-regular fa-floppy-disk"
           label="保存"
           color="primary"
           width="150"
+          :disabled="!termId"
           @click="save"
         />
       </div>
-    </div>
-    <div class="body">
-      <div class="text-xl pa-4 my-2">部目標</div>
-      <TinyMCEMeeting v-model="goal.goal_department" />
-      <div class="text-xl pa-4 my-2">目標１</div>
-      <TinyMCEMeeting v-model="goal.goal_first" />
-      <div class="text-xl pa-4 my-2">目標２</div>
-      <TinyMCEMeeting v-model="goal.goal_secound" />
-    </div>
+    </v-sheet>
+    <v-sheet
+      class="pa-6 d-flex rounded-lg"
+      color="input"
+      elevation="1"
+      style="max-height: 800"
+    >
+      <div class="w-20">
+        <GoalTable></GoalTable>
+      </div>
+      <div class="w-80" v-if="termId">
+        <GoalEdit></GoalEdit>
+      </div>
+    </v-sheet>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { _IGoal, _ITerm } from '../../types/goal'
-import { createGoal, fetchGoal, fetchTerms, updateGoal } from './ApiGoalSetting'
-import TinyMCEMeeting from '../../components/TinyMCEMeeting.vue'
+import { useGoalStore } from '../../stores/goal'
+import GoalTable from './GoalTable.vue'
+import GoalEdit from './GoalEdit.vue'
 
-const terms = ref<_ITerm[]>()
-
-const goal = ref<_IGoal>({
-  term_id: 0,
-  goal_department: '',
-  goal_first: '',
-  goal_secound: '',
+const goalStore = useGoalStore()
+const termId = computed({
+  get() {
+    return goalStore.selectedTermId
+  },
+  set(v) {
+    goalStore.setSelectedTermId(v)
+  },
 })
 
-onMounted(async (): Promise<void> => {
-  terms.value = await fetchTerms()
-})
-
-/**
- * 期選択時
- */
-const selected = async () => {
-  await search()
-}
+goalStore.searchTerms()
 
 /**
  * 検索処理
  */
 const search = async () => {
-  const resGoal = await fetchGoal(goal.value.term_id)
-  if (resGoal != null) {
-    goal.value = resGoal
-  }
+  await goalStore.searchGoal(termId.value)
 }
 
 /**
  * 保存処理
  */
 const save = async () => {
-  if ('id' in goal.value) {
-    await updateGoal(goal.value.term_id, goal.value)
-  } else {
-    await createGoal(goal.value.term_id, goal.value)
-  }
-  await search()
+  await goalStore.save(termId.value)
 }
 </script>
-
-<style>
-.goal-setting > .body > div {
-  background-color: rgba(var(--v-theme-secondary), 0.3);
-  color: rgb(var(--v-theme-secondary));
-  font-weight: 500;
-  border-radius: 20px;
-}
-</style>
