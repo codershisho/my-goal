@@ -16,12 +16,6 @@ export const customLight = {
     newbtn: '#00BFA5',
     // text main
     textmain: '#FFF',
-    // input label back font
-    bInputLabel: '#d8faf5',
-    fInputLabel: '#00BFA5',
-    // input sub label back font
-    bInputSubLabel: '#d5d3d3',
-    fInputSubLabel: '#333333',
     // 反対色
     contract: '#333',
   },
@@ -30,25 +24,21 @@ export const customLight = {
 export const customDark = {
   colors: {
     // primary
-    primary: '#2962FF',
+    primary: '#60B7FF',
+    // secondary
+    secondary: '#5CEBF7',
     // info
     info: '#66BB6A',
     // accent
     accent: '#FF7043',
     // back
-    back: '#1E1E20',
+    back: '#2A3447',
     // input back
-    input: '#383838',
+    input: '#424e66',
     // new button color
     newbtn: '#00BFA5',
     // text main
     textmain: '#FFF',
-    // input label back font
-    bInputLabel: '#b7adad',
-    fInputLabel: '#f2f2f2',
-    // input sub label back font
-    bInputSubLabel: '#484848',
-    fInputSubLabel: '#d9d9d9',
     // 反対色
     contract: '#FFF',
   },

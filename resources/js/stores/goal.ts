@@ -5,6 +5,7 @@ export const useGoalStore = defineStore('my-goal-goal', {
   state: () => ({
     // 期選択のプルダウンの中身
     _terms: [] as _ITerm[],
+    _selectedTermId: 0,
     // 検索した目標データ
     _goal: {} as _IGoal,
     // 左メニューで表示指定されたアイテム名
@@ -14,6 +15,9 @@ export const useGoalStore = defineStore('my-goal-goal', {
   getters: {
     terms(state): _ITerm[] {
       return state._terms
+    },
+    selectedTermId(state): number {
+      return state._selectedTermId
     },
     goal(state): _IGoal {
       return state._goal
@@ -56,6 +60,9 @@ export const useGoalStore = defineStore('my-goal-goal', {
     },
     async update(termId: number): Promise<void> {
       await axios.put('api/my-goal/v1/goals/' + termId, this._goal)
+    },
+    setSelectedTermId(id: number): void {
+      this._selectedTermId = id
     },
   },
 })

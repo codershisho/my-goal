@@ -20,7 +20,7 @@
         <div class="w-33">
           <v-autocomplete
             variant="outlined"
-            :items="terms"
+            :items="goalStore.terms"
             item-value="id"
             item-title="name"
             bg-color="input"
@@ -62,20 +62,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { _IGoal, _ITerm } from '../../types/goal'
 import { useGoalStore } from '../../stores/goal'
 import GoalTable from './GoalTable.vue'
 import GoalEdit from './GoalEdit.vue'
 
 const goalStore = useGoalStore()
-const terms = ref<_ITerm[]>()
-const termId = ref()
-
-onMounted(async (): Promise<void> => {
-  await goalStore.searchTerms()
-  terms.value = goalStore.terms
+const termId = computed({
+  get() {
+    return goalStore.selectedTermId
+  },
+  set(v) {
+    goalStore.setSelectedTermId(v)
+  },
 })
+
+goalStore.searchTerms()
 
 /**
  * 検索処理

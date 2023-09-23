@@ -240,3 +240,9 @@ const save = async () => {
   await meetingStore.searchMeetings()
 }
 </script>
+<style>
+.dp__main input {
+  background-color: rgb(var(--v-theme-input)) !important;
+  color: rgb(var(--v-theme-contract)) !important;
+}
+</style>
