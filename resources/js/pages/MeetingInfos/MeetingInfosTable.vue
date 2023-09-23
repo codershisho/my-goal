@@ -30,7 +30,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(meeting, i) in meetings"
+          v-for="(meeting, i) in meetingsFiltered"
           :key="i"
           @click="onClickRow(meeting)"
         >
@@ -46,9 +46,7 @@
                 :src="'storage/avatar/' + meeting.from_user_avatar"
               ></v-img>
             </v-avatar>
-            <v-chip class="mr-2" label color="primary">
-              {{ meeting.from_user_name }}</v-chip
-            >
+            <v-chip label color="primary"> {{ meeting.from_user_name }}</v-chip>
             <span class="mx-2">⇒</span>
             <v-avatar size="35" color="accent" class="mr-2">
               <v-img :src="'storage/avatar/' + meeting.to_user_avatar"></v-img>
@@ -64,51 +62,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { _IMeeting } from '../../types/meeting'
-import { fetchMeetings } from './ApiMeeting'
 import { useMeetingStore } from '../../stores/meeting'
 
 const meetingStore = useMeetingStore()
-const meetings = ref<_IMeeting[]>()
-let meetingsBackup: _IMeeting[] = []
 const searchText = ref('')
 
-onMounted(async () => {
-  meetings.value = await fetchMeetings()
-  // filter用に別で保持
-  meetingsBackup = meetings.value
+const meetings = computed(() => {
+  return meetingStore.mettings
+})
+const meetingsFiltered = computed(() => {
+  return meetingStore.meetingsFiltered
 })
 
-const onClickRow = (meeting: _IMeeting): void => {
+onMounted(async () => {
+  await meetingStore.searchMeetings()
+})
+
+const onClickRow = async (meeting: _IMeeting): Promise<void> => {
+  meetingStore.setInsertMode(false)
   meetingStore.setSelectedMeetingId(meeting.mtg_id)
+  await meetingStore.searchMeetingBase()
+  await meetingStore.searchMeetingDetails()
 }
 
 const filterName = (searchText: string): void => {
   if (searchText == null) {
-    meetings.value = meetingsBackup
+    meetingStore.filterClear()
     return
   }
-  meetings.value = meetingsBackup.filter((meeting: _IMeeting) => {
-    return meeting.to_user_name == searchText
-  })
+  meetingStore.filterName(searchText)
 }
 
 const filterUnClose = (): void => {
-  meetings.value = meetingsBackup.filter((meeting: _IMeeting) => {
-    return meeting.status == 0
-  })
+  meetingStore.filterUnClose()
 }
 
 const filterClose = (): void => {
-  meetings.value = meetingsBackup.filter((meeting: _IMeeting) => {
-    return meeting.status == 1
-  })
+  meetingStore.filterClose()
 }
 
 const filterClear = () => {
   searchText.value = ''
-  meetings.value = meetingsBackup
+  meetingStore.filterClear()
 }
 </script>
 <style>

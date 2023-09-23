@@ -5,7 +5,7 @@
         <s-btn
           class="me-auto text-white"
           preicon="fa-solid fa-plus"
-          label="新規"
+          label="新規作成する"
           color="newbtn"
           width="150"
           variant="outlined"
@@ -155,65 +155,46 @@
 
 <script setup lang="ts">
 import { useMeetingStore } from '../../stores/meeting'
-import { onMounted, ref } from 'vue'
+import { onMounted, computed } from 'vue'
 import { _IMeeting, _IMeetingDetail } from '../../types/meeting'
-import {
-  createMeeting,
-  fetchMeetingBase,
-  fetchMeetingDetail,
-  fetchTopics,
-  fetchUsers,
-  updateMeeting,
-} from './ApiMeeting'
 import { _IUser } from '../../types/user'
 import RichTextEditor from '../../components/QuillEditor.vue'
 
 const meetingStore = useMeetingStore()
 
-const meetingDetails = ref<_IMeetingDetail[]>()
-const createModel = ref<_IMeetingDetail[]>()
-const meetingBase = ref<_IMeeting>({
-  mtg_id: 0,
-  mtg_date: '',
-  status: 0,
+// store async
+const meetingDetails = computed({
+  get() {
+    return meetingStore.meetingDetails
+  },
+  set(v) {
+    meetingStore.setMeetingDetails(v)
+  },
 })
-const users = ref<_IUser[]>()
-let insertMode = true
+const meetingBase = computed({
+  get() {
+    return meetingStore.meetingBase
+  },
+  set(v) {
+    meetingStore.setMeetingBase(v)
+  },
+})
+const users = computed(() => {
+  return meetingStore.users
+})
 
 onMounted(async () => {
-  // 新規作成時に使用するためトピック情報を取得
-  createModel.value = await fetchTopics()
-  meetingDetails.value = createModel.value
-  // プルダウンのユーザー取得
-  users.value = await fetchUsers()
+  await meetingStore.searchUsers()
 })
 
-/**
- * idの変更を監視し、データの更新を実施
- */
-meetingStore.$subscribe(async (mutation, state) => {
-  meetingBase.value = await fetchMeetingBase(state._selectedMeetingId)
-  meetingDetails.value = await fetchMeetingDetail(state._selectedMeetingId)
-  changeMode(false)
-})
-
-/**
- * 登録/更新のモード判定
- * @param insertFlag
- */
-const changeMode = (insertFlag: boolean) => {
-  insertMode = insertFlag
-}
-
-/**
- * 新規作成時イベント
- */
-const create = () => {
-  changeMode(true)
-  meetingDetails.value = createModel.value
-  meetingBase.value.mtg_date = ''
-  meetingBase.value.status = 0
-  meetingBase.value.to_user_id = undefined
+const create = async () => {
+  meetingStore.setInsertMode(true)
+  meetingStore.setMeetingBase({
+    mtg_id: 0,
+    mtg_date: '',
+    status: 0,
+  })
+  await meetingStore.searchTopics()
 }
 
 /**
@@ -228,10 +209,13 @@ const save = async () => {
     status: meetingBase.value.status,
     topics: meetingDetails.value,
   }
-  if (insertMode) {
-    await createMeeting(data)
-    return
-  }
-  await updateMeeting(data)
+
+  const insertMode = meetingStore.insertMode
+
+  insertMode
+    ? await meetingStore.createMeeting(data)
+    : await meetingStore.updateMeeting(data)
+
+  await meetingStore.searchMeetings()
 }
 </script>
