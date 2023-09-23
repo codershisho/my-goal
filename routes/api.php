@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->prefix('/my-goal/v1')->group(function () {
 
     Route::prefix('/meetings')->group(function () {
         Route::get('/', [App\Http\Controllers\MeetingApi::class, 'index']);
+        Route::get('/admin', [App\Http\Controllers\MeetingApi::class, 'searchAll']);
         Route::get('/{id}/base', [App\Http\Controllers\MeetingApi::class, 'base']);
         Route::get('/{id}/detail', [App\Http\Controllers\MeetingApi::class, 'detail']);
         Route::post('/', [App\Http\Controllers\MeetingApi::class, 'store']);

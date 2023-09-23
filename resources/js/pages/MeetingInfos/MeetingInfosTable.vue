@@ -9,15 +9,32 @@
       v-model="searchText"
       @update:modelValue="filterName"
     />
-    <v-chip class="mr-3 mt-3" color="accent" @click="filterUnClose"
-      >未実施</v-chip
-    >
-    <v-chip class="mr-3 mt-3" color="#607D8B" @click="filterClose"
-      >実施済み</v-chip
-    >
-    <v-btn class="mt-3" variant="text" color="primary" @click="filterClear"
-      >クリア</v-btn
-    >
+    <v-sheet class="d-flex" color="input">
+      <v-chip class="mr-3 mt-3" color="accent" @click="filterUnClose"
+        >未実施</v-chip
+      >
+      <v-chip class="mr-3 mt-3" color="#607D8B" @click="filterClose"
+        >実施済み</v-chip
+      >
+      <v-btn class="mt-2" variant="text" color="primary" @click="filterClear"
+        >クリア</v-btn
+      >
+      <div v-if="authStore.user.role == 'admin'">
+        <v-switch
+          class="ml-10"
+          hide-details
+          inset
+          color="accent"
+          v-model="allSearch"
+        >
+          <template v-slot:label>
+            <span class="text-accent font-weight-bold"
+              >全件表示(admin only)</span
+            >
+          </template>
+        </v-switch>
+      </div>
+    </v-sheet>
   </v-sheet>
   <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
     <v-table class="meeting-table bg-input">
@@ -65,20 +82,27 @@
 import { ref, onMounted, computed } from 'vue'
 import { _IMeeting } from '../../types/meeting'
 import { useMeetingStore } from '../../stores/meeting'
+import { useAuthStore } from '../../stores/auth'
 
 const meetingStore = useMeetingStore()
+const authStore = useAuthStore()
 const searchText = ref('')
 
-const meetings = computed(() => {
-  return meetingStore.mettings
-})
 const meetingsFiltered = computed(() => {
   return meetingStore.meetingsFiltered
 })
 
-onMounted(async () => {
-  await meetingStore.searchMeetings()
+const allSearch = computed({
+  get() {
+    return meetingStore.allSearch
+  },
+  set(v) {
+    meetingStore.setAllSearch(v)
+    meetingStore.searchMeetings()
+  },
 })
+
+meetingStore.searchMeetings()
 
 const onClickRow = async (meeting: _IMeeting): Promise<void> => {
   meetingStore.setInsertMode(false)

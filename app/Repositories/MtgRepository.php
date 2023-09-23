@@ -15,7 +15,22 @@ class MtgRepository implements IMtgRepository
     public function findMettingsByLoginUser(): Collection
     {
         $data = TMtg::with(['fromUser', 'toUser'])->orderBy('mtg_date', 'desc')->orderBy('id', 'desc')->get();
-        return $data->where('from_user_id', Auth::id());
+        $data = $data->filter(function ($tmg) {
+            return $tmg->from_user_id == Auth::id() || $tmg->to_user_id == Auth::id();
+        });
+        return $data;
+    }
+
+    public function findMeetingsByAdmin(): Collection
+    {
+        // ログイン者の部署IDを取得
+        $user = Auth::user();
+        $data = TMtg::with(['fromUser', 'toUser'])->orderBy('mtg_date', 'desc')->orderBy('id', 'desc')->get();
+        // 自部署内でフィルタリング
+        $data = $data->filter(function ($tmg) use ($user) {
+            return $tmg->fromUser->department == $user['department'] && $tmg->toUser->department == $user['department'];
+        });
+        return $data;
     }
 
     public function findMeetingBaseById($meetingId): TMtg

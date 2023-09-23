@@ -7,6 +7,7 @@ use App\Http\Requests\MtgStoreRequest;
 use App\Services\Mtg\IndexService;
 use App\Services\Mtg\BaseSerivice;
 use App\Services\Mtg\DetailService;
+use App\Services\Mtg\SearchAllService;
 use App\Services\Mtg\StoreService;
 use App\Services\Mtg\UpdateService;
 
@@ -22,6 +23,17 @@ class MeetingApi extends AbstractApi
      * @return void
      */
     public function index(IndexService $service)
+    {
+        $data = $service->execIndex();
+        return $this->setResponse($data, MessageConst::MESSAGE_001);
+    }
+
+    /**
+     * 管理者用に自部署のメンバーの全会議情報を返す
+     *
+     * @return void
+     */
+    public function searchAll(SearchAllService $service)
     {
         $data = $service->execIndex();
         return $this->setResponse($data, MessageConst::MESSAGE_001);

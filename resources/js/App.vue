@@ -4,6 +4,8 @@ import { useAuthStore } from './stores/auth'
 import { useMessageStore } from './stores/message'
 import { useRouter } from 'vue-router'
 import { useTheme } from 'vuetify'
+import { useMeetingStore } from './stores/meeting'
+import { useGoalStore } from './stores/goal'
 
 type menu = {
   id: number
@@ -18,6 +20,8 @@ const links: Array<menu> = [
 
 const authStore = useAuthStore()
 const messageStore = useMessageStore()
+const meetingStore = useMeetingStore()
+const goalStore = useGoalStore()
 const router = useRouter()
 const darkTheme = ref(true)
 const theme = useTheme()
@@ -55,6 +59,10 @@ const attributes_snack = ref({
 
 const logout = async () => {
   await authStore.logout()
+  authStore.$reset()
+  messageStore.$reset()
+  meetingStore.$reset()
+  goalStore.$reset()
   router.replace({ name: 'Login' })
 }
 const onChange = () => {

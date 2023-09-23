@@ -11,6 +11,7 @@ export const useMeetingStore = defineStore('my-goal-meeting', {
     _users: [] as _IUser[],
     _insertMode: true,
     _meetingsFiltered: [] as _IMeeting[],
+    _allSearch: false,
   }),
 
   getters: {
@@ -38,6 +39,9 @@ export const useMeetingStore = defineStore('my-goal-meeting', {
     meetingsFiltered(state) {
       return state._meetingsFiltered
     },
+    allSearch(state) {
+      return state._allSearch
+    },
   },
 
   actions: {
@@ -45,7 +49,11 @@ export const useMeetingStore = defineStore('my-goal-meeting', {
       this._selectedMeetingId = id
     },
     async searchMeetings(): Promise<void> {
-      const response = await axios.get('/api/my-goal/v1/meetings')
+      let url = '/api/my-goal/v1/meetings'
+      if (this._allSearch) {
+        url = '/api/my-goal/v1/meetings/admin'
+      }
+      const response = await axios.get(url)
       this._meetings = response.data.data
       this._meetingsFiltered = response.data.data
     },
@@ -108,6 +116,9 @@ export const useMeetingStore = defineStore('my-goal-meeting', {
     },
     filterClear(): void {
       this._meetingsFiltered = this._meetings
+    },
+    setAllSearch(flag: boolean): void {
+      this._allSearch = flag
     },
   },
 })

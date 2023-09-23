@@ -16,6 +16,13 @@ interface IMtgRepository
     public function findMettingsByLoginUser(): Collection;
 
     /**
+     * 管理者用に自部署のMTG一覧を検索
+     *
+     * @return Collection
+     */
+    public function findMeetingsByAdmin(): Collection;
+
+    /**
      * t_mtgsのid検索
      *
      * @param int $meetingId
