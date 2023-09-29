@@ -8,15 +8,16 @@
         />
       </div>
       <div class="d-flex">
-        <s-btn
-          class="me-auto text-white"
+        <v-btn
+          class="me-auto"
           preicon="fa-solid fa-plus"
-          label="新規作成する"
           color="newbtn"
           width="150"
           variant="outlined"
           @click="create"
-        />
+        >
+          新規作成する
+        </v-btn>
         <s-btn
           preicon="fa-regular fa-floppy-disk"
           label="保存"
@@ -139,7 +140,7 @@
             <v-alert
               class="my-2"
               border="start"
-              variant="text"
+              variant="flat"
               color="newbtn"
               density="compact"
               text="自分用メモ"
@@ -151,7 +152,7 @@
             <v-alert
               class="my-2"
               border="start"
-              variant="text"
+              variant="flat"
               color="newbtn"
               density="compact"
               text="面談者メモ"

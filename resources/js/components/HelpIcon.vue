@@ -4,7 +4,7 @@
       <v-icon
         v-bind="props"
         icon="mdi:mdi-help-circle-outline"
-        color="red"
+        color="accent"
       ></v-icon>
     </template>
     <span v-html="props.message"></span>
@@ -21,7 +21,7 @@ const props = defineProps(['message'])
 
 <style>
 .help-message {
-  background-color: red !important;
+  background-color: rgb(var(--v-theme-accent)) !important;
   color: white !important;
 }
 </style>

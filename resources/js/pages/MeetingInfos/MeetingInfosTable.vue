@@ -19,7 +19,7 @@
       <v-chip class="mr-3 mt-3" color="accent" @click="filterUnClose"
         >未実施</v-chip
       >
-      <v-chip class="mr-3 mt-3" color="#607D8B" @click="filterClose"
+      <v-chip class="mr-3 mt-3" color="#B0BEC5" @click="filterClose"
         >実施済み</v-chip
       >
       <v-btn class="mt-2" variant="text" color="primary" @click="filterClear"
