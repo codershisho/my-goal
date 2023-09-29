@@ -24,6 +24,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 // atom components
 import Text from './components/atoms/Text.vue'
 import Button from './components/atoms/Button.vue'
+import HelpIcon from './components/HelpIcon.vue'
 
 const app = createApp(App)
 const vuetify = createVuetify({
@@ -59,4 +60,5 @@ app.use(axios, {
 app.component('VueDatePicker', VueDatePicker)
 app.component('SText', Text)
 app.component('SBtn', Button)
+app.component('HelpIcon', HelpIcon)
 app.mount('#app')

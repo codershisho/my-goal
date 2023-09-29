@@ -1,6 +1,12 @@
 <template>
   <div id="meeting-edit">
     <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
+      <div class="d-flex mb-5">
+        <div class="mr-6">ミーティング基本情報</div>
+        <HelpIcon
+          message="新規の場合：「新規作成ボタン」を押下後に入力を開始し、入力をお願いします<br>こちらの項目は全て必須です"
+        />
+      </div>
       <div class="d-flex">
         <s-btn
           class="me-auto text-white"
@@ -88,6 +94,12 @@
       </div>
     </v-sheet>
     <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
+      <div class="d-flex mb-5">
+        <div class="mr-6">ミーティング詳細情報</div>
+        <HelpIcon
+          message="話をしたいトピックを選択して、さらに実施したい項目を選択してください<br>メモ欄は事前に話したいことなどをメモするなどにお使いください<br>メモ欄に記載した内容は暗号化され保存されますが、それでも気になる方は詳細の記述はお控えください"
+        />
+      </div>
       <div v-for="(detail, i) in meetingDetails" :key="i" class="mb-5">
         <v-alert
           class="pa-0"

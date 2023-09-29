@@ -12,9 +12,16 @@
             border="start"
             variant="tonal"
             color="secondary"
-            text="期の選択"
             density="compact"
           >
+            <template #text>
+              <div class="d-flex">
+                <div class="mr-6">期の選択</div>
+                <HelpIcon
+                  message="目標を表示したい期を選択してください。<br>選択すると目標が表示されます。"
+                />
+              </div>
+            </template>
           </v-alert>
         </div>
         <div class="w-33">

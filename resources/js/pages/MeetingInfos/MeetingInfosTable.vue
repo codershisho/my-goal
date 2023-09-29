@@ -1,5 +1,11 @@
 <template>
   <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
+    <div class="d-flex mb-5">
+      <div class="mr-6">検索条件</div>
+      <HelpIcon
+        message="「氏名」と「ステータス」で検索することができます<br>条件をクリアしたい場合は「クリア」を押して下さい"
+      />
+    </div>
     <s-text
       placeholder="氏名"
       bg-color="input"
@@ -37,6 +43,12 @@
     </v-sheet>
   </v-sheet>
   <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
+    <div class="d-flex mb-5">
+      <div class="mr-6">ミーティング一覧</div>
+      <HelpIcon
+        message="行を選択すると、選択したミーティングの情報が右側に表示されます"
+      />
+    </div>
     <v-table class="meeting-table bg-input">
       <thead>
         <tr>

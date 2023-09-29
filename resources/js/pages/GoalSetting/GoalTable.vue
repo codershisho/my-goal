@@ -1,5 +1,11 @@
 <template>
   <div class="w-80">
+    <div class="d-flex mb-5">
+      <div class="mr-6">目標の切り替え</div>
+      <HelpIcon
+        message="ボタンで表示する目標を切り替えれます<br>編集したい目標を選択してください"
+      />
+    </div>
     <v-card
       class="text-lg text-center pt-2"
       :class="btnState.department ? 'active-btn' : ''"

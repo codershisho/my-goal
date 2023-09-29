@@ -1,4 +1,8 @@
 <template>
+  <div class="d-flex mb-5">
+    <div class="mr-6">目標の編集</div>
+    <HelpIcon message="各種メニューボタンで文字の装飾をすることができます" />
+  </div>
   <RichTextEditor v-model="goalText" />
 </template>
 
