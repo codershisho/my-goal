@@ -5,7 +5,7 @@ export const useGoalStore = defineStore('my-goal-goal', {
   state: () => ({
     // 期選択のプルダウンの中身
     _terms: [] as _ITerm[],
-    _selectedTermId: 0,
+    _selectedTermId: null,
     // 検索した目標データ
     _goal: {} as _IGoal,
     // 左メニューで表示指定されたアイテム名
