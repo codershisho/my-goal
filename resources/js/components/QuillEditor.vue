@@ -1,7 +1,7 @@
 <template>
   <div>
     <QuillEditor
-      ref="editor"
+      ref="quill"
       class="editor"
       theme="snow"
       :toolbar="toolbars"
@@ -13,12 +13,13 @@
 
 <script setup>
 import { QuillEditor } from '@vueup/vue-quill'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import '@vueup/vue-quill/dist/vue-quill.bubble.css'
 
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
+let quill = ref(null)
 
 const value = computed({
   get() {
@@ -27,6 +28,11 @@ const value = computed({
   set(value) {
     emit('update:modelValue', value)
   },
+})
+
+watch(value, (newVal) => {
+  // html側が更新されない事象のため、watchしてHTMLを更新
+  quill.value.setHTML(newVal)
 })
 
 const toolbars = ref([
