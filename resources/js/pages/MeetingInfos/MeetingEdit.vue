@@ -28,8 +28,8 @@
         />
       </div>
       <div class="d-flex mt-5">
-        <div class="w-50 d-flex align-stretch align-center">
-          <div class="w-50">
+        <div class="w-50 d-flex">
+          <div class="w-50 align-stretch">
             <v-alert
               class="mr-3"
               border="start"
@@ -51,8 +51,8 @@
             />
           </div>
         </div>
-        <div class="ml-2 w-50 d-flex align-stretch align-center">
-          <div class="w-50">
+        <div class="ml-2 w-50 d-flex">
+          <div class="w-50 d-flex align-stretch">
             <v-alert
               class="mr-3"
               border="start"
@@ -80,8 +80,8 @@
         </div>
       </div>
       <div class="d-flex mt-2">
-        <div class="w-50 d-flex align-stretch">
-          <div class="w-50">
+        <div class="w-50 d-flex">
+          <div class="w-50 d-flex align-stretch">
             <v-alert
               class="mr-3"
               border="start"
@@ -92,21 +92,11 @@
             />
           </div>
           <div class="w-50">
-            <v-autocomplete
-              :items="users"
-              item-value="id"
-              item-title="name"
-              variant="outlined"
-              bg-color="input"
-              density="compact"
-              hide-details
-              placeholder="面談相手を選択..."
-              v-model="meetingBase.to_user_id"
-            ></v-autocomplete>
+            <div class="pt-2">{{ fromUserName }}</div>
           </div>
         </div>
-        <div class="ml-2 w-50 d-flex align-stretch">
-          <div class="w-50">
+        <div class="ml-2 w-50 d-flex">
+          <div class="w-50 d-flex align-stretch">
             <v-alert
               class="mr-3"
               border="start"
@@ -210,8 +200,10 @@ import { onMounted, computed } from 'vue'
 import { _IMeeting, _IMeetingDetail } from '../../types/meeting'
 import { _IUser } from '../../types/user'
 import RichTextEditor from '../../components/QuillEditor.vue'
+import { useAuthStore } from '../../stores/auth'
 
 const meetingStore = useMeetingStore()
+const authStore = useAuthStore()
 
 // store async
 const meetingDetails = computed({
@@ -232,6 +224,14 @@ const meetingBase = computed({
 })
 const users = computed(() => {
   return meetingStore.users
+})
+
+const fromUserName = computed(() => {
+  // meetingが選択されている場合はそのmeetingのfrom
+  // それ以外はログイン者
+  return meetingStore.meetingBase.from_user_name
+    ? meetingStore.meetingBase.from_user_name
+    : authStore.user.name
 })
 
 onMounted(async () => {
