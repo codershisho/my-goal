@@ -54,7 +54,7 @@ app.use(pinia)
 app.use(router)
 app.use(vuetify)
 app.use(axios, {
-  baseURL: 'http://localhost/',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   pinia,
 })
 app.component('VueDatePicker', VueDatePicker)
