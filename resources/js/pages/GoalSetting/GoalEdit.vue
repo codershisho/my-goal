@@ -25,7 +25,7 @@ const goalText = computed({
     if (dispGoalItemName == 'secound') {
       return goalStore.goal.goal_secound ?? '※目標２を入力してください※'
     }
-    return 'init'
+    return '※編集する目標を選択してください※'
   },
   set: (val: string): void => {
     const dispGoalItemName = goalStore.dispGoalItemName
