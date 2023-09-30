@@ -26,19 +26,19 @@
         >クリア</v-btn
       >
       <div v-if="authStore.user.role == 'admin'">
-        <v-switch
-          class="ml-10"
-          hide-details
-          inset
-          color="accent"
-          v-model="allSearch"
-        >
-          <template v-slot:label>
-            <span class="text-accent font-weight-bold"
-              >全件表示(admin only)</span
-            >
-          </template>
-        </v-switch>
+        <div class="d-flex">
+          <v-switch
+            class="ml-10"
+            hide-details
+            inset
+            color="accent"
+            v-model="allSearch"
+          >
+          </v-switch>
+          <div class="text-accent text-base mt-3 ml-2">
+            全件表示(admin only)
+          </div>
+        </div>
       </div>
     </v-sheet>
   </v-sheet>
