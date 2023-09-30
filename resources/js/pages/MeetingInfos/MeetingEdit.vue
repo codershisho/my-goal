@@ -9,7 +9,7 @@
       </div>
       <div class="d-flex">
         <v-btn
-          class="me-auto"
+          class="me-auto rounded-pill"
           preicon="fa-solid fa-plus"
           color="newbtn"
           width="150"
@@ -19,6 +19,7 @@
           新規作成する
         </v-btn>
         <s-btn
+          class="rounded-pill"
           preicon="fa-regular fa-floppy-disk"
           label="保存"
           color="primary"
@@ -26,72 +27,109 @@
           @click="save"
         />
       </div>
-      <div class="d-flex align-center mt-5 w-50">
-        <div class="w-33">
-          <v-alert
-            class="mr-3"
-            border="start"
-            variant="tonal"
-            color="secondary"
-            text="日付"
-            density="compact"
-          />
+      <div class="d-flex mt-5">
+        <div class="w-50 d-flex align-stretch align-center">
+          <div class="w-50">
+            <v-alert
+              class="mr-3"
+              border="start"
+              variant="tonal"
+              color="secondary"
+              text="日付"
+              density="compact"
+            />
+          </div>
+          <div class="w-50">
+            <VueDatePicker
+              format="yyyy-MM-dd"
+              week-start="0"
+              locale="ja"
+              :enable-time-picker="false"
+              auto-apply
+              model-type="yyyy-MM-dd"
+              v-model="meetingBase.mtg_date"
+            />
+          </div>
         </div>
-        <div class="w-80">
-          <VueDatePicker
-            format="yyyy-MM-dd"
-            week-start="0"
-            locale="ja"
-            :enable-time-picker="false"
-            auto-apply
-            model-type="yyyy-MM-dd"
-            v-model="meetingBase.mtg_date"
-          />
+        <div class="ml-2 w-50 d-flex align-stretch align-center">
+          <div class="w-50">
+            <v-alert
+              class="mr-3"
+              border="start"
+              variant="tonal"
+              color="secondary"
+              text="ステータス"
+              density="compact"
+            />
+          </div>
+          <div class="w-50">
+            <v-autocomplete
+              :items="[
+                { id: 0, name: '未実施' },
+                { id: 1, name: '実施済み' },
+              ]"
+              item-value="id"
+              item-title="name"
+              variant="outlined"
+              bg-color="input"
+              density="compact"
+              hide-details
+              v-model="meetingBase.status"
+            ></v-autocomplete>
+          </div>
         </div>
       </div>
-      <div class="d-flex align-stretch mt-2">
-        <v-alert
-          class="mr-3"
-          border="start"
-          variant="tonal"
-          color="secondary"
-          text="面談する人"
-          density="compact"
-        />
-        <v-autocomplete
-          class="w-25 mr-3"
-          :items="users"
-          item-value="id"
-          item-title="name"
-          variant="outlined"
-          bg-color="input"
-          density="compact"
-          hide-details
-          placeholder="面談相手を選択してください"
-          v-model="meetingBase.to_user_id"
-        ></v-autocomplete>
-        <v-alert
-          class="mr-3"
-          border="start"
-          variant="tonal"
-          color="secondary"
-          text="ステータス"
-          density="compact"
-        />
-        <v-autocomplete
-          class="w-25"
-          :items="[
-            { id: 0, name: '未実施' },
-            { id: 1, name: '実施済み' },
-          ]"
-          item-value="id"
-          item-title="name"
-          variant="outlined"
-          bg-color="input"
-          density="compact"
-          hide-details
-          v-model="meetingBase.status"
-        ></v-autocomplete>
+      <div class="d-flex mt-2">
+        <div class="w-50 d-flex align-stretch">
+          <div class="w-50">
+            <v-alert
+              class="mr-3"
+              border="start"
+              variant="tonal"
+              color="secondary"
+              text="面談される人"
+              density="compact"
+            />
+          </div>
+          <div class="w-50">
+            <v-autocomplete
+              :items="users"
+              item-value="id"
+              item-title="name"
+              variant="outlined"
+              bg-color="input"
+              density="compact"
+              hide-details
+              placeholder="面談相手を選択..."
+              v-model="meetingBase.to_user_id"
+            ></v-autocomplete>
+          </div>
+        </div>
+        <div class="ml-2 w-50 d-flex align-stretch">
+          <div class="w-50">
+            <v-alert
+              class="mr-3"
+              border="start"
+              variant="tonal"
+              color="secondary"
+              text="面談する人"
+              density="compact"
+            />
+          </div>
+          <div class="w-50">
+            <v-autocomplete
+              :items="users"
+              item-value="id"
+              item-title="name"
+              variant="outlined"
+              bg-color="input"
+              density="compact"
+              hide-details
+              placeholder="面談相手を選択..."
+              v-model="meetingBase.to_user_id"
+            ></v-autocomplete>
+          </div>
+        </div>
       </div>
     </v-sheet>
     <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">

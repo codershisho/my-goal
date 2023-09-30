@@ -42,7 +42,7 @@
       </div>
       <div class="w-50 text-right">
         <s-btn
-          class="h-100"
+          class="h-100 rounded-pill"
           preicon="fa-regular fa-floppy-disk"
           label="保存"
           color="primary"
