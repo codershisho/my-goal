@@ -34,13 +34,12 @@ class StoreService
             ];
 
             // t_mtgsの登録
-            $mtg = $this->repo->createMeetingBase($model);
-            $mtgId = $mtg->id;
+            $createdMeeting = $this->repo->createMeetingBase($model);
+            $mtgId = $createdMeeting->id;
 
             // t_mtg_detailの登録
             $topics = collect($request['topics']);
-            $topics->each(function ($topic) use ($mtgId) {
-                Logger($topic);
+            $createdDetails = $topics->each(function ($topic) use ($mtgId) {
                 $model = [
                     "mtg_id" => $mtgId,
                     "topic_id" => $topic['topic_id'],
@@ -49,10 +48,12 @@ class StoreService
                     "from_memo" => encrypt($topic['from_memo'] ?? null),
                     "to_memo" => encrypt($topic['to_memo'] ?? null),
                 ];
-                $this->repo->createMeetingDetail($model);
+                return $this->repo->createMeetingDetail($model);
             });
 
             DB::commit();
+
+            return compact('createdMeeting', 'createdDetails');
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;

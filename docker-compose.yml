@@ -9,6 +9,8 @@ services:
       - .:${PUBLIC_FOLDER}
     ports:
       - ${APP_PORT}:5173
+    environment:
+      TZ: ${TIME_ZONE}
 
   nginx:
     image: codershisho/nginx
@@ -19,6 +21,8 @@ services:
     volumes:
       - .:${PUBLIC_FOLDER}
       - ./conf.d:/etc/nginx/conf.d
+    environment:
+      TZ: ${TIME_ZONE}
     depends_on:
       - app
 
@@ -31,6 +35,7 @@ services:
       - ${DB_PORT}:3306
     restart: always
     environment:
+      TZ: ${TIME_ZONE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
 volumes:

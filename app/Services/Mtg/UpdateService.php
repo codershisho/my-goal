@@ -34,10 +34,11 @@ class UpdateService
                 'to_user_id' => $params['to_user_id'],
             ];
 
-            $this->repo->updateMeetingBase($model);
+            // t_mtgsのcreate
+            $createdMeeting = $this->repo->updateMeetingBase($model);
 
-            // t_mtg_detailの登録
-            collect($params['topics'])->each(function ($topic) {
+            // t_mtg_detailのupdate
+            $createdDetails = collect($params['topics'])->each(function ($topic) {
                 $model = [
                     "id" => $topic['mtg_detail_id'],
                     "topic_id" => $topic['topic_id'],
@@ -46,10 +47,14 @@ class UpdateService
                     "from_memo" => encrypt($topic['from_memo'] ?? null),
                     "to_memo" => encrypt($topic['to_memo'] ?? null),
                 ];
-                $this->repo->updateMtgDetail($model);
+                return $this->repo->updateMtgDetail($model);
             });
 
             DB::commit();
+
+            $updateUserId = Auth::id();
+
+            return compact('createdMeeting', 'createdDetails', 'updateUserId');
         } catch (\Throwable $th) {
             DB::rollback();
             throw $th;

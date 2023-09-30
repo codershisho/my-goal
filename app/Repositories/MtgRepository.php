@@ -52,14 +52,16 @@ class MtgRepository implements IMtgRepository
         return $m;
     }
 
-    public function createMeetingDetail($model): void
+    public function createMeetingDetail($model): TMtgDetail
     {
         $m = new TMtgDetail();
         $m->fill($model);
         $m->save();
+
+        return $m;
     }
 
-    public function updateMeetingBase($model): void
+    public function updateMeetingBase($model): TMtg
     {
         $m = $this->findMeetingBaseById($model['id']);
 
@@ -69,9 +71,11 @@ class MtgRepository implements IMtgRepository
 
         $m->fill($model);
         $m->save();
+
+        return $m;
     }
 
-    public function updateMtgDetail($model): void
+    public function updateMtgDetail($model): TMtgDetail
     {
         $m = TMtgDetail::find($model['id']);
 
@@ -81,5 +85,7 @@ class MtgRepository implements IMtgRepository
 
         $m->fill($model);
         $m->save();
+
+        return $m;
     }
 }
