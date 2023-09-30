@@ -23,8 +23,9 @@ const messageStore = useMessageStore()
 const meetingStore = useMeetingStore()
 const goalStore = useGoalStore()
 const router = useRouter()
-const darkTheme = ref(true)
+const darkTheme = ref(authStore.theme)
 const theme = useTheme()
+theme.global.name.value = darkTheme.value ? 'customDark' : 'customLight'
 
 const message = ref(
   computed(() => {
@@ -67,7 +68,8 @@ const logout = async () => {
 }
 const onChange = () => {
   darkTheme.value = !darkTheme.value
-  theme.global.name.value = darkTheme.value ? 'customDark' : 'customLight'
+  authStore.setTheme(darkTheme.value)
+  theme.global.name.value = authStore.theme ? 'customDark' : 'customLight'
 }
 
 const closeSnack = () => {
@@ -99,6 +101,10 @@ const closeSnack = () => {
       >
         {{ link.name }}
       </v-btn>
+      <v-avatar size="35" color="primary" class="mr-2">
+        <v-img :src="'storage/avatar/' + authStore.user.avatar"></v-img>
+      </v-avatar>
+      <span class="text-textmain">{{ authStore.user.name }}</span>
       <v-btn class="mr-2" color="textmain" variant="text" @click="logout">
         ログアウト
       </v-btn>
