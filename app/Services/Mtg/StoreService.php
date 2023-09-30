@@ -40,13 +40,14 @@ class StoreService
             // t_mtg_detailの登録
             $topics = collect($request['topics']);
             $topics->each(function ($topic) use ($mtgId) {
+                Logger($topic);
                 $model = [
                     "mtg_id" => $mtgId,
                     "topic_id" => $topic['topic_id'],
                     "topic_checked" => $topic['checked'] ?? 0,
                     "topic_detail_id" => $topic['selected'] ?? 6,
-                    "from_memo" => $topic['from_memo'] ?? null,
-                    "to_memo" => $topic['to_memo'] ?? null,
+                    "from_memo" => encrypt($topic['from_memo'] ?? null),
+                    "to_memo" => encrypt($topic['to_memo'] ?? null),
                 ];
                 $this->repo->createMeetingDetail($model);
             });

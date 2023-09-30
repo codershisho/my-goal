@@ -43,8 +43,8 @@ class UpdateService
                     "topic_id" => $topic['topic_id'],
                     "topic_checked" => $topic['checked'],
                     "topic_detail_id" => $topic['selected'] == 0 ? 6 : $topic['selected'],
-                    "from_memo" => $topic['from_memo'] ?? null,
-                    "to_memo" => $topic['to_memo'] ?? null,
+                    "from_memo" => encrypt($topic['from_memo'] ?? null),
+                    "to_memo" => encrypt($topic['to_memo'] ?? null),
                 ];
                 $this->repo->updateMtgDetail($model);
             });
