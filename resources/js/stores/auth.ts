@@ -5,6 +5,7 @@ export const useAuthStore = defineStore('my-goal-auth', {
   state: () => ({
     _isAuth: false,
     _user: null,
+    _theme: true,
   }),
   getters: {
     isAuth(state) {
@@ -12,6 +13,9 @@ export const useAuthStore = defineStore('my-goal-auth', {
     },
     user(state) {
       return state._user
+    },
+    theme(state) {
+      return state._theme
     },
   },
   actions: {
@@ -43,6 +47,9 @@ export const useAuthStore = defineStore('my-goal-auth', {
     authClear() {
       this._isAuth = false
       this._user = null
+    },
+    setTheme(payload: Boolean) {
+      this._theme = payload
     },
   },
   persist: true,

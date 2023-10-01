@@ -27,13 +27,17 @@
     "@vitejs/plugin-vue": "^4.2.3",
     "@vuepic/vue-datepicker": "^6.1.0",
     "@vueup/vue-quill": "^1.2.0",
+    "laravel-echo": "^1.15.3",
     "pinia": "^2.1.6",
     "pinia-plugin-persistedstate": "^3.2.0",
+    "pusher-js": "^8.3.0",
     "tinymce": "^6.5.1",
     "vite-plugin-fonts": "^0.7.0",
     "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2",
+    "vue-swal": "^1.0.0",
+    "vue-sweetalert2": "^5.0.5",
     "vuetify": "^3.3.6"
   }
 }

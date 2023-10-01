@@ -1,17 +1,25 @@
 <template>
   <div id="meeting-edit">
     <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
+      <div class="d-flex mb-5">
+        <div class="mr-6">ミーティング基本情報</div>
+        <HelpIcon
+          message="新規の場合：「新規作成ボタン」を押下後に入力を開始し、入力をお願いします<br>こちらの項目は全て必須です"
+        />
+      </div>
       <div class="d-flex">
-        <s-btn
-          class="me-auto text-white"
+        <v-btn
+          class="me-auto rounded-pill"
           preicon="fa-solid fa-plus"
-          label="新規作成する"
           color="newbtn"
           width="150"
           variant="outlined"
           @click="create"
-        />
+        >
+          新規作成する
+        </v-btn>
         <s-btn
+          class="rounded-pill"
           preicon="fa-regular fa-floppy-disk"
           label="保存"
           color="primary"
@@ -19,75 +27,108 @@
           @click="save"
         />
       </div>
-      <div class="d-flex align-center mt-5 w-50">
-        <div class="w-33">
-          <v-alert
-            class="mr-3"
-            border="start"
-            variant="tonal"
-            color="secondary"
-            text="日付"
-            density="compact"
-          />
+      <div class="d-flex mt-5">
+        <div class="w-50 d-flex">
+          <div class="w-50 align-stretch">
+            <v-alert
+              class="mr-3"
+              border="start"
+              variant="tonal"
+              color="secondary"
+              text="日付"
+              density="compact"
+            />
+          </div>
+          <div class="w-50">
+            <VueDatePicker
+              format="yyyy-MM-dd"
+              week-start="0"
+              locale="ja"
+              :enable-time-picker="false"
+              auto-apply
+              model-type="yyyy-MM-dd"
+              v-model="meetingBase.mtg_date"
+            />
+          </div>
         </div>
-        <div class="w-80">
-          <VueDatePicker
-            format="yyyy-MM-dd"
-            week-start="0"
-            locale="ja"
-            :enable-time-picker="false"
-            auto-apply
-            model-type="yyyy-MM-dd"
-            v-model="meetingBase.mtg_date"
-          />
+        <div class="ml-2 w-50 d-flex">
+          <div class="w-50 d-flex align-stretch">
+            <v-alert
+              class="mr-3"
+              border="start"
+              variant="tonal"
+              color="secondary"
+              text="ステータス"
+              density="compact"
+            />
+          </div>
+          <div class="w-50">
+            <v-autocomplete
+              :items="[
+                { id: 0, name: '未実施' },
+                { id: 1, name: '実施済み' },
+              ]"
+              item-value="id"
+              item-title="name"
+              variant="outlined"
+              bg-color="input"
+              density="compact"
+              hide-details
+              v-model="meetingBase.status"
+            ></v-autocomplete>
+          </div>
         </div>
       </div>
-      <div class="d-flex align-stretch mt-2">
-        <v-alert
-          class="mr-3"
-          border="start"
-          variant="tonal"
-          color="secondary"
-          text="面談する人"
-          density="compact"
-        />
-        <v-autocomplete
-          class="w-25 mr-3"
-          :items="users"
-          item-value="id"
-          item-title="name"
-          variant="outlined"
-          bg-color="input"
-          density="compact"
-          hide-details
-          placeholder="面談相手を選択してください"
-          v-model="meetingBase.to_user_id"
-        ></v-autocomplete>
-        <v-alert
-          class="mr-3"
-          border="start"
-          variant="tonal"
-          color="secondary"
-          text="ステータス"
-          density="compact"
-        />
-        <v-autocomplete
-          class="w-25"
-          :items="[
-            { id: 0, name: '未実施' },
-            { id: 1, name: '実施済み' },
-          ]"
-          item-value="id"
-          item-title="name"
-          variant="outlined"
-          bg-color="input"
-          density="compact"
-          hide-details
-          v-model="meetingBase.status"
-        ></v-autocomplete>
+      <div class="d-flex mt-2">
+        <div class="w-50 d-flex">
+          <div class="w-50 d-flex align-stretch">
+            <v-alert
+              class="mr-3"
+              border="start"
+              variant="tonal"
+              color="secondary"
+              text="面談される人"
+              density="compact"
+            />
+          </div>
+          <div class="w-50">
+            <div class="pt-2">{{ fromUserName }}</div>
+          </div>
+        </div>
+        <div class="ml-2 w-50 d-flex">
+          <div class="w-50 d-flex align-stretch">
+            <v-alert
+              class="mr-3"
+              border="start"
+              variant="tonal"
+              color="secondary"
+              text="面談する人"
+              density="compact"
+            />
+          </div>
+          <div class="w-50">
+            <v-autocomplete
+              :items="users"
+              item-value="id"
+              item-title="name"
+              variant="outlined"
+              bg-color="input"
+              density="compact"
+              hide-details
+              placeholder="面談相手を選択..."
+              v-model="meetingBase.to_user_id"
+            ></v-autocomplete>
+          </div>
+        </div>
       </div>
     </v-sheet>
     <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
+      <div class="d-flex mb-5">
+        <div class="mr-6">ミーティング詳細情報</div>
+        <HelpIcon
+          message="話をしたいトピックを選択して、さらに実施したい項目を選択してください<br>メモ欄は事前に話したいことなどをメモするなどにお使いください<br>メモ欄に記載した内容は暗号化され保存されますが、それでも気になる方は詳細の記述はお控えください"
+        />
+      </div>
       <div v-for="(detail, i) in meetingDetails" :key="i" class="mb-5">
         <v-alert
           class="pa-0"
@@ -127,7 +168,7 @@
             <v-alert
               class="my-2"
               border="start"
-              variant="text"
+              variant="flat"
               color="newbtn"
               density="compact"
               text="自分用メモ"
@@ -139,7 +180,7 @@
             <v-alert
               class="my-2"
               border="start"
-              variant="text"
+              variant="flat"
               color="newbtn"
               density="compact"
               text="面談者メモ"
@@ -159,8 +200,10 @@ import { onMounted, computed } from 'vue'
 import { _IMeeting, _IMeetingDetail } from '../../types/meeting'
 import { _IUser } from '../../types/user'
 import RichTextEditor from '../../components/QuillEditor.vue'
+import { useAuthStore } from '../../stores/auth'
 
 const meetingStore = useMeetingStore()
+const authStore = useAuthStore()
 
 // store async
 const meetingDetails = computed({
@@ -181,6 +224,14 @@ const meetingBase = computed({
 })
 const users = computed(() => {
   return meetingStore.users
+})
+
+const fromUserName = computed(() => {
+  // meetingが選択されている場合はそのmeetingのfrom
+  // それ以外はログイン者
+  return meetingStore.meetingBase.from_user_name
+    ? meetingStore.meetingBase.from_user_name
+    : authStore.user.name
 })
 
 onMounted(async () => {

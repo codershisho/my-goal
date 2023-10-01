@@ -1,4 +1,8 @@
 <template>
+  <div class="d-flex mb-5">
+    <div class="mr-6">目標の編集</div>
+    <HelpIcon message="各種メニューボタンで文字の装飾をすることができます" />
+  </div>
   <RichTextEditor v-model="goalText" />
 </template>
 
@@ -13,15 +17,15 @@ const goalText = computed({
   get: () => {
     const dispGoalItemName = goalStore.dispGoalItemName
     if (dispGoalItemName == 'department') {
-      return goalStore.goal.goal_department
+      return goalStore.goal.goal_department ?? '※部署の目標を入力してください※'
     }
     if (dispGoalItemName == 'first') {
-      return goalStore.goal.goal_first
+      return goalStore.goal.goal_first ?? '※目標１を入力してください※'
     }
     if (dispGoalItemName == 'secound') {
-      return goalStore.goal.goal_secound
+      return goalStore.goal.goal_secound ?? '※目標２を入力してください※'
     }
-    return ''
+    return '※編集する目標を選択してください※'
   },
   set: (val: string): void => {
     const dispGoalItemName = goalStore.dispGoalItemName

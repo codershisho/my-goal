@@ -8,7 +8,6 @@
 <b>月次面談（1on1）の管理</b>
 ![image](https://github.com/codershisho/my-goal/assets/120914888/b7839526-ebb2-46b7-837d-cab0b10d9cee)
 
-
 ## 作成の背景
 
 - プロジェクトメンバー毎の目標や進捗状況を把握したい
@@ -169,14 +168,7 @@ Clone
 git clone -b main https://github.com/codershisho/my-goal.git
 ```
 
-Dockerの準備
-
-```bash
-docker-compose build
-docker-compose up -d
-docker-compose exec -u root app bash
-```
-<b>※以降はappコンテナ内で実行</b>
+Docker の準備
 
 env ファイルのコピー
 
@@ -184,18 +176,34 @@ env ファイルのコピー
 cp .env.example .env
 ```
 
+```bash
+docker-compose build
+docker-compose up -d
+docker-compose exec -u root app bash
+```
+
+<b>※以降は app コンテナ内で実行</b>
+
 Laravel の設定
 
 ```bash
 composer install
 php artisan key:generate
 chown www-data:www-data ./storage/ -R
+php artisan storage:link
 ```
 
 Node の設定
 
 ```bash
-npm install
+npm install -f
+```
+
+migrate & seeder
+
+```bash
+php artisan migrate
+php artisan db:seed
 ```
 
 ローカルサーバー起動

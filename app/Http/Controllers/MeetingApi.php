@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Const\MessageConst;
+use App\Events\CreateMeeting;
+use App\Events\UpdateMeeting;
 use App\Http\Requests\MtgStoreRequest;
 use App\Services\Mtg\IndexService;
 use App\Services\Mtg\BaseSerivice;
@@ -75,6 +77,7 @@ class MeetingApi extends AbstractApi
     public function store(MtgStoreRequest $request, StoreService $service)
     {
         $service->execStore($request->all());
+        CreateMeeting::dispatch();
         return $this->setResponseMessage(MessageConst::MESSAGE_002);
     }
 
@@ -87,7 +90,8 @@ class MeetingApi extends AbstractApi
      */
     public function update(MtgStoreRequest $request, UpdateService $service)
     {
-        $service->execUpdate($request->all());
+        $created = $service->execUpdate($request->all());
+        UpdateMeeting::dispatch($created);
         return $this->setResponseMessage(MessageConst::MESSAGE_003);
     }
 }

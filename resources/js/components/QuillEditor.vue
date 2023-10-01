@@ -1,7 +1,7 @@
 <template>
   <div>
     <QuillEditor
-      ref="editor"
+      ref="quill"
       class="editor"
       theme="snow"
       :toolbar="toolbars"
@@ -19,6 +19,7 @@ import '@vueup/vue-quill/dist/vue-quill.bubble.css'
 
 const props = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
+let quill = ref(null)
 
 const value = computed({
   get() {
@@ -52,6 +53,6 @@ const toolbars = ref([
   line-height: 1.6 !important;
 }
 .ql-toolbar {
-  background-color: rgba(var(--v-theme-secondary), 0.15) !important;
+  background-color: rgb(var(--v-theme-textmain)) !important;
 }
 </style>

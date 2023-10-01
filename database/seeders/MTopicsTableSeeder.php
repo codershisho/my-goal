@@ -21,6 +21,8 @@ class MTopicsTableSeeder extends Seeder
             ["name" => "スキルや力の向上", "sort" => 5],
             ["name" => "プライベート", "sort" => 6],
             ["name" => "会社や部署の方針", "sort" => 7],
+            ["name" => "その他", "sort" => 8],
+            ["name" => "今回のミーティング全体を通して", "sort" => 9],
         ]);
     }
 }

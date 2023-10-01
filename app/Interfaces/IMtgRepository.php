@@ -65,7 +65,7 @@ interface IMtgRepository
      * } $model
      * @return void
      */
-    public function createMeetingDetail($model): void;
+    public function createMeetingDetail($model): TMtgDetail;
 
     /**
      * t_mtgsの更新
@@ -79,7 +79,7 @@ interface IMtgRepository
      * } $model
      * @return void
      */
-    public function updateMeetingBase($model): void;
+    public function updateMeetingBase($model): TMtg;
 
     /**
      * t_mtg_detalsの更新
@@ -94,5 +94,5 @@ interface IMtgRepository
      * } $model
      * @return void
      */
-    public function updateMtgDetail($model): void;
+    public function updateMtgDetail($model): TMtgDetail;
 }

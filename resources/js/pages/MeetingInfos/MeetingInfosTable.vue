@@ -1,5 +1,11 @@
 <template>
   <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
+    <div class="d-flex mb-5">
+      <div class="mr-6">検索条件</div>
+      <HelpIcon
+        message="「氏名」と「ステータス」で検索することができます<br>条件をクリアしたい場合は「クリア」を押して下さい"
+      />
+    </div>
     <s-text
       placeholder="氏名"
       bg-color="input"
@@ -13,30 +19,36 @@
       <v-chip class="mr-3 mt-3" color="accent" @click="filterUnClose"
         >未実施</v-chip
       >
-      <v-chip class="mr-3 mt-3" color="#607D8B" @click="filterClose"
+      <v-chip class="mr-3 mt-3" color="#B0BEC5" @click="filterClose"
         >実施済み</v-chip
       >
       <v-btn class="mt-2" variant="text" color="primary" @click="filterClear"
         >クリア</v-btn
       >
       <div v-if="authStore.user.role == 'admin'">
-        <v-switch
-          class="ml-10"
-          hide-details
-          inset
-          color="accent"
-          v-model="allSearch"
-        >
-          <template v-slot:label>
-            <span class="text-accent font-weight-bold"
-              >全件表示(admin only)</span
-            >
-          </template>
-        </v-switch>
+        <div class="d-flex">
+          <v-switch
+            class="ml-10"
+            hide-details
+            inset
+            color="accent"
+            v-model="allSearch"
+          >
+          </v-switch>
+          <div class="text-accent text-base mt-3 ml-2">
+            全件表示(admin only)
+          </div>
+        </div>
       </div>
     </v-sheet>
   </v-sheet>
   <v-sheet class="pa-6 mb-5 rounded-lg" color="input" elevation="1">
+    <div class="d-flex mb-5">
+      <div class="mr-6">ミーティング一覧</div>
+      <HelpIcon
+        message="行を選択すると、選択したミーティングの情報が右側に表示されます"
+      />
+    </div>
     <v-table class="meeting-table bg-input">
       <thead>
         <tr>

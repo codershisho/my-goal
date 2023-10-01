@@ -1,6 +1,9 @@
 <template>
-  <v-btn v-bind="$attrs" :prepend-icon="preicon">
-    {{ label }}
+  <v-btn v-bind="$attrs">
+    <template #prepend>
+      <v-icon color="textmain" :icon="preicon"></v-icon>
+    </template>
+    <span class="text-textmain">{{ label }}</span>
   </v-btn>
 </template>
 
